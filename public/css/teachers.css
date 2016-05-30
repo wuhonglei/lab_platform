@@ -1,0 +1,108 @@
+/* 教师 css */
+
+.input-size {
+    width: 40px;
+    padding-left: 10px;
+}
+
+
+/* 实验列表  */
+
+.header-border {
+    border-bottom: 1px solid #eee;
+}
+
+.main .li-inline li {
+    display: inline-block;
+}
+
+#lab-list-table tr:first-child {
+    width: 10px;
+}
+
+#lab-list-table tr:hover {
+    background-color: #eee;
+}
+
+#lab-list-table tr td {
+    /*border-top: 0 !important;*/
+}
+
+#lab-list-table tr td img {
+    float: left;
+    width: 150px;
+    height: 90px;
+    margin-right: 10px;
+}
+
+
+/*实验详情*/
+
+
+/*
+    displaying the editor in a sensible fashion:
+*/
+
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+    margin: 20px 0;
+}
+
+.red {
+    color: #FF6600;
+}
+
+.box {
+    margin-top: -10px;
+    overflow: auto;
+    zoom: 1;
+}
+
+.clearfix {
+    clear: both;
+}
+
+
+/*[contenteditable="true"]:hover,
+[contenteditable="true"]:focus */
+
+[contenteditable="true"] {
+    background: #FFFFD3;
+    outline: 2px dashed #0090D2;
+}
+
+#content_wrapper {
+    padding: 0 20px 20px 20px;
+}
+
+#content_wrapper .img-size {
+    width: 241.922px;
+    height: 150px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+#content_wrapper h3 {
+    border-bottom: 1px solid #eee;
+    /*紫色*/
+    color: #FF6600;
+}
+
+.form-margin-bottom {
+    margin-bottom: 20px;
+}
+
+#delete-lab-modal .modal-backdrop,
+#edit-lab-modal .modal-backdrop,
+#create-lab-modal .modal-backdrop {
+    z-index: 0;
+}
+
+.a-default {
+    text-decoration: none !important;
+    color: #333 !important;
+}

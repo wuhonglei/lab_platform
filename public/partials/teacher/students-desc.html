@@ -1,0 +1,37 @@
+<!-- 教师界面: 学生实验作业概览 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">学生作业概览</h2>
+    <!--     <button class="btn btn-primary" ng-click="saveLabItem()">保存实验列表</button>
+    <button class="btn btn-primary" ng-click="updateLabItem()">更新实验列表</button> -->
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>学生姓名</th>
+                <th>学号</th>
+                <th>实验名称</th>
+                <th>是否提交</th>
+                <th>预览</th>
+                <th>分数</th>
+                <th>提交</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="lab in labs">
+                <td ng-bind="lab.studentName"></td>
+                <td ng-bind="lab.studentNumber"></td>
+                <td ng-bind="lab.labName"></td>
+                <td ng-if="lab.isPost">是</td>
+                <td ng-if="!lab.isPost">否</td>
+                <td>
+                    <button class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-click="previewPDF(lab.workUrl)" ng-disabled="!lab.isPost">预览</button>
+                </td>
+                <td>
+                    <input type="text" class="form-control" style="width: 45px;" ng-value="lab.score" ng-model="score" ng-disabled="!lab.isPost">
+                </td>
+                <td>
+                    <button class="btn btn-sm" ng-class="{'btn-primary': lab.isPost}" ng-click="markScore(lab.score, score, $index)" ng-disabled="!lab.isPost">提交</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

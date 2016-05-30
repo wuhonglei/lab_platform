@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="userApp">
+
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>登陆/注册</title>
+    <link rel="icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定义logincss -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#" class="active" id="login-form-link">登陆</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="#" id="register-form-link">注册</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- 登陆表单 -->
+                                <form id="login-form" role="form" style="display: block;" ng-controller="LoginCtrl">
+                                    <div class="form-group">
+                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="学号/教工号" value="wuhonglei" ng-model="login.username">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="密码" value="wuhonglei" ng-model="login.password">
+                                    </div>
+                                    <!--                                     <div class="form-group">
+                                        <select class="form-control" id="identity-select" value="student">
+                                            <option value="student">学生</option>
+                                            <option value="teacher">教师</option>
+                                        </select>
+                                    </div> -->
+                                    <div class="form-group text-center">
+                                        <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                        <label for="remember"> 记住账号</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="登陆" ng-click="signin()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="text-center">
+                                                    <a href="recover.html" tabindex="5" class="forgot-password">忘记密码?</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- 注册表单 -->
+                                <form id="register-form" role="form" style="display: none;" ng-controller="RegisterCtrl">
+                                    <div class="form-group">
+                                        <select class="form-control" id="identity-select" value="false" ng-init="identity='false'" ng-model="register.identity">
+                                            <option value="false">学生</option>
+                                            <option value="true">教师</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="姓名" ng-model="register.username">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="userId" id="userId" tabindex="1" class="form-control" placeholder="学号" ng-model="register.userId">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="邮箱" ng-model="register.email">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="密码" ng-model="register.password">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码" nd-model="register.confirmPassword">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="注册" ng-click="signup()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 库js -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <!-- 自定义登陆js -->
+    <script src="js/login.js"></script>
+    <!-- 自定义 angularjs -->
+    <script src="js/login-app.js"></script>
+</body>
+
+</html>

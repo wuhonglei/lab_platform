@@ -1,0 +1,24 @@
+{
+  "name": "lab-platform",
+  "version": "1.0.0",
+  "description": "post lab for students and teachers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "wuhonglei",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "~4.13.4",
+    "jsonwebtoken": "^7.0.0",
+    "method-override": "^2.3.6",
+    "mongoose": "~4.4.19",
+    "morgan": "^1.7.0",
+    "multer": "^1.1.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5"
+  }
+}

@@ -1,0 +1,13 @@
+<!-- 教师界面: 实验详情 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">实验详情 <button class="btn btn-primary pull-right" ng-if="isEditable" ng-click="toggleEdit($event)">编辑</button></h2>
+    <div text-angular ng-show="isEdit" ng-model="htmlVariable"></div>
+    <div ng-show="isEdit">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                预览编辑的内容
+            </div>
+        </div>
+    </div>
+    <div ta-bind ng-model="htmlVariable"></div>
+</div>

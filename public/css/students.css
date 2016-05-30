@@ -1,0 +1,55 @@
+ /* 学生 */
+ /* 实验列表  */
+ 
+ .header-border {
+     border-bottom: 1px solid #eee;
+ }
+ 
+ #lab-list-table tr:hover {
+     background-color: #eee;
+ }
+ 
+ #lab-list-table tr td {
+     border-top: 0 !important;
+ }
+ 
+ #lab-list-table tr td img {
+     float: left;
+     width: 150px;
+     height: 90px;
+     margin-right: 10px;
+ }
+ 
+ .a-default {
+     text-decoration: none !important;
+     color: #fff !important;
+ }
+ .a-default-black {
+     text-decoration: none !important;
+     color: #333 !important;
+ }
+ /*实验详情*/
+ 
+ #content_wrapper {
+     padding: 0 20px 20px 20px;
+ }
+ 
+ #content_wrapper .img-size {
+     width: 241.922px;
+     height: 150px;
+     padding-right: 10px;
+     padding-bottom: 10px;
+ }
+ 
+ #content_wrapper h3 {
+     border-bottom: 1px solid #eee;
+     /*紫色*/
+     color: #FF6600;
+ }
+ 
+ .form-margin-bottom {
+     margin-bottom: 20px;
+ }
+
+
+

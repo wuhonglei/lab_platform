@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>找回密码</title>
+    <link rel="icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/lib/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定义logincss -->
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/recover.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <a href="" class="active" id="login-form-link">找回密码</a>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="注册时的邮箱">
+                                <span class="input-group-btn">
+        <button class="btn btn-default btn-height" type="button">发送验证码</button>
+      </span>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="验证码">
+                                <span class="input-group-btn">
+        <button class="btn btn-default btn-height" type="button">验证</button>
+      </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="新密码">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <input type="submit" name="modify-submit" id="modify-submit" tabindex="4" class="form-control btn btn-register" value="确认修改">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 库js -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <!-- 自定义登陆js -->
+</body>
+
+</html>

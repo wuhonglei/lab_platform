@@ -1,0 +1,21 @@
+<!-- 学生界面: 实验列表 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">实验列表</h2>
+    <table class="table" id="lab-list-table">
+        <tbody>
+            <tr ng-repeat="item in labItems">
+                <td>
+                    <a class="a-default-black" href="#/{{item.labCategory}}/{{item.expItemId}}">
+                        <div class="media">
+                            <img ng-src="{{item.thumbnail}}" alt="实验缩略图">
+                            <div class="media-body">
+                                <h4 class="media-heading">{{item.name}}<span class="pull-right small">发布者: {{item.createdByName}}</span></h4>
+                                <span ng-bind="item.description"></span>
+                            </div>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

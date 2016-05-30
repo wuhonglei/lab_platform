@@ -1,0 +1,63 @@
+<!-- 教师界面: 实验详情 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">实验详情 <small>DNS攻击</small><button class="btn btn-primary pull-right" ng-click="toggleEdit($event)">编辑</button></h2>
+    <div id="content_wrapper">
+        <div class="box">
+            <h3>Overview <small class="pull-right">难易度 <a href="#" editable-select="labDetail.status" e-ng-options="s.value as s.text for s in labDetail.statuses">
+    {{ showStatus() }}
+  </a></small></h3> 
+            <label for="lab-image" style="display: inline;">
+                <img class="pull-left img-size" id="viewImg" src="img/image-list.jpg" />
+            </label>
+            <input type="text" style="display: none" accept="image/*" id="lab-image">
+            <p contenteditable="false">
+                The learning objective of this lab is for students to gain the first-hand experience on buffer-overflow vulnerability by putting what they have learned about the vulnerability from class into actions. Buffer overflow is defined as the condition in which a program attempts to write data beyond the boundaries of pre-allocated fixed length buffers. This vulnerability can be utilized by a malicious user to alter the flow control of the program, even execute arbitrary pieces of code. This vulnerability arises due to the mixing of the storage for data (e.g. buffers) and the storage for controls (e.g. return addresses): an overflow in the data part can affect the control flow of the program, because an overflow can change the return address.
+            </p>
+            <p class="clearfix" contenteditable="false">
+                <b>Activities: </b> Students are given a program that has the buffer-overflow problem, and they need to exploit the vulnerability to gain the root privilege. Moreover, students will experiment with several protection schemes that have been implemented in Linux, and evaluate their effectiveness.
+            </p>
+        </div>
+        <h3>Lab Tasks 
+    (<a href="#" editable-url="labDetail.task.url" contenteditable="false">Description</a>)
+    (<a href="http://www.cis.syr.edu/~wedu/education/buffer_overflow.html">Video</a>)
+</h3>
+        <ul contenteditable="false">
+            <li><b>For instructors:</b> if you prefer to customize the lab description to suit your own courses, here are our Latex <a href="./Buffer_Overflow_file.tar">source files</a>.</li>
+            <li><b>VM version:</b> This lab has been tested on our pre-built
+                <a href="http://www.cis.syr.edu/~wedu/seed/lab_env.html">
+                    <tt>SEEDUbuntu12.04</tt> VM</a>.</li>
+            <li><b>Older VM versions:</b> If you are using an older VM version, you should go to the following web sites (they are pretty much the same, but with minor changes caused by the version differences):
+                <ul>
+                    <li><a href="http://www.cis.syr.edu/~wedu/seed/Labs_11.04/Vulnerability/Buffer_Overflow/">
+        For SEEDUbuntu11.04</a></li>
+                    <li><a href="http://www.cis.syr.edu/~wedu/seed/Labs/Vulnerability/Buffer_Overflow/">
+        For SEEDUbuntu9.11</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="box">
+            <h3>Recommended Time:</h3>
+            <ul contenteditable="false">
+                <li> Supervised situation (e.g. a closely-guided lab session): <b>2 hours</b></li>
+                <li> Unsupervised situation (e.g. take-home project): <b>1 week</b></li>
+            </ul>
+        </div>
+        <div class="box">
+            <h3>Files that are Needed</h3>
+            <ul contenteditable="false">
+                <li><a href="./files/stack.c">stack.c</a> (the vulnerable program)</li>
+                <li><a href="./files/call_shellcode.c">call_shellcode.c</a> </li>
+                <li><a href="./files/exploit.c">exploit.c</a></li>
+            </ul>
+        </div>
+        <div class="box">
+            <h2>Helpful Documents</h2>
+            <ul contenteditable="false">
+                <li>Aleph One.
+                    <a href="http://www.cs.wright.edu/people/faculty/tkprasad/courses/cs781/alephOne.html">
+Smashing The Stack For Fun And Profit</a>.</li>
+                <li><a href="../../Files/NX.pdf">Notes on Non-Executable Stack</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<!-- 顶部导航栏 -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/"><img class="img-brand" alt="Brand" src="favicon.png">实验平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a data-target="#infoModal" data-toggle="modal"><span class="badge pull-right">2</span>消息</a></li>
+                <!-- <li><a href="#">实验成绩</a></li> -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user"></i> 账户
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#/account/modify-password"><i class="fa fa-cog"></i> 修改密码</a></li>
+                        <li><a type="button" data-toggle="modal" data-target="#exitModal"><i class="fa fa-sign-out"></i> 登出</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search labs ...">
+            </form>
+        </div>
+    </div>
+</nav>
+<!-- 登出模态框 -->
+<div class="modal fade" id="exitModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">登出</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" ng-click="logout()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 消息模态框 -->
+<div class="modal fade" id="infoModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">消息</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>实验1被老师同意</li>
+                    <li>实验2被老师拒绝</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -74,8 +74,8 @@
                return taOptions;
            }]);
        })
-       .controller('LabDetailCtrl', ['$scope', '$routeParams', '$filter', 'LabDetail',
-           function($scope, $routeParams, $filter, LabDetail) {
+       .controller('LabDetailCtrl', ['$scope', '$routeParams', '$filter', 'LabDetail', 'LabRef',
+           function($scope, $routeParams, $filter, LabDetail, LabRef) {
                var createdByNumber;
                var originHtml;
                // 获取实验详情
@@ -94,7 +94,7 @@
                    });
 
                // 获取范文的实验类目及该类目下具体的实验项
-               $scope.isEdit = false;
+               $scope.isEditing = false;
                // 按钮状态变换
                $scope.toggleEdit = function(event) {
                    // 点击编辑按钮
@@ -118,7 +118,7 @@
                    $(curDom).text(obj[value].value);
                    $(curDom).removeClass(obj[value].removeClass);
                    $(curDom).addClass(obj[value].addClass);
-                   $scope.isEdit = !$scope.isEdit;
+                   $scope.isEditing = !$scope.isEditing;
                    if (value === '保存' && originHtml != $scope.htmlVariable) {
                        LabDetail.update($routeParams.expItemId, $scope.htmlVariable, createdByNumber)
                            .then(function(response) {
@@ -134,5 +134,41 @@
                    }
                };
 
+               // 如果实验不可编辑(不是由自己创建的创建, 不能编辑)
+               if (!$scope.isEditable) {
+                   // 判断该实验是否被该老师引用
+                   LabRef.hasRefed($routeParams.expItemId)
+                       .then(function(response) {
+                           // 请求成功
+                           $scope.hasRefed = response.data.hasRefed;
+                       }, function(response) {
+                           // 请求失败
+                       });
+
+                   $scope.refLab = function() {
+                       LabRef.create($routeParams.expItemId)
+                           .then(function(response) {
+                               // 请求成功
+                               $scope.hasRefed = true;
+                               $('#refLabModal').modal('hide');
+                           }, function(response) {
+                               // 请求失败
+                               console.error(response);
+                           });
+                   };
+
+                   $scope.disRefLab = function() {
+                       LabRef.delete($routeParams.expItemId)
+                           .then(function(response) {
+                               // 请求成功
+                               $scope.hasRefed = false;
+                               $('#disRefLabModal').modal('hide');
+                           }, function(response) {
+                               // 请求失败
+                               console.error(response);
+                           });
+                   };
+
+               }
            }
        ]);

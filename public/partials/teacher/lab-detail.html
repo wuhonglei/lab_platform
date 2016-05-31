@@ -1,13 +1,62 @@
 <!-- 教师界面: 实验详情 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header">实验详情 <button class="btn btn-primary pull-right" ng-if="isEditable" ng-click="toggleEdit($event)">编辑</button></h2>
-    <div text-angular ng-show="isEdit" ng-model="htmlVariable"></div>
-    <div ng-show="isEdit">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                预览编辑的内容
+    <h2 class="page-header">实验详情
+    <button class="btn btn-primary pull-right" ng-if="isEditable" ng-click="toggleEdit($event)">编辑</button>
+    <!-- 引用该实验: 1. 不是该实验的创建者(LabRef表refName数组中新增一个对象) -->
+    <button  class="btn btn-primary pull-right" data-toggle="modal" data-target='#refLabModal'   ng-if="!isEditable && !hasRefed"><i class="fa fa-compress"></i> 引用实验</button>
+    <!-- 解除该实验引用: 1. 不是该实验的创建者 2. 没有学生选该实验 (LabRef表中refName数组中删除一个对象) -->
+    <button  class="btn btn-danger pull-right" data-toggle="modal" data-target='#disRefLabModal' ng-if="!isEditable && hasRefed"><i class="fa fa-expand"></i> 解除引用</button>
+    </h2>
+    <!-- 编辑内容区域 -->
+    <div text-angular ng-show="isEditing" ng-model="htmlVariable"></div>
+    <!-- 提示: 编辑区 预览区分界线 -->
+    <div class="panel panel-default" ng-show="isEdit">
+        <div class="panel-body">
+            预览编辑的内容
+        </div>
+    </div>
+    <!-- 显示编辑完成的内容 -->
+    <div ta-bind ng-model="htmlVariable"></div>
+</div>
+
+<!-- 模态框: 引用实验 -->
+<div class="modal fade" id="refLabModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>你将要引用该实验(<b>注意:</b>)</p>
+                <ol>
+                    <li>不能修改或删除该实验</li>
+                    <li>该实验可以被这个实验的创建者修改</li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary"  ng-click="refLab()">确认</button>
             </div>
         </div>
     </div>
-    <div ta-bind ng-model="htmlVariable"></div>
+</div>
+
+<!-- 模态框: 删除引用 -->
+<div class="modal fade" id="disRefLabModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">提示</h4>
+            </div>
+            <div class="modal-body">
+                <p>你将要删除该引用</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger"  ng-click="disRefLab()">确认</button>
+            </div>
+        </div>
+    </div>
 </div>

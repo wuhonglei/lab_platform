@@ -24,14 +24,17 @@ var upload = multer({ storage: storage });
 router.get('/:category/get-items', lab.getLabItemList);
 // 获取实验详情
 router.get('/get-detail/:expItemId', lab.getLabDetail);
+
 // 获取实验引用列表
 router.get('/get-lab-ref/:expItemId', labRef.getLabRef);
 // 选择实验
 router.post('/choose-lab', labPost.chooseLab);
-// 提交实验报告
-router.put('/post-lab-pdf', upload.single('pdf'), labPost.postPdf);
 // 获取选择的实验 
 router.get('/get-choosed-lab', labPost.getChooedLab);
+
+// 提交实验报告
+router.put('/post-lab-pdf', upload.single('pdf'), labPost.postPdf);
+
 // 查询某学生是否选择了具体的某个实验
 router.get('/has-choosed-this-lab/:expItemId', lab.hasChoosedLab);
 module.exports = router;

@@ -2,12 +2,9 @@
 var LabItem = require('../../models/lab').LabItem;
 var LabDetail = require('../../models/lab').LabDetail;
 var LabPost = require('../../models/lab-post').LabPost;
-// 获取老师创建的实验列表
-module.exports.getLabItemList = function(req, res) {
-    // 查询条件
-    var query = {
-        labCategory: req.params.category
-    };
+
+// 获取学生选择的实验列表
+var getLabs = function(req, res, query) {
     // 选择数据库返回的字段(或不返回的字段, 0: 不返回, 1: 返回)
     var projection = {
         "_id": 0,
@@ -35,6 +32,15 @@ module.exports.getLabItemList = function(req, res) {
             });
         }
     });
+};
+
+// 获取老师创建的实验列表
+module.exports.getLabItemList = function(req, res) {
+    // 查询条件
+    var query = {
+        labCategory: req.params.category
+    };
+    getLabs(req, res, query);
 };
 
 // 获取某实验的详情
@@ -89,5 +95,41 @@ module.exports.hasChoosedLab = function(req, res) {
             success: true,
             labPost: labPost
         });
+    });
+};
+
+// 查询某学生选择的所有实验列表
+module.exports.getPersonalLabs = function(req, res) {
+    // 查询条件
+    var query = { studentNumber: req.decoded.number };
+    // 选择数据库返回的字段(或不返回的字段, 0: 不返回, 1: 返回)
+    var projection = {
+        'expItemId': 1,
+        '_id': 0
+    };
+    LabPost.find(query, projection, function(err, expItemIds) {
+        if (err) {
+            return res.status(404).json({
+                success: false,
+                message: "学生实验选择表查询失败"
+            });
+        }
+        var expItemIdArray = [];
+        expItemIds.forEach(function(element, index) {
+            expItemIdArray.push(element.expItemId);
+        });
+        if (expItemIdArray.length != 0) {
+            // 查询条件
+            query = {
+                expItemId: { $in: expItemIdArray }
+            };
+            // 获取实验列表
+            getLabs(req, res, query);
+        } else {
+            return res.status(200).json({
+                success: true,
+                labItems: []
+            })
+        }
     });
 };

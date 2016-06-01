@@ -2,8 +2,8 @@
 angular.module('myApp')
     .factory('LabItem', ['$http', '$q', 'Upload', 'PersonalInfo',
         function($http, $q, Upload, PersonalInfo) {
-            var getLabItems = function(category) {
-                var url = '/teacher/' + category + '/get-items';
+            var getLabItems = function(url) {
+                console.info(url);
                 var deferred = $q.defer();
                 $http.get(url)
                     .then(function(response) {

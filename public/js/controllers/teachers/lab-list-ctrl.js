@@ -4,8 +4,19 @@ angular.module('myApp')
         function($scope, $routeParams, $filter, PersonalInfo, LabItem) {
             // 获取实验列表
             var category = $routeParams.categoryID;
-            var labItems = LabItem.get(category);
-            labItems
+            var url;
+            if (category != 'my-labs') {
+                url = '/teacher/' + category + '/get-items';
+            } else {
+                $scope.myLab = true;
+                $scope.categories = [
+                    { name: 'software-security-labs' },
+                    { name: 'network-security-labs' },
+                    { name: 'web-security-labs' }
+                ];
+                url = '/teacher/get-personal-labs';
+            }
+            LabItem.get(url)
                 .then(function(response) {
                     // 请求成功
                     if (response.data.success) {
@@ -18,8 +29,12 @@ angular.module('myApp')
 
             // 添加新实验
             $scope.createLabItem = function(data) {
-                if ($scope.addForm.labImage.$valid && $scope.labItem.image) {
-                    data.labCategory = category;
+                if ($scope.labItem.image && $scope.addForm.labImage.$valid) {
+                    if (!$scope.myLab) {
+                        data.labCategory = category;
+                    } else if (data.labCategory == null) {
+                        return;
+                    }
                     data.createdByName = PersonalInfo.name;
                     data.createdByNumber = PersonalInfo.number;
                     LabItem.save(data)

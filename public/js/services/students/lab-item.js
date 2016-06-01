@@ -1,8 +1,7 @@
 // 学生界面 -- 获取实验列表
 angular.module('myApp')
     .factory('LabItem', ['$http', '$q', function($http, $q) {
-        var getLabItems = function(category) {
-            var url = '/student/' + category + '/get-items';
+        var getLabItems = function(url) {
             var deferred = $q.defer();
             $http.get(url)
                 .then(function(response) {

@@ -60,6 +60,9 @@
                             <input type="checkbox" ng-model="labItem.isPublic">
                         </label>
                     </div>
+                    <select ng-if="myLab" class="form-control" ng-options="category.name as category.name for category in categories" ng-model="labItem.labCategory">
+                        <option value="">请选择实验类别</option>
+                    </select>
                 </form>
             </div>
             <div class="modal-footer">

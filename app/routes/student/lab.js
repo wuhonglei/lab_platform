@@ -6,7 +6,7 @@ var lab = require('../../controller/student/lab-item');
 var labPost = require('../../controller/public/lab-select');
 var labRef = require('../../controller/teacher/lab-ref');
 var config = require('../../config/config');
-  
+
 var randomstring = require("randomstring");
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -19,9 +19,11 @@ var storage = multer.diskStorage({
     }
 });
 var upload = multer({ storage: storage });
-  
+
 // 获取实验列表
 router.get('/:category/get-items', lab.getLabItemList);
+// 获取学生选择的实验列表
+router.get('/get-personal-labs', lab.getPersonalLabs);
 // 获取实验详情
 router.get('/get-detail/:expItemId', lab.getLabDetail);
 

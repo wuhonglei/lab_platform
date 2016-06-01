@@ -27,7 +27,9 @@ router.post('/create-item', upload.single('image'), lab.createLabItem);
 router.put('/update-item', upload.single('image'), lab.updateLabItem);
 // 获取实验列表
 router.get('/:category/get-items', lab.getLabItemList);
-
+// 获取个人实验列表(学生: 学生选择的实验; 老师: 老师创建的实验, 或自己引用的实验);
+router.get('/get-personal-labs', lab.getPersonalLab);
+ 
 // 创建实验详情
 router.post('/create-detail', labDetail.createLabDetail);
 // 更新实验详情
@@ -49,6 +51,6 @@ router.delete('/deleteRefName/:expItemId', labRef.deleteRefName);
 router.get('/has-reffed-lab/:expItemId', labRef.hasRefedLab);
 
 // 查询一组实验中是否有实验被其他老师引用
-router.delete('/delete-labs/:expItemIdArray', labRef.deleteLabs);
+router.delete('/delete-labs/:expItemIdArray', lab.deleteLabs);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+// 老师界面 -- 实验列表服务
 angular.module('myApp')
     .factory('LabItem', ['$http', '$q', 'Upload', 'PersonalInfo',
         function($http, $q, Upload, PersonalInfo) {
@@ -33,7 +34,7 @@ angular.module('myApp')
                     url: url,
                     data: data
                 });
-                upload 
+                upload
                     .then(function(response) {
                         // file is uploaded successfully
                         response.data.labItem.isEditable = true;
@@ -101,6 +102,7 @@ angular.module('myApp')
                             deferred.reject(response);
                         });
                     } else {
+                        var response = {};
                         response.data = {
                             success: false,
                             message: "项目内容没有修改"
@@ -109,12 +111,33 @@ angular.module('myApp')
                     }
                 }
                 return deferred.promise;
-            }
+            };
+
+            // 删除实验条目
+            var deleteLabItems = function(expItemIdArray) {
+                var deferred = $q.defer();
+                var url = '/teacher/delete-labs/' + JSON.stringify(expItemIdArray);
+                $http.delete(url)
+                    .then(function(response) {
+                        // 请求成功
+                        if (response.data.success) {
+                            // delete response.data['success'];
+                            deferred.resolve(response);
+                        } else {
+                            deferred.reject(response);
+                        }
+                    }, function(response) {
+                        // 请求失败
+                        deferred.reject(response);
+                    });
+                return deferred.promise;
+            };
 
             return {
                 get: getLabItems,
                 save: saveLabItem,
-                update: updateLabItem
+                update: updateLabItem,
+                delete: deleteLabItems
             };
         }
     ])

@@ -9,14 +9,14 @@
             <button class="btn btn-default" data-toggle="modal" data-target='#edit-lab-modal' ng-disabled="!checkChoosed()" ng-click="getLabItem()"><i class="fa fa-pencil-square-o "></i> 编辑实验</button>
         </li>
         <li>
-            <button class="btn btn-danger" data-toggle="modal" data-target='#delete-lab-modal' ng-disabled="!checkChoosed()"><i class="fa fa-times"></i> 删除实验</button>
+            <button class="btn btn-danger" data-toggle="modal" data-target='#delete-lab-modal' ng-disabled="!checkChoosed()" ng-click="getDeltedLabItem()"><i class="fa fa-times"></i> 删除实验</button>
         </li>
     </ul>
     <table class="table" id="lab-list-table">
         <tbody>
             <tr ng-repeat="item in labItems">
                 <td>
-                    <input type="checkbox" id="check" ng-if="item.isEditable" ng-model="item.isChecked" ng-click="getCheckedIndex($index)">
+                    <input type="checkbox" id="check" ng-if="item.isEditable" ng-model="item.isChecked" ng-click="getCheckedIndex($index, item.isChecked)">
                 </td>
                 <td>
                     <a class="a-default" href="#/{{item.labCategory}}/{{item.expItemId}}">
@@ -110,14 +110,13 @@
                 <h4 class="modal-title">删除实验</h4>
             </div>
             <div class="modal-body">
-                <ul>
-                    <li>实验名称1</li>
-                    <li>实验名称2</li>
-                    <li>实验名称3</li>
+                <ul ng-repeat="item in deleteLabs">
+                    <li>{{item.name}}</li>
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger">确认删除</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" ng-click="delete()">确认删除</button>
             </div>
         </div>
     </div>

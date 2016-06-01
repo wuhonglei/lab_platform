@@ -99,11 +99,14 @@ var labRefSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    refLength: {
+        type: Number,
+        default: 0
+    },
     refName: [{
         name: String,
         number: Number
-    }
-    ]
+    }]
 });
 
 

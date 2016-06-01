@@ -48,4 +48,7 @@ router.delete('/deleteRefName/:expItemId', labRef.deleteRefName);
 // 查询某位老师是否引用了某实验
 router.get('/has-reffed-lab/:expItemId', labRef.hasRefedLab);
 
+// 查询一组实验中是否有实验被其他老师引用
+router.delete('/delete-labs/:expItemIdArray', labRef.deleteLabs);
+
 module.exports = router;

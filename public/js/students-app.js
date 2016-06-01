@@ -30,7 +30,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
             controller: 'PostWorkCtrl'
         })
         .when('/:categoryID', {
-            templateUrl: 'partials/students/lab-list.html',
+            templateUrl: 'partials/students/lab-item.html',
             controller: 'CategoryNavCtrl'
         })
         .when('/:category/:expItemId', {

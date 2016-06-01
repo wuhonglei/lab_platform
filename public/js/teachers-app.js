@@ -21,7 +21,7 @@ myApp.config(['$routeProvider', function($routeProvider) {
             controller: 'StudentsWorkDescCtrl'
         })
         .when('/:categoryID', {
-            templateUrl: 'partials/teacher/lab-list.html',
+            templateUrl: 'partials/teacher/lab-item.html',
             controller: 'CategoryNavCtrl'
         })
         .when('/:category/:expItemId', {

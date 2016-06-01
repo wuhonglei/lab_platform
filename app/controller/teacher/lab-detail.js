@@ -24,7 +24,6 @@ module.exports.createLabDetail = function(res, labItem) {
                 message: err
             });
         } else {
-            console.info("实验详情创建成功");
             // 创建引用列表
             LabRef.createLabRef(res, labItem);
         }

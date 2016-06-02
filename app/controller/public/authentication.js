@@ -2,7 +2,9 @@
 var passport = require('passport');
 require('../../config/password')(passport);
 var User = require('../../models/user');
+var nodemailer = require('nodemailer');
 
+// 用户注册
 module.exports.register = function(req, res) {
     var user = new User();
     // 获取请求的参数(用户名, 学号/教工号, 邮箱, 身份)
@@ -24,6 +26,7 @@ module.exports.register = function(req, res) {
     });
 };
 
+// 用户登陆
 module.exports.login = function(req, res) {
     // If Passport throws/catches an error
     passport.authenticate('local', function(err, user, info) {
@@ -50,7 +53,7 @@ module.exports.login = function(req, res) {
 
 };
 
-// 修改用户密码
+// 用户修改密码
 module.exports.modifyPassWord = function(req, res) {
     // password 对象, 存放当前密码, 新密码, 确认密码
     var password = JSON.parse(req.body.password);
@@ -97,4 +100,26 @@ module.exports.modifyPassWord = function(req, res) {
             });
         }
     })(req, res);
+};
+
+// 用户重置密码(用户忘记密码后需重置密码)
+module.exports.resetPassword = function(req, res) {
+    // create reusable transporter object using the default SMTP transport
+    var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+        from: '"Fred Foo 👥" <foo@blurdybloop.com>', // sender address
+        to: '1017368065@qq.com', // list of receivers
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world 🐴', // plaintext body
+        html: '<b>Hello world 🐴</b>' // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });
 };

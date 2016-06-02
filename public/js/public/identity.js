@@ -1,7 +1,7 @@
 // 根据登陆的身份去加载相应的js文件
 // 函数立即执行 
 (function loadScript() {
-    var identity = sessionStorage.identity;
+    var identity = localStorage .identity;
     // 定义src对象, 包含相应身份的 js path
     var src = {
         student: [

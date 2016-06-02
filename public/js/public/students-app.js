@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngSanitize', 'ngFileUpload']);
 
 // 设置http默认的头部
 myApp.run(function($http, $window, $rootScope, Authentication) {
-    $http.defaults.headers.common['x-access-token'] = $window.sessionStorage['token'];
+    $http.defaults.headers.common['x-access-token'] = $window.localStorage ['token'];
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if (!Authentication.isLoggedIn()) {
             console.info("重新登陆");

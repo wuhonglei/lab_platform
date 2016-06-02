@@ -1,19 +1,19 @@
 angular.module('myApp')
     .factory('Authentication', ['$http', '$window', function($http, $window) {
         var saveToken = function(token) {
-            $window.sessionStorage['token'] = token;
+            $window.localStorage ['token'] = token;
             payload = token.split('.')[1];
             payload = $window.atob(payload);
             payload = JSON.parse(payload);
-            $window.sessionStorage['identity'] = payload.isTeacher ? 　'teacher' : 'student';
+            $window.localStorage ['identity'] = payload.isTeacher ? 　'teacher' : 'student';
         };
 
         var getToken = function() {
-            return $window.sessionStorage['token'];
+            return $window.localStorage ['token'];
         };
 
         var logout = function() {
-            $window.sessionStorage.removeItem('token');
+            $window.localStorage .removeItem('token');
         };
 
         var isLoggedIn = function() {

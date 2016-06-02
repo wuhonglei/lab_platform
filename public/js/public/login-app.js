@@ -22,11 +22,11 @@ angular.module('userApp', [])
                         console.info(response.data);
                         var token = response.data.token;
                         var identity = response.data.identity;
-                        $window.sessionStorage['token'] = token;
+                        $window.localStorage['token'] = token;
                         payload = token.split('.')[1];
                         payload = $window.atob(payload);
                         payload = JSON.parse(payload);
-                        $window.sessionStorage['identity'] = payload.isTeacher ? 　'teacher' : 'student';
+                        $window.localStorage['identity'] = payload.isTeacher ? 　'teacher' : 'student';
                         $scope.login = {};
                         location.href = '/';
                     }

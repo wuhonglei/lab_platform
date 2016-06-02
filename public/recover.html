@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" ng-app="userApp">
 
 <head>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/recover.css">
 </head>
 
-<body>
+<body ng-controller="PasswordCtrl">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -27,31 +27,26 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <div class="input-group">
-                                <input type="email" class="form-control" placeholder="注册时的邮箱">
+                                <input type="email" class="form-control" placeholder="注册时的邮箱" ng-model="reset.email">
                                 <span class="input-group-btn">
-        <button class="btn btn-default btn-height" type="button">发送验证码</button>
+        <button class="btn btn-default btn-height" type="button" ng-click="sendVerifyCode(reset.email)">发送验证码</button>
       </span>
                             </div>
                             <!-- /input-group -->
                         </div>
                         <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="验证码">
-                                <span class="input-group-btn">
-        <button class="btn btn-default btn-height" type="button">验证</button>
-      </span>
-                            </div>
+                            <input type="text" class="form-control" placeholder="验证码" ng-disabled="!verifyCode" ng-model="reset.code">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="新密码">
+                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="新密码" ng-model="reset.newPasswd">
                         </div>
                         <div class="form-group">
-                            <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码">
+                            <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码" ng-model="reset.confirmPasswd">
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6 col-sm-offset-3">
-                                    <input type="submit" name="modify-submit" id="modify-submit" tabindex="4" class="form-control btn btn-register" value="确认修改">
+                                    <input type="submit" name="modify-submit" id="modify-submit" tabindex="4" class="form-control btn btn-register" value="确认修改" ng-click="resetPassword(reset)">
                                 </div>
                             </div>
                         </div>
@@ -63,7 +58,9 @@
     <!-- 库js -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- 自定义登陆js -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <!-- 自定义密码重置js -->
+    <script src="js/public/reset.js"></script>
 </body>
 
 </html>

@@ -3,6 +3,8 @@ var passport = require('passport');
 require('../../config/password')(passport);
 var User = require('../../models/user');
 var nodemailer = require('nodemailer');
+var jwt = require('jsonwebtoken');
+var secret = require('../../config/config.js');
 
 // 用户注册
 module.exports.register = function(req, res) {
@@ -102,24 +104,111 @@ module.exports.modifyPassWord = function(req, res) {
     })(req, res);
 };
 
-// 用户重置密码(用户忘记密码后需重置密码)
-module.exports.resetPassword = function(req, res) {
-    // create reusable transporter object using the default SMTP transport
-    var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
-    // setup e-mail data with unicode symbols
-    var mailOptions = {
-        from: '"Fred Foo 👥" <foo@blurdybloop.com>', // sender address
-        to: '1017368065@qq.com', // list of receivers
-        subject: 'Hello ✔', // Subject line
-        text: 'Hello world 🐴', // plaintext body
-        html: '<b>Hello world 🐴</b>' // html body
-    };
-
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            return console.log(error);
+// 用户重置密码:　发送验证码
+module.exports.sendVerifyCode = function(req, res) {
+    // 先验证该用户是否存在
+    var email = req.body.email;
+    var query = { email: email };
+    User.findOne(query, function(err, user) {
+        if (err) {
+            return res.status(404).json({
+                success: false,
+                message: "重置失败"
+            });
         }
-        console.log('Message sent: ' + info.response);
+        if (user != null) {
+            // 生成 6 位数的随机数字, 作为验证码发送给用户
+            var CODE = Math.round(Math.random() * 1000000);
+            // 如果用户存在, 发送验证码到用户邮箱
+            // create reusable transporter object using the default SMTP transport
+            var smtpTransport = nodemailer.createTransport({
+                host: 'smtp.126.com',
+                port: 465,
+                secure: true, // use SSL
+                auth: {
+                    user: "whl1017368065@126.com", // 账号
+                    pass: "WHL1993105" // 密码
+                }
+            });
+            // setup e-mail data with unicode symbols
+            var mailOptions = {
+                from: "实验管理平台 <whl1017368065@126.com>",
+                to: email,
+                subject: "密码重置",
+                html: '<p>该邮件来自于中南大学实验管理平台, 重置密码的验证码是 <b>' + CODE + '</b></p>' // html body: "加油"
+            }
+            smtpTransport.sendMail(mailOptions, function(error, response) {
+                if (error) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "验证码发送失败"
+                    });
+                }
+                // 将验证码信息存储到该用户的 document 中
+                user.generateResCode(CODE);
+                user.save();
+                return res.status(200).json({
+                    success: true,
+                    message: "验证码发送成功"
+                });
+            });
+
+        } else {
+            // 该用户不存在
+            return res.status(401).json({
+                success: false,
+                message: "该用户不存在"
+            });
+        }
+    });
+};
+
+// 密码重置：　重置密码
+module.exports.resetPassword = function(req, res) {
+    var code = req.body.code;
+    var email = req.body.email;
+    var password = req.body.password;
+    if (code === undefined) {
+        return res.status(401).json({
+            success: false,
+            message: "请填写验证码"
+        });
+    }
+    // 查询条件
+    var query = { email: email };
+    User.findOne(query, function(err, user) {
+        if (err) {
+            return res.status(404).json({
+                success: false,
+                message: "数据库查询失败"
+            });
+        }
+        jwt.verify(user.resetToken, secret.secret, function(err, decoded) {
+            if (err) {
+                return res.status(404).json({
+                    success: false,
+                    message: '验证码已过期, 请重新获取'
+                });
+            }
+            console.log('code', code);
+            console.log('resetCode', decoded.code);
+            if (code == decoded.code) {
+                user.setPassword(password);
+                // 让验证码立即过期, 不能重复验证
+                user.generateResCode(code, 0);
+                user.save(function(err) {
+                    if (err) {
+                        return res.status(404).json({
+                            success: false,
+                            message: "密码修改失败"
+                        });
+                    }
+                    return res.status(200).json({
+                        success: true,
+                        message: "密码修改成功"
+                    });
+                });
+            }
+        });
     });
 };

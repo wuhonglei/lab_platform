@@ -23,7 +23,8 @@ var userSchema = new mongoose.Schema({
     isTeacher: {
         type: Boolean,
         required: true
-    }
+    },
+    resetToken: String
 });
 
 userSchema.methods.setPassword = function(password) {
@@ -36,6 +37,7 @@ userSchema.methods.validPassword = function(password) {
     return this.password === password;
 };
 
+// 生成用户验证成功后, 返回给用户的token值
 userSchema.methods.generateJwt = function() {
     var INTERVAL = 30 * 60 * 1000; //30min 等效毫秒
     var expiry = new Date(Date.now() + INTERVAL);
@@ -49,6 +51,16 @@ userSchema.methods.generateJwt = function() {
     };
     var token = jwt.sign(payload, secret.secret); // DO NOT KEEP YOUT SECRET IN THE CODE!
     return token;
+};
+
+userSchema.methods.generateResCode = function(code, timelong) {
+    var INTERVAL = timelong || 30 * 60 * 1000; //30min 等效毫秒
+    var expiry = new Date(Date.now() + INTERVAL);
+    var payload = {
+        code: code,
+        exp: parseInt(expiry.getTime() / 1000)
+    };
+    this.resetToken = jwt.sign(payload, secret.secret);
 };
 
 module.exports = mongoose.model('User', userSchema);

@@ -6,7 +6,8 @@ var userAuth = require('../../controller/public/authentication');
 router.post('/login', userAuth.login);
 // 用户注册
 router.post('/register', userAuth.register);
-// 用户密码重置(用户忘记密码后重置)
+// 重置密码: 发送验证码
+router.post('/send-verify-code', userAuth.sendVerifyCode);
+// 重置密码: 重置密码
 router.post('/reset-password', userAuth.resetPassword);
-
 module.exports = router;

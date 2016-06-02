@@ -2,9 +2,12 @@
 
 >学生实验管理平台, 学生登陆后可以选择实验, 提交实验; 老师登陆后可以查看选择他所带实验的学生, 给学生实验报告评分
 
-#### 前端开发用到的技术
-1. Bootstrap 3
-2. Angularjs 1.5.6
+#### 网站开发用到的技术
+> 前端 `Bootstrap 3` `Angularjs 1.5.6`
+> <br>
+> 后台 `nodejs`
+> <br>
+>数据库 `mongoDB`
 
 #### 功能需求
 
@@ -46,22 +49,20 @@
 #### web structure
 一、公共页面
  - 登陆／注册:　login.html
- - 忘记密码：　recover.html
- - 修改密码： partials/public/modify-password.html
- - 顶部导航: nav/nav-header.html
- - 左侧导航: nav/nav-sidebar.html
+ - 忘记密码：　 recover.html
+ - 修改密码：  partials/public/modify-password.html
+ - 顶部导航:   nav/nav-header.html
+ - 左侧导航:   nav/nav-sidebar.html
 
 二、学生界面: 
- - 首页：　partials/students/work-desc.html
- - 实验列表: partials/students/lab-list.html
- - 实验详情: partials/students/lab-detail.html
- - 提交作业: partials/students/post-work.html
+ - 首页：　     partials/students/work-desc.html
+ - 实验列表:   partials/students/lab-list.html
+ - 实验详情:   partials/students/lab-detail.html
 
 三、教师界面: 
  - 首页: partials/teacher/students-desc.html
  - 实验列表: partials/teacher/lab-list.html
  - 实验详情: partials/teacher/lab-detail.html
- - 编辑实验详情: partials/teacher/edit-lab.html
 
 #### 未完成的功能
 - [ ] 密码重置

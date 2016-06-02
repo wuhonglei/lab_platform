@@ -36,29 +36,36 @@
     - [x] 1. 如果学生已提交作业, 老师可以预览该学生提交的作业(pdf文档), 继而可以在分数栏,输入具体分数后提交;
     - [x] 2. 如果学生未提交作业, 老师不能对学生进行操作
 
-#### 预计工作量
-预计开发周期: 3天
-<br>
-实际开发周期: 5天
+#### 工作量
+From: 2016-05-19
+ Now: 2016-06-02
 
 
 
 #### web structure
-公共页面
-  登陆／注册:　login.html
-  忘记密码：　recover.html
-  修改密码： partials/public/modify-password.html
-  顶部导航: nav/nav-header.html
-  左侧导航: nav/nav-sidebar.html
+一、公共页面
+ - 登陆／注册:　login.html
+ - 忘记密码：　recover.html
+ - 修改密码： partials/public/modify-password.html
+ - 顶部导航: nav/nav-header.html
+ - 左侧导航: nav/nav-sidebar.html
 
-学生界面: 
-  首页：　partials/students/work-desc.html
-  实验列表: partials/students/lab-list.html
-  实验详情: partials/students/lab-detail.html
-  提交作业: partials/students/post-work.html
+二、学生界面: 
+ - 首页：　partials/students/work-desc.html
+ - 实验列表: partials/students/lab-list.html
+ - 实验详情: partials/students/lab-detail.html
+ - 提交作业: partials/students/post-work.html
 
-教师界面: 
-  首页: partials/teacher/students-desc.html
-  实验列表: partials/teacher/lab-list.html
-  实验详情: partials/teacher/lab-detail.html
-  编辑实验详情: partials/teacher/edit-lab.html
+三、教师界面: 
+ - 首页: partials/teacher/students-desc.html
+ - 实验列表: partials/teacher/lab-list.html
+ - 实验详情: partials/teacher/lab-detail.html
+ - 编辑实验详情: partials/teacher/edit-lab.html
+
+#### 未完成的功能
+- [x] 密码重置
+- [ ] token请求过期， 页面自动跳转到login.html
+- [ ] 用户更新图片或pdf时， 删除服务端存储的原有图片或pdf
+
+#### Future work
+- [ ] 在实验浏览页面, 即点击左侧实验类目导航后, 内容区最多只显示5个实验列表, 通过分页选择, 显示其他的实验

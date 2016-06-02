@@ -7,6 +7,8 @@ var LabRequest = require('./lab-request-params');
 var labRef = require('./lab-ref');
 var labDetail = require('./lab-detail');
 var async = require('async');
+var fs = require('fs');
+var imgItemPath = require('../../config/config').imgItemPath;
 
 // 创建实验列表 
 module.exports.createLabItem = function(req, res) {
@@ -43,21 +45,43 @@ module.exports.updateLabItem = function(req, res) {
         var update = LabRequest.getLabItem(req, true);
         // 返回修改后的document
         var options = { new: true };
-        LabItem.findOneAndUpdate(query, update, options, function(err, labItem) {
+        LabItem.findOne(query, function(err, labItem) {
             if (err) {
                 return res.status(404).json({
                     success: false,
                     message: "实验列表更新失败"
                 });
             } else {
-                //   更新实验引用表
-                if (req.body.isPublic != undefined) {
-                    // isPublic 被改变后, 更新实验引用表中 isPublic 的值
-                    labRef.updateLabRef(res, labItem);
+                if (labItem != null) {
+                    //   更新实验引用表
+                    if (req.body.isPublic != undefined) {
+                        // isPublic 被改变后, 更新实验引用表中 isPublic 的值
+                        labRef.updateLabRef(res, labItem);
+                    } else {
+                        labItem.update(update, function(err) {
+                            if (err) {
+                                return res.status(404).json({
+                                    success: false,
+                                    message: '更新失败'
+                                });
+                            }
+                            res.status(200).json({
+                                success: true,
+                                labItem: update
+                            });
+                            // 更新图片, 删除原有图片
+                            if (update.thumbnail != undefined) {
+                                var path = '.' + imgItemPath + '/' + labItem.thumbnail;
+                                fs.unlink(path, function(err) {
+                                    return;
+                                });
+                            }
+                        });
+                    }
                 } else {
-                    return res.status(200).json({
-                        success: true,
-                        labItem: update
+                    return res.status(404).json({
+                        success: false,
+                        message: "没有找到需要更新的项目"
                     });
                 }
             }
@@ -185,9 +209,18 @@ module.exports.deleteLabs = function(req, res) {
                 // 依次删除实验详情, 实验引用, 实验列表 document
                 LabDetail.remove({ expItemId: expItemIdObj.expItemId }).exec();
                 LabRef.remove({ expItemId: expItemIdObj.expItemId }).exec();
-                LabItem.remove({ expItemId: expItemIdObj.expItemId }).exec();
                 hasDeleted.push(expItemIdObj.index);
-                callbackEnd(null);
+                LabItem.findOneAndRemove({ expItemId: expItemIdObj.expItemId }, function(err, labItem) {
+                    console.info("labItem = ", labItem);
+                    if (labItem.thumbnail != undefined) {
+                        var path = '.' + imgItemPath + '/' + labItem.thumbnail;
+                        fs.unlink(path, function(err) {
+                            callbackEnd(null);
+                        });
+                    } else {
+                        callbackEnd(null);
+                    }
+                });
             } else {
                 callbackEnd(null);
             }

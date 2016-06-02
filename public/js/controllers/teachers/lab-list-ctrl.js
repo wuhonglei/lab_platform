@@ -93,6 +93,8 @@ angular.module('myApp')
                                     $scope.labItems[index][key] = item[key];
                                 }
                                 $scope.labItems[index].isChecked = false;
+                                // 清空checked item index array
+                                INDEX.length = 0;
                                 $('#edit-lab-modal').modal('hide');
                             }
                         }, function(response) {
@@ -145,6 +147,8 @@ angular.module('myApp')
                                 INCREASE++;
                             }
                             // 隐藏模态框
+                            // 清空checked item index array
+                            INDEX.length = 0;
                             $('#delete-lab-modal').modal('hide');
                         }, function(response) {
                             // 请求失败

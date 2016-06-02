@@ -1,6 +1,8 @@
 // 学生界面 -- 选择实验函数
+var fs = require('fs');
 var LabPost = require('../../models/lab-post').LabPost;
 var LabRequest = require('./lab-requst-params');
+var pdfPath = require('../../config/config').pdfPath;
 
 // 创建学生所选实验列表
 module.exports.chooseLab = function(req, res) {
@@ -34,7 +36,6 @@ module.exports.chooseLab = function(req, res) {
 // 学生上传PDF, 后者老师上传成绩
 module.exports.postScore = module.exports.postPdf = function(req, res) {
     // 获取请求的参数
-    console.info(typeof req.body.score);
     if (!req.decoded.isTeacher && req.file.mimetype != 'application/pdf') {
         return res.status(404).json({
             success: false,
@@ -49,7 +50,7 @@ module.exports.postScore = module.exports.postPdf = function(req, res) {
     // 获取要更新的条目
     var update = LabRequest.get(req, true);
     // 返回修改成功后的document
-    var options = { new: true };
+    var options = { new: false };
     LabPost.findOneAndUpdate(query, update, options, function(err, labPost) {
         if (err) {
             return res.status(404).json({
@@ -57,10 +58,17 @@ module.exports.postScore = module.exports.postPdf = function(req, res) {
                 message: "修改失败"
             });
         }
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
-            labPost: labPost
+            update: update
         });
+        if (!req.decoded.isTeacher && labPost.workUrl) {
+            // 学生上传PDF后, 删除之前的PDF
+            var path = '.' + pdfPath + '/' + labPost.workUrl;
+            fs.unlink(path, function(err) {
+                return;
+            });
+        }
     });
 };
 

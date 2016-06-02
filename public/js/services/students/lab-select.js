@@ -60,11 +60,6 @@ angular.module('myApp')
                 }).then(function(response) {
                     // file is uploaded successfully
                     if (response.data.success) {
-                        var update = response.data.labPost;
-                        response.data = {
-                            success: true,
-                            update: update
-                        };
                         deferred.resolve(response);
                     } else {
                         deferred.reject(response);

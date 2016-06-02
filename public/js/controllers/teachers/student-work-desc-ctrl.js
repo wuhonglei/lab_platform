@@ -7,7 +7,6 @@ angular.module('myApp')
             Student.getList()
                 .then(function(response) {
                     // 请求成功
-                    console.info(response);
                     $scope.labs = response.data.labPost;
                 }, function(response) {
                     // 请求失败
@@ -20,7 +19,7 @@ angular.module('myApp')
             };
 
             // 打分
-            $scope.markScore = function(originScore, score, index, isEqual) {
+            $scope.markScore = function(originScore, score, index) {
                 if (score != undefined && originScore != score) {
                     // 如果修改了分数
                     var score = parseInt(score);
@@ -30,13 +29,12 @@ angular.module('myApp')
                             expItemId: $scope.labs[index].expItemId,
                             studentNumber: $scope.labs[index].studentNumber
                         };
-                        console.info("req = %o", data)
                         Student.mark(data)
                             .then(function(response) {
                                 // 请求成功
-                                console.info(response);
                             }, function(response) {
                                 // 请求失败
+                                $scope.labs[index].score = originScore;
                                 console.error(response);
                             });
                     } else {

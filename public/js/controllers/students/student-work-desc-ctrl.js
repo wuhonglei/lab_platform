@@ -1,6 +1,6 @@
 // 学生界面 -- 学生选做实验概览
 angular.module('myApp')
-    .controller('StudentsWorkDescCtrl', ['$scope', '$http', 'Upload', 'labPost', 'PDF', 
+    .controller('StudentsWorkDescCtrl', ['$scope', '$http', 'Upload', 'labPost', 'PDF',
         function($scope, $http, Upload, labPost, PDF) {
             // 获取学生选做实验列表
             labPost.get()
@@ -23,7 +23,10 @@ angular.module('myApp')
                     labPost.uploadPdf(data)
                         .then(function(response) {
                             // 上传成功
-                            $scope.labs[index] = response.data.update;
+                            var update = response.data.update;
+                            $scope.labs[index].isMarked = false;
+                            $scope.labs[index].isPost = update.isPost;
+                            $scope.labs[index].workUrl = update.workUrl;
                         }, function(response) {
                             console.error(response);
                         });

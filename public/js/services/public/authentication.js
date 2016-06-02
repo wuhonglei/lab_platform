@@ -29,7 +29,7 @@ angular.module('myApp')
                 return false;
             }
         };
-
+        
         return {
             saveToken: saveToken,
             getToken: getToken,

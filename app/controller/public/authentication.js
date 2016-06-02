@@ -49,3 +49,52 @@ module.exports.login = function(req, res) {
     })(req, res);
 
 };
+
+// 修改用户密码
+module.exports.modifyPassWord = function(req, res) {
+    // password 对象, 存放当前密码, 新密码, 确认密码
+    var password = JSON.parse(req.body.password);
+    if (password.newPasswd != password.confirmPasswd) {
+        return res.status(401).json({
+            success: false,
+            message: "两次密码输入不一致"
+        });
+    }
+    if (password.newPasswd === password.curPasswd) {
+        return res.status(401).json({
+            success: false,
+            message: "新密码与当前密码不能相同"
+        });
+    }
+    req.body.number = req.decoded.number;
+    req.body.password = password.curPasswd;
+    passport.authenticate('local', function(err, user, info) {
+        if (err) {
+            res.status(404).json(err);
+            return;
+        }
+
+        if (user) {
+            // 如果该用户存在
+            user.setPassword(password.newPasswd);
+            user.save(function(err) {
+                if (err) {
+                    return res.status(404).json({
+                        success: false,
+                        message: '密码修改失败'
+                    });
+                }
+                return res.status(200).json({
+                    success: true,
+                    message: '密码修改成功'
+                });
+            });
+        } else {
+            // 如果该用户不存在
+            res.status(401).json({
+                success: false,
+                message: '密码错误'
+            });
+        }
+    })(req, res);
+};

@@ -7,7 +7,7 @@ var config = require('./app/config/config.js'); // load the database config
 var morgan = require('morgan'); // log request to the console (express4)
 var bodyParser = require('body-parser'); // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
- 
+
 // configuration ===============================================================
 mongoose.connect(config.url); // connect to mongoDB database on modulus.io
 
@@ -25,6 +25,8 @@ app.use(methodOverride()); // simulate DELETE and PUT
 app.use('/user', require('./app/routes/public/login'));
 // 验证用户token有效性
 app.use(require('./app/routes/public/token-valid'));
+// 修改用户密码
+app.use('/user', require('./app/routes/public/modify-password'));
 
 // 老师 创建, 更新, 删除实验列表
 app.use('/teacher', require('./app/routes/teacher/lab'));

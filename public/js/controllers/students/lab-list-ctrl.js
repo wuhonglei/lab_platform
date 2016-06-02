@@ -4,6 +4,7 @@ angular.module('myApp')
         function($scope, $routeParams, LabItem) {
             // 获取访问的实验类目
             var category = $routeParams.categoryID;
+            $scope.navName = category;
             var url;
             if (category != 'my-labs') {
                 url = '/student/' + category + '/get-items';

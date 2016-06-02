@@ -39,12 +39,6 @@
                                     <div class="form-group">
                                         <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="密码" value="wuhonglei" ng-model="login.password">
                                     </div>
-                                    <!--                                     <div class="form-group">
-                                        <select class="form-control" id="identity-select" value="student">
-                                            <option value="student">学生</option>
-                                            <option value="teacher">教师</option>
-                                        </select>
-                                    </div> -->
                                     <div class="form-group text-center">
                                         <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
                                         <label for="remember"> 记住账号</label>
@@ -52,7 +46,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="登陆" ng-click="signin()">
+                                                <input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="登陆" ng-click="signin(login)">
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +63,8 @@
                                 <!-- 注册表单 -->
                                 <form id="register-form" role="form" style="display: none;" ng-controller="RegisterCtrl">
                                     <div class="form-group">
-                                        <select class="form-control" id="identity-select" value="false" ng-init="identity='false'" ng-model="register.identity">
+                                        <select class="form-control" id="identity-select" ng-model="register.identity">
+                                            <option value="">请选择身份</option>
                                             <option value="false">学生</option>
                                             <option value="true">教师</option>
                                         </select>
@@ -92,7 +87,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="注册" ng-click="signup()">
+                                                <input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="注册" ng-click="signup(register)">
                                             </div>
                                         </div>
                                     </div>

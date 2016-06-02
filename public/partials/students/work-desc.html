@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="lab in labs">
+            <tr ng-repeat="lab in labs as result">
                 <td ng-bind="lab.labName"></td>
                 <td ng-bind="lab.teacherName"></td>
                 <td ng-bind="lab.choosedDate.substr(0, 10)"></td>
@@ -29,14 +29,13 @@
                 <td ng-bind="lab.score"></td>
             </tr>
         </tbody>
-        <!--         <tfoot>
+        <tfoot>
             <tr>
-                <td colspan="5">
-                    <a class="a-default" href="#/post-work">
-                        <button class="btn btn-primary">提交作业</button>
-                    </a>
-                </td>
+                <td colspan="7" ng-show="result.length"><em>记录数: {{result.length}}</em></td>
             </tr>
-        </tfoot> -->
+            <tr>
+                <td colspan="7" ng-if="result.length === 0" class="text-center"><i class="fa fa-space-shuttle" aria-hidden="true"></i>&nbsp;<em>你还没有选择实验</em>&nbsp;<i class="fa fa-space-shuttle" aria-hidden="true"></i></td>
+            </tr>
+        </tfoot>
     </table>
 </div>

@@ -6,13 +6,12 @@
 angular.module('userApp', [])
     // 登陆控制器
     .controller('LoginCtrl', ['$scope', '$http', '$location', '$window', function($scope, $http, $location, $window) {
-        $scope.signin = function() {
+        $scope.signin = function(login) {
             // 获取用户学号/教工号和密码
             var data = user = {
-                number: $scope.login.username,
-                password: $scope.login.password
+                number: login.username,
+                password: login.password
             };
-            // console.info(user);
 
             var url = '/user/login';
             $http.post(url, data)
@@ -38,16 +37,19 @@ angular.module('userApp', [])
     }])
     // 注册控制器
     .controller('RegisterCtrl', ['$scope', '$http', function($scope, $http) {
-        $scope.signup = function() {
+        $scope.signup = function(register) {
             // 获取用户信息
+            if (register.identity == null) {
+                console.error("请选择身份");
+                return;
+            }
             var data = user = {
-                isTeacher: $scope.register.identity === "true",
-                name: $scope.register.username,
-                number: $scope.register.userId,
-                email: $scope.register.email,
-                password: $scope.register.password
+                isTeacher: register.identity === "true",
+                name: register.username,
+                number: register.userId,
+                email: register.email,
+                password: register.password
             };
-            // console.info(user);
 
             var url = '/user/register';
             $http.post(url, data)

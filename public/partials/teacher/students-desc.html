@@ -1,4 +1,4 @@
-<!-- 教师界面: 学生实验作业概览 --> 
+<!-- 教师界面: 学生实验作业概览 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header">学生作业概览</h2>
     <!--     <button class="btn btn-primary" ng-click="saveLabItem()">保存实验列表</button>
@@ -10,18 +10,20 @@
                 <th>学号</th>
                 <th>实验名称</th>
                 <th>是否提交</th>
+                <th>提交日期</th>
                 <th>预览</th>
                 <th>分数</th>
                 <th>提交</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="lab in labs">
+            <tr ng-repeat="lab in labs as result">
                 <td ng-bind="lab.studentName"></td>
                 <td ng-bind="lab.studentNumber"></td>
                 <td ng-bind="lab.labName"></td>
                 <td ng-if="lab.isPost">是</td>
                 <td ng-if="!lab.isPost">否</td>
+                <td ng-bind="lab.postDate.substr(0, 10)"></td>
                 <td>
                     <button class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-click="previewPDF(lab.workUrl)" ng-disabled="!lab.isPost">预览</button>
                 </td>
@@ -33,5 +35,13 @@
                 </td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8" ng-show="result.length"><em>人数: {{result.length}}</em></td>
+            </tr>
+            <tr>
+                <td colspan="8" ng-if="result.length === 0" class="text-center"><i class="fa fa-space-shuttle" aria-hidden="true"></i>&nbsp;<em>还没有学生选择你的实验</em>&nbsp;<i class="fa fa-space-shuttle" aria-hidden="true"></i></td>
+            </tr>
+        </tfoot>
     </table>
 </div>

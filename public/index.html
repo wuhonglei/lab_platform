@@ -31,6 +31,8 @@
     <!-- 顶部导航栏 -->
     <ng-include src="'nav/nav-header.html'"></ng-include>
     <div class="container-fluid">
+        <!-- 警告框容器 -->
+        <div id="alertContainer"></div>
         <div class="row">
             <!-- 左侧导航栏 -->
             <ng-include src="'nav/nav-sidebar.html'"></ng-include>
@@ -46,6 +48,8 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/lib/ie10-viewport-bug-workaround.js"></script>
     <!-- 自定义js -->
@@ -66,6 +70,8 @@
     <script src="js/services/public/password-modify.js"></script>
     <!-- 预览PDF文件 -->
     <script src="js/services/public/view-pdf-service.js"></script>
+    <!-- 显示警告框 -->
+    <script src="js/services/public/alert.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 // 学生界面 -- 实验详情控制器
 angular.module('myApp')
-    .controller('LabDetailCtrl', ['$scope', '$routeParams', 'LabDetail', 'LabRef', 'labPost',
-        function($scope, $routeParams, LabDetail, LabRef, labPost) {
+    .controller('LabDetailCtrl', ['$scope', '$routeParams', 'LabDetail', 'LabRef', 'labPost', 'Alert',
+        function($scope, $routeParams, LabDetail, LabRef, labPost, Alert) {
             var expItemId = $routeParams.expItemId;
             // 请求实验详情
             LabDetail.get(expItemId)
@@ -45,6 +45,7 @@ angular.module('myApp')
                     labPost.create($scope.labRef, selectTeacher)
                         .then(function(response) {
                             // 请求成功
+                            Alert.show({ content: '老师选择成功' });
                             $scope.decs = selectTeacher.name;
                             $scope.hasChoosed = true;
                         }, function(response) {

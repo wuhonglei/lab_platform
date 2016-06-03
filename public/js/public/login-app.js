@@ -19,7 +19,6 @@ angular.module('userApp', [])
                     // 请求成功  
                     if (response.data.success) {
                         // 登陆成功
-                        console.info(response.data);
                         var token = response.data.token;
                         var identity = response.data.identity;
                         $window.localStorage['token'] = token;

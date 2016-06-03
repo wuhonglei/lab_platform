@@ -98,6 +98,7 @@ module.exports.modifyPassWord = function(req, res) {
             // 如果该用户不存在
             res.status(401).json({
                 success: false,
+                notExist: true,
                 message: '密码错误'
             });
         }
@@ -118,27 +119,28 @@ module.exports.sendVerifyCode = function(req, res) {
         }
         if (user != null) {
             // 生成 6 位数的随机数字, 作为验证码发送给用户
-            var CODE = Math.round(Math.random() * 1000000);
+            var CODE = Math.round(100000 + Math.random() * 90000);
             // 如果用户存在, 发送验证码到用户邮箱
             // create reusable transporter object using the default SMTP transport
             var smtpTransport = nodemailer.createTransport({
-                host: 'smtp.126.com',
+                host: 'smtp.163.com',
                 port: 465,
                 secure: true, // use SSL
                 auth: {
-                    user: "whl1017368065@126.com", // 账号
+                    user: "lab_csu_edu_cn@163.com", // 账号
                     pass: "WHL1993105" // 密码
                 }
             });
             // setup e-mail data with unicode symbols
             var mailOptions = {
-                from: "实验管理平台 <whl1017368065@126.com>",
+                from: "实验管理平台 <lab_csu_edu_cn@163.com>",
                 to: email,
                 subject: "密码重置",
                 html: '<p>该邮件来自于中南大学实验管理平台, 重置密码的验证码是 <b>' + CODE + '</b></p>' // html body: "加油"
             }
-            smtpTransport.sendMail(mailOptions, function(error, response) {
-                if (error) {
+            smtpTransport.sendMail(mailOptions, function(err, response) {
+                if (err) {
+                    console.error("错误:", err)
                     return res.status(404).json({
                         success: false,
                         message: "验证码发送失败"
@@ -157,7 +159,7 @@ module.exports.sendVerifyCode = function(req, res) {
             // 该用户不存在
             return res.status(401).json({
                 success: false,
-                message: "该用户不存在"
+                notExist: true
             });
         }
     });
@@ -190,8 +192,6 @@ module.exports.resetPassword = function(req, res) {
                     message: '验证码已过期, 请重新获取'
                 });
             }
-            console.log('code', code);
-            console.log('resetCode', decoded.code);
             if (code == decoded.code) {
                 user.setPassword(password);
                 // 让验证码立即过期, 不能重复验证
@@ -207,6 +207,12 @@ module.exports.resetPassword = function(req, res) {
                         success: true,
                         message: "密码修改成功"
                     });
+                });
+            } else {
+                // 验证码不正确
+                return res.status(401).json({
+                    success: false,
+                    notCorrect: true
                 });
             }
         });

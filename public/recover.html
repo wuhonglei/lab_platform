@@ -14,6 +14,7 @@
 </head>
 
 <body ng-controller="PasswordCtrl">
+    <div id="alertContainer"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -25,31 +26,49 @@
                         <hr>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="email" class="form-control" placeholder="注册时的邮箱" ng-model="reset.email">
-                                <span class="input-group-btn">
-        <button class="btn btn-default btn-height" type="button" ng-click="sendVerifyCode(reset.email)">发送验证码</button>
-      </span>
-                            </div>
-                            <!-- /input-group -->
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="验证码" ng-disabled="!verifyCode" ng-model="reset.code">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="新密码" ng-model="reset.newPasswd">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码" ng-model="reset.confirmPasswd">
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3">
-                                    <input type="submit" name="modify-submit" id="modify-submit" tabindex="4" class="form-control btn btn-register" value="确认修改" ng-click="resetPassword(reset)">
+                        <form name="form" role="form" ng-submit="resetPassword(reset, form)" novalidate>
+                            <div class="form-group">
+                                <div class="input-group" ng-class="{'has-error': sendCode && form.email.$invalid}">
+                                    <input type="email" name="email" class="form-control" placeholder="注册时的邮箱" required autofocus ng-model="reset.email">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-height" type="button" ng-click="sendVerifyCode(reset.email)" ng-bind-template="{{timeCounter}}{{timeDesc}}" ng-disabled="hasSend"></button></span>
+                                </div>
+                                <div ng-if="sendCode" ng-messages="form.email.$error" class="error-color">
+                                    <ng-messages-include src="partials/public/messages.html"></ng-messages-include>
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group" ng-class="{'has-error': modifyG && form.code.$invalid}">
+                                <input type="text" name="code" class="form-control" placeholder="验证码" ng-disabled="!verifyCode" ng-model="reset.code" ng-pattern='/[0-9]{6}/'>
+                                <div ng-if="modify" ng-messages="form.code.$error" class="help-block">
+                                    <p ng-message="pattern">长度必须为六位数</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="新密码" ng-model="reset.newPasswd">
+                            </div>
+                            <div class="form-group" ng-class="{'has-error': modify && reset.newPasswd != reset.confirmPasswd}">
+                                <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="确认密码" ng-model="reset.confirmPasswd">
+                                <div ng-show="modify && reset.newPasswd != reset.confirmPasswd" class="help-block">
+                                    <p>两次密码输入不一致</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="modify-submit" id="modify-submit" tabindex="4" class="form-control btn btn-register" value="确认修改">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="text-center">
+                                            <a href="login.html" tabindex="5" class="forgot-password">前往登陆/注册?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -59,8 +78,11 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
     <!-- 自定义密码重置js -->
     <script src="js/public/reset.js"></script>
+    <script src="js/lib/angular-messages.js"></script>
 </body>
 
 </html>

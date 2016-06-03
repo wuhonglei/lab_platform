@@ -1,5 +1,12 @@
 /* 教师 css */
 
+
+/*修改密码 错误字体*/
+
+.error-color {
+    color: #a94442;
+}
+
 .input-size {
     width: 40px;
     padding-left: 10px;
@@ -10,6 +17,12 @@
 
 .header-border {
     border-bottom: 1px solid #eee;
+}
+
+#alertContainer {
+    position: absolute;
+    top: 52px;
+    right: 50px;
 }
 
 .main .li-inline li {

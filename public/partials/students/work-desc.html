@@ -7,7 +7,8 @@
                 <th>实验名称</th>
                 <th>指导老师</th>
                 <th>选择日期</th>
-                <th>已提交作业</th>
+                <th>作业提交日期</th>
+                <!-- <th>已提交作业</th> -->
                 <th>提交作业</th>
                 <th>预览作业</th>
                 <th>分数</th>
@@ -18,8 +19,9 @@
                 <td ng-bind="lab.labName"></td>
                 <td ng-bind="lab.teacherName"></td>
                 <td ng-bind="lab.choosedDate.substr(0, 10)"></td>
-                <td ng-if="lab.isPost">是</td>
-                <td ng-if="!lab.isPost">否</td>
+                <td ng-bind="lab.postDate.substr(0, 10)"></td>
+<!--                 <td ng-if="lab.isPost">是</td>
+                <td ng-if="!lab.isPost">否</td> -->
                 <td>
                     <button type="file" class="btn btn-sm" ng-class="{'btn-success': !lab.isMarked}" accept="application/pdf" ng-model="pdf" ngf-select="uploadFiles(pdf, $index)" ng-disabled="lab.isMarked">上传PDF</button>
                 </td>

@@ -1,9 +1,9 @@
 // 新建 module
-var myApp = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'textAngular', 'angularSpectrumColorpicker']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'textAngular', 'angularSpectrumColorpicker', 'mgcrea.ngStrap.alert']);
 
 // 设置http默认的头部, 认证token是否过期
 myApp.run(function($http, $window, $rootScope, Authentication) {
-    $http.defaults.headers.common['x-access-token'] = $window.localStorage ['token'];
+    $http.defaults.headers.common['x-access-token'] = $window.localStorage['token'];
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if (!Authentication.isLoggedIn()) {
             console.info("重新登陆");

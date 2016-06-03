@@ -3,3 +3,13 @@
 .btn-height {
     height: 45px !important;
 }
+
+.error-color {
+    color: #a94442;
+}
+
+#alertContainer {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}

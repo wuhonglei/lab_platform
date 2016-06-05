@@ -42,32 +42,34 @@
                 <h4 class="modal-title">添加实验</h4>
             </div>
             <div class="modal-body">
-                <form role="form" name="addForm">
-                    <div class="form-group">
+                <form role="form" name="addForm" novalidate>
+                    <div class="form-group" ng-class="{'has-error': addSubmited && addForm.labName.$invalid}">
                         <label for="lab-name">实验名称</label>
-                        <input type="text" class="form-control" id="lab-name" ng-model="labItem.name">
+                        <input type="text" class="form-control" name="labName" ng-model="labItem.name" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': addSubmited && addForm.labDesc.$invalid}">
                         <label for="lab-desc">实验描述</label>
-                        <textarea class="form-control" id="lab-desc" ng-model="labItem.description"></textarea>
+                        <textarea class="form-control" name="labDesc" rows="3" ng-model="labItem.description" required></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error': addSubmited && addForm.labImage.$invalid}">
                         <label for="lab-image">缩略图</label>
-                        <input type="file" id="lab-image" name="labImage" ngf-select="" ng-model="labItem.image" ngf-accept="'image/*'" ngf-max-size="2MB" ngf-resize="{width: 210, height: 150 }">
+                        <input type="file" name="labImage" ngf-select="" ng-model="labItem.image" ngf-accept="'image/*'" ngf-max-size="2MB" ngf-resize="{width: 210, height: 150 }" required>
                     </div>
                     <div class="form-group">
                         <label fro="is-public">是否允许其他老师引用该实验
                             <input type="checkbox" ng-model="labItem.isPublic">
                         </label>
                     </div>
-                    <select ng-if="myLab" class="form-control" ng-options="category.name as category.name for category in categories" ng-model="labItem.labCategory">
-                        <option value="">请选择实验类别</option>
-                    </select>
+                    <div class="form-group" ng-class="{'has-error': addSubmited && addForm.labCategory.$invalid}">
+                        <select name="labCategory" ng-if="myLab" class="form-control" ng-options="category.name as category.name for category in categories" ng-model="labItem.labCategory" required>
+                            <option value="">请选择实验类别</option>
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" ng-click="createLabItem(labItem)">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelCreateLabItem()">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="createLabItem(labItem, addForm.$invalid)">保存</button>
             </div>
         </div>
     </div>

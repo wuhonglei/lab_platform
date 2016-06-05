@@ -5,6 +5,7 @@ var User = require('../../models/user');
 var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 var secret = require('../../config/config.js');
+var async = require('async');
 
 // 用户注册
 module.exports.register = function(req, res) {
@@ -15,16 +16,77 @@ module.exports.register = function(req, res) {
     user.email = req.body.email;
     user.isTeacher = req.body.isTeacher;
 
-    // 密码加密后存储
-    user.setPassword(req.body.password);
-
-    user.save(function(err) {
-        var token = user.generateJwt();
-        res.status(200);
-        res.json({
-            "success": true,
-            "token": token
+    // 先查询该用户是否已经注册
+    // 异步任务集合
+    var asyncSearchTasks = [];
+    var isNumberExist = isEmailExist = false;
+    asyncSearchTasks.push(function(callback) {
+        // 先查询学号是否已经存在
+        User.findOne({ number: user.number }, function(err, user) {
+            if (err) {
+                return callback(!null, err);
+            }
+            if (!!user) {
+                // 学号已经注册
+                isNumberExist = true;
+                callback(null, true);
+            } else {
+                // 学号没有注册
+                callback(null, false);
+            }
         });
+    });
+
+    asyncSearchTasks.push(function(callback) {
+        // 查询邮箱是否已经注册
+        User.findOne({ email: user.email }, function(err, user) {
+            if (err) {
+                return callback(!null, err);
+            }
+            if (!!user) {
+                // 邮箱已经注册
+                isEmailExist = true
+                callback(null, true);
+            } else {
+                // 邮箱没有注册
+                callback(null, false);
+            }
+        });
+    });
+
+    // 执行异步任务集合
+    // 执行异步任务集合
+    async.parallel(asyncSearchTasks, function(err, result) {
+        if (err) {
+            return res.status(404).json({
+                success: false,
+                message: "注册失败"
+            });
+        }
+        if (!isNumberExist && !isEmailExist) {
+            // 密码加密后存储
+            user.setPassword(req.body.password);
+            user.save(function(err) {
+                if (err) {
+                    return res.status(404).json({
+                        success: false,
+                        message: '注册失败'
+                    });
+                }
+                var token = user.generateJwt();
+                res.status(200);
+                res.json({
+                    "success": true,
+                    "token": token
+                });
+            });
+        } else {
+            return res.status(401).json({
+                success: false,
+                isNumberExist: isNumberExist,
+                isEmailExist: isEmailExist
+            });
+        }
     });
 };
 
@@ -42,14 +104,17 @@ module.exports.login = function(req, res) {
         if (user) {
             // 如果该用户存在
             var token = user.generateJwt();
-            res.status(200);
-            res.json({
+            res.status(200).json({
                 "success": true,
                 "token": token
             });
         } else {
             // 如果该用户不存在
-            res.status(401).json(info);
+            res.status(401).json({
+                success: false,
+                notCorrect: true,
+                message: '用户名或密码错误'
+            });
         }
     })(req, res);
 

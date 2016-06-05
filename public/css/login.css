@@ -117,11 +117,23 @@ body {
     padding-right: 20px;
 }
 
+
 /* 登陆身份选择 */
+
 .align-to-left {
     padding-left: 0 !important;
 }
 
 .close-to-right {
     margin-right: -40px;
+}
+
+#alertContainer {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+
+.error-color {
+    color: #a94442;
 }

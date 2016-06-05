@@ -28,7 +28,7 @@ angular.module('myApp')
             $http.put(url, data)
                 .then(function(response) {
                     // 请求成功
-                    if (response.status.success) {
+                    if (response.data.success) {
                         deferred.resolve(response);
                     } else {
                         deferred.reject(response);

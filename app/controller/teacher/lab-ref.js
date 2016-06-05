@@ -210,8 +210,9 @@ module.exports.deleteRefName = function(req, res) {
                 }
             });
         } else {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
+                beenChoosed: true,
                 message: "有学生已选择该实验, 您无法删除"
             });
         }
@@ -241,5 +242,3 @@ module.exports.hasRefedLab = function(req, res) {
         });
     });
 };
-
-

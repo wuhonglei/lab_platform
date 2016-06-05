@@ -2,21 +2,22 @@
 angular.module('myApp')
     .factory('Alert', ['$alert', function($alert) {
         var showAlert = function(option) {
-            if (option === undefined) {
+            if (option == undefined) {
                 option = {};
             }
             title = option.title || '';
             content = option.content || '执行成功';
             container = option.container || '#alertContainer';
             type = option.type || 'success';
-
+            duration　 = 　option.duration || 3;
             // 配置项
             var alertOption = {
+                // placement: placement,
                 title: title,
                 content: content,
                 container: container,
                 type: type,
-                duration: 3,
+                duration: duration　,
                 show: false
             };
 

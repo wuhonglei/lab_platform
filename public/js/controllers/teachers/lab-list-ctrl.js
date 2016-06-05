@@ -1,7 +1,7 @@
 // 左侧导航栏 -- 
 angular.module('myApp')
-    .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem',
-        function($scope, $routeParams, $filter, PersonalInfo, LabItem) {
+    .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem', 'Alert',
+        function($scope, $routeParams, $filter, PersonalInfo, LabItem, Alert) {
             // 获取实验列表
             var category = $routeParams.categoryID;
             var url;
@@ -28,12 +28,16 @@ angular.module('myApp')
                 });
 
             // 添加新实验
-            $scope.createLabItem = function(data) {
-                if ($scope.labItem.image && $scope.addForm.labImage.$valid) {
+            $scope.addSubmited = false;
+            $scope.createLabItem = function(data, invalid) {
+                $scope.addSubmited = true;
+                if (invalid) {
+                    // 表单输入无效
+                    return;
+                }
+                if ($scope.labItem.image) {
                     if (!$scope.myLab) {
                         data.labCategory = category;
-                    } else if (data.labCategory == null) {
-                        return;
                     }
                     data.createdByName = PersonalInfo.name;
                     data.createdByNumber = PersonalInfo.number;
@@ -45,6 +49,8 @@ angular.module('myApp')
                                 var item = response.data.labItem;
                                 $scope.labItems.unshift(item);
                                 $('#create-lab-modal').modal('hide');
+                                Alert.show({ content: '实验创建成功' });
+                                $scope.addSubmited = false;
                                 $scope.labItem = {};
                             }
                         }, function(response) {
@@ -52,6 +58,12 @@ angular.module('myApp')
                             console.error(response);
                         });
                 }
+            };
+
+            // 创建实验 -- 取消
+            $scope.cancelCreateLabItem = function() {
+                $scope.addSubmited = false;
+                $scope.labItem = {};
             };
 
             // checked number of the checkbox
@@ -76,7 +88,8 @@ angular.module('myApp')
             // edit the lab item
             $scope.getLabItem = function() {
                 // the index of the edit lab item 
-                var index = INDEX[INDEX.length - 1];
+                // get the last element of the INDEX array
+                var index = INDEX.slice(-1);
                 var originItem = $scope.labItems[index];
                 $scope.update = {
                     name: originItem.name,
@@ -92,14 +105,20 @@ angular.module('myApp')
                                 for (var key in item) {
                                     $scope.labItems[index][key] = item[key];
                                 }
-                                $scope.labItems[index].isChecked = false;
+                                // 遍历勾选的下标数组, 将实验列表项, 取消勾选
+                                INDEX.forEach(function(index) {
+                                    $scope.labItems[index].isChecked = false;
+                                });
+                                $('#edit-lab-modal').modal('hide');
                                 // 清空checked item index array
                                 INDEX.length = 0;
-                                $('#edit-lab-modal').modal('hide');
+                                Alert.show({ content: '实验修改成功' });
+
                             }
                         }, function(response) {
                             // 请求失败
                             console.error(response);
+                            Alert.show({ content: '实验修改失败', type: 'danger' });
                         });
                 };
             };
@@ -128,28 +147,46 @@ angular.module('myApp')
                             var hasDeleted = data.hasDeleted;
                             var beenChoosed = data.beenChoosed;
                             var beenRefed = data.beenRefed;
+                            $('#delete-lab-modal').modal('hide');
                             // 取消已经被其他选择的实验勾选
                             for (var i = 0, len = beenChoosed.length; i < len; i++) {
                                 $scope.labItems[beenChoosed[i]].isChecked = false;
+                                var option = {
+                                    title: '删除失败',
+                                    content: $scope.labItems[beenChoosed[i]].name + ' 已经有学生选择该实验',
+                                    type: 'warning',
+                                    duration: 5
+                                };
+                                Alert.show(option);
                             }
                             // 取消已经被其他老师引用的实验勾选
                             for (var i = 0, len = beenRefed.length; i < len; i++) {
                                 $scope.labItems[beenRefed[i]].isChecked = false;
+                                var option = {
+                                    title: '删除失败',
+                                    content: $scope.labItems[beenRefed[i]].name + ' 已经有老师选择该实验',
+                                    type: 'warning',
+                                    duration: 5
+                                };
+                                Alert.show(option);
                             }
                             // 删除允许被删除的实验
                             // 将允许删除的数组, 按照升序排序
                             hasDeleted.sort(function(a, b) {
                                 return a - b;
                             });
-                            var INCREASE = 0;
-                            for (var i = 0, len = hasDeleted.length; i < len; i++) {
+                            for (var i = INCREASE = 0, len = hasDeleted.length; i < len; i++) {
+                                var option = {
+                                    content: $scope.labItems[hasDeleted[i] - INCREASE].name + '　成功删除',
+                                    duration: 5
+                                };
+                                Alert.show(option);
                                 $scope.labItems.splice(hasDeleted[i] - INCREASE, 1);
                                 INCREASE++;
                             }
                             // 隐藏模态框
                             // 清空checked item index array
                             INDEX.length = 0;
-                            $('#delete-lab-modal').modal('hide');
                         }, function(response) {
                             // 请求失败
                             console.error(response);

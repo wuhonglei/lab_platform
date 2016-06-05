@@ -25,6 +25,12 @@
     right: 50px;
 }
 
+#detail-alert-container {
+    position: absolute;
+    top: 52px;
+    right: 150px;
+}
+
 .main .li-inline li {
     display: inline-block;
 }

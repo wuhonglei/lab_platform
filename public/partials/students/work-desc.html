@@ -1,6 +1,16 @@
 <!-- 学生界面: 实验作业概览 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header">实验作业概览</h2>
+    <h2 class="page-header">实验作业概览
+    <div class="col-sm-2 pull-right">
+        <select class="form-control" required="required" ng-model="filCondition" ng-change="filterItem(filCondition)">
+            <option value="">请选择</option>
+            <option value='1'>已提交</option>
+            <option value='2'>未提交</option>
+            <option value='3'>已打分</option>
+            <option value='4'>未打分</option>
+        </select>
+    </div>
+    </h2>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -15,12 +25,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="lab in labs as result">
+            <tr ng-repeat="lab in labs | tableFilter:filCondition as result track by $index">
                 <td ng-bind="lab.labName"></td>
                 <td ng-bind="lab.teacherName"></td>
                 <td ng-bind="lab.choosedDate.substr(0, 10)"></td>
                 <td ng-bind="lab.postDate.substr(0, 10)"></td>
-<!--                 <td ng-if="lab.isPost">是</td>
+                <!--                 <td ng-if="lab.isPost">是</td>
                 <td ng-if="!lab.isPost">否</td> -->
                 <td>
                     <button type="file" class="btn btn-sm" ng-class="{'btn-success': !lab.isMarked}" accept="application/pdf" ng-model="pdf" ngf-select="uploadFiles(pdf, $index)" ng-disabled="lab.isMarked">上传PDF</button>

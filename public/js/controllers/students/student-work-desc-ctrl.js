@@ -38,5 +38,6 @@ angular.module('myApp')
             $scope.previewPDF = function(filename) {
                 PDF.view(filename);
             };
+
         }
     ]);

@@ -103,11 +103,17 @@ angular.module('userApp', ['ngMessages', 'mgcrea.ngStrap.alert'])
                 }, function(response) {
                     // 请求失败
                     console.info(response);
+                    var FALSE = 1;
                     if (response.data.isEmailExist) {
                         Alert.show({ title: '注册失败', content: '邮箱已存在', type: 'warning' });
+                        FALSE = 0;
                     }
                     if (response.data.isNumberExist) {
-                        Alert.show({ title: '注册成功', content: '学号/教工号已存在', type: 'warning' });
+                        Alert.show({ title: '注册失败', content: '学号/教工号已存在', type: 'warning' });
+                        FALSE = 0;
+                    }
+                    if (FALSE) {
+                        Alert.show({ title: '注册失败', type: 'danger' });
                     }
                     $scope.registerSubmited = false;
                 });

@@ -1,8 +1,16 @@
 <!-- 教师界面: 学生实验作业概览 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header">学生作业概览</h2>
-    <!--     <button class="btn btn-primary" ng-click="saveLabItem()">保存实验列表</button>
-    <button class="btn btn-primary" ng-click="updateLabItem()">更新实验列表</button> -->
+    <h2 class="page-header">学生作业概览
+    <div class="col-sm-2 pull-right">
+        <select class="form-control" required="required" ng-model="search">
+            <option value="">请选择</option>
+            <option value='3'>已打分</option>
+            <option value='4'>未打分</option>
+            <option value='1'>已提交作业</option>
+            <option value='2'>未提交作业</option>
+        </select>
+    </div>
+    </h2>
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
@@ -16,8 +24,8 @@
                 <th>提交</th>
             </tr>
         </thead>
-        <tbody> 
-            <tr ng-repeat="lab in labs as result">
+        <tbody>
+            <tr ng-repeat="lab in labs | tableFilter:search as result track by $index">
                 <td ng-bind="lab.studentName"></td>
                 <td ng-bind="lab.studentNumber"></td>
                 <td ng-bind="lab.labName"></td>

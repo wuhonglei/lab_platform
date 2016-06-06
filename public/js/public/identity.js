@@ -12,7 +12,7 @@
             'js/public/students-app.js', 'js/services/students/lab-detail.js', 'js/services/students/lab-ref.js',
             'js/services/students/lab-select.js', 'js/services/students/lab-item.js',
             'js/controllers/students/lab-list-ctrl.js', 'js/controllers/students/lab-detail-ctrl.js',
-            'js/controllers/students/student-work-desc-ctrl.js'
+            'js/controllers/students/student-work-desc-ctrl.js', 'js/filters/students/work-select.js'
         ],
         teacher: [
             'js/public/teachers-app.js', 'js/services/teachers/lab-item.js', 'js/services/teachers/lab-detail.js',
@@ -21,7 +21,7 @@
             'js/controllers/teachers/student-work-desc-ctrl.js', 'js/controllers/teachers/lab-detail-ctrl.js',
             'bower_components/textAngular/dist/textAngular-rangy.min.js', 'bower_components/spectrum/spectrum.js',
             'bower_components/textAngular/dist/textAngular-sanitize.min.js', 'bower_components/textAngular/dist/textAngular.min.js',
-            'bower_components/textAngular/dist/textAngular.min.js',
+            'bower_components/textAngular/dist/textAngular.min.js', 'js/filters/teachers/student-select.js',
             'js/directives/teachers/textAngular-dropdownToggle.js',
             'bower_components/angular-spectrum-colorpicker/dist/angular-spectrum-colorpicker.min.js'
         ]

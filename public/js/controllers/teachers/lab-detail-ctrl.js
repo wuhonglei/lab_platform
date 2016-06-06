@@ -1,10 +1,9 @@
    angular.module('myApp')
        .config(function($provide) {
-           $provide.decorator('taOptions', ['taRegisterTool', '$delegate',
-               function(taRegisterTool, taOptions) {
+           $provide.decorator('taOptions', ['taRegisterTool', '$modal', '$delegate',
+               function(taRegisterTool, $modal, taOptions) {
                    // $delegate is the taOptions we are decorating
                    // register the tool with textAngular
-
                    taRegisterTool('backgroundColor', {
                        display: "<div spectrum-colorpicker class='btn-xs' ng-model='color' on-change='!!color && action(color)' format='\"hex\"' options='options'></div>",
                        action: function(color) {
@@ -69,7 +68,6 @@
                        ]
                    });
 
-                   // add the button to the default toolbar definition
                    taOptions.toolbar[1].push('backgroundColor', 'fontColor', 'fontSize');
                    return taOptions;
                }
@@ -95,7 +93,7 @@
                    });
 
                // 获取范文的实验类目及该类目下具体的实验项
-               $scope.isEditing = false;
+               $scope.isEdit = $scope.isEditing = false;
                // 按钮状态变换
                $scope.toggleEdit = function(event) {
                    // 点击编辑按钮
@@ -118,6 +116,7 @@
                    $(curDom).removeClass(obj[value].removeClass);
                    $(curDom).addClass(obj[value].addClass);
                    $scope.isEditing = !$scope.isEditing;
+                   $scope.isEdit = $scope.isEditing;
                    if (value === '保存' && originHtml != $scope.htmlVariable) {
                        LabDetail.update($routeParams.expItemId, $scope.htmlVariable, createdByNumber)
                            .then(function(response) {

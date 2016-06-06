@@ -24,12 +24,12 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'partials/teacher/lab-item.html',
             controller: 'CategoryNavCtrl'
         })
-        .when('/:category/:expItemId', {
-            templateUrl: 'partials/teacher/lab-detail.html',
-            controller: 'LabDetailCtrl'
-        })
         .when('/account/modify-password', {
             templateUrl: 'partials/public/modify-password.html',
             controller: 'ModifyPasswordCtrl'
+        })
+        .when('/:category/:expItemId', {
+            templateUrl: 'partials/teacher/lab-detail.html',
+            controller: 'LabDetailCtrl'
         });
 }]);

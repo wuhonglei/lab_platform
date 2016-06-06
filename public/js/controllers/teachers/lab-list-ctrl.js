@@ -1,19 +1,20 @@
 // 左侧导航栏 -- 
 angular.module('myApp')
-    .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem', 'Alert',
-        function($scope, $routeParams, $filter, PersonalInfo, LabItem, Alert) {
+    .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem', 'Alert', 'Sidebar',
+        function($scope, $routeParams, $filter, PersonalInfo, LabItem, Alert, Sidebar) {
             // 获取实验列表
             var category = $routeParams.categoryID;
+            $scope.navName = Sidebar.name(category);
             var url;
             if (category != 'my-labs') {
                 url = '/teacher/' + category + '/get-items';
             } else {
                 $scope.myLab = true;
-                $scope.categories = [
-                    { name: 'software-security-labs' },
-                    { name: 'network-security-labs' },
-                    { name: 'web-security-labs' }
-                ];
+                // 获取左侧导航的数据
+                var categories = Sidebar.show();
+                // 删除第一条数据 (我的导航)
+                categories.shift();
+                $scope.categories = categories;
                 url = '/teacher/get-personal-labs';
             }
             LabItem.get(url)
@@ -93,7 +94,9 @@ angular.module('myApp')
                 var originItem = $scope.labItems[index];
                 $scope.update = {
                     name: originItem.name,
-                    description: originItem.description
+                    description: originItem.description,
+                    isPublic: originItem.isPublic,
+                    labCategory: originItem.labCategory
                 };
                 $scope.updateLabItem = function(update) {
                     LabItem.update(originItem, update)
@@ -122,6 +125,8 @@ angular.module('myApp')
                         });
                 };
             };
+
+            
 
             // delete the lab item
             $scope.getDeltedLabItem = function() {

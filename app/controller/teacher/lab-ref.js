@@ -11,7 +11,6 @@ module.exports.createLabRef = function(res, labItem) {
     var labRef = new LabRef();
     labRef.expItemId = labItem.expItemId;
     labRef.createdByName = labItem.createdByName;
-    labRef.isPublic = labItem.isPublic;
     labRef.labName = labItem.name;
     labRef.refName = new Array({
         name: labItem.createdByName,

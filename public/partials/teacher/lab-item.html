@@ -1,6 +1,6 @@
 <!-- 教师界面: 实验列表 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header">实验列表</h2>
+    <h2 class="page-header">{{navName}}</h2>
     <ul class="pull-right li-inline">
         <li>
             <button class="btn btn-primary" data-toggle="modal" data-target='#create-lab-modal'><i class="fa fa-plus-square"></i> 添加实验</button>
@@ -56,18 +56,18 @@
                         <input type="file" name="labImage" ngf-select="" ng-model="labItem.image" ngf-accept="'image/*'" ngf-max-size="2MB" ngf-resize="{width: 210, height: 150 }" required>
                     </div>
                     <div class="form-group">
-                        <label fro="is-public">是否允许其他老师引用该实验
+                        <label>是否允许其他老师引用该实验
                             <input type="checkbox" ng-model="labItem.isPublic">
                         </label>
                     </div>
-                    <div class="form-group" ng-class="{'has-error': addSubmited && addForm.labCategory.$invalid}">
-                        <select name="labCategory" ng-if="myLab" class="form-control" ng-options="category.name as category.name for category in categories" ng-model="labItem.labCategory" required>
+                    <div class="form-group col-sm-4 padding-0" ng-class="{'has-error': addSubmited && addForm.labCategory.$invalid}">
+                        <select name="labCategory" ng-if="myLab" class="form-control" ng-options="category.select as category.label for category in categories" ng-model="labItem.labCategory" required>
                             <option value="">请选择实验类别</option>
                         </select>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer clearfix">
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelCreateLabItem()">取消</button>
                 <button type="button" class="btn btn-primary" ng-click="createLabItem(labItem, addForm.$invalid)">保存</button>
             </div>
@@ -97,9 +97,18 @@
                         <label for="lab-image">缩略图(<span class="small">不选,表示不更改图片</span>)</label>
                         <input type="file" id="lab-image" ngf-select="" ng-model="update.image" ngf-accept="'image/*'" ngf-max-size="2MB" ngf-resize="{width: 210, height: 150 }">
                     </div>
+                    <div class="form-group">
+                        <label>是否允许其他老师引用该实验
+                            <input type="checkbox" ng-model="update.isPublic">
+                        </label>
+                    </div>
+                    <div class="form-group col-sm-4 padding-0" ng-class="{'has-error': addSubmited && addForm.labCategory.$invalid}">
+                        <select name="labCategory" class="form-control" ng-options="category.select as category.label for category in categories" ng-model="update.labCategory" required>
+                        </select>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer clearfix">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" ng-click="updateLabItem(update)">保存</button>
             </div>

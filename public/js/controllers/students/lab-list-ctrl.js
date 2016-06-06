@@ -1,10 +1,10 @@
 // 左侧导航栏
 angular.module('myApp')
-    .controller('CategoryNavCtrl', ['$scope', '$routeParams', 'LabItem',
-        function($scope, $routeParams, LabItem) {
+    .controller('CategoryNavCtrl', ['$scope', '$routeParams', 'LabItem', 'Sidebar',
+        function($scope, $routeParams, LabItem, Sidebar) {
             // 获取访问的实验类目
             var category = $routeParams.categoryID;
-            $scope.navName = category;
+            $scope.navName = Sidebar.name(category);
             var url;
             if (category != 'my-labs') {
                 url = '/student/' + category + '/get-items';

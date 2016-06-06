@@ -1,7 +1,7 @@
 // Myctrl 根控制器
 angular.module('myApp')
-    .controller('MyCtrl', ['$scope', 'Authentication', 'PersonalInfo',
-        function($scope, Authentication, PersonalInfo) {
+    .controller('MyCtrl', ['$scope', 'Authentication', 'PersonalInfo', 'Sidebar',
+        function($scope, Authentication, PersonalInfo, Sidebar) {
             // 动态加载js文件
             $scope.loadScript = function(url, type, charset) {
                 if (type === undefined) type = 'text/javascript';
@@ -35,5 +35,9 @@ angular.module('myApp')
                 Authentication.logout();
                 location.href = '/login.html';
             };
+
+            // 左侧导航栏数据
+            $scope.categories = Sidebar.show();
+
         }
     ]);

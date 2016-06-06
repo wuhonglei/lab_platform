@@ -48,7 +48,7 @@ angular.module('myApp')
             };
 
             // 更新实验item
-            var updateLabItem = function(originItem, curItem) {
+            var updateLabItem = function(originItem, update) {
                 var deferred = $q.defer();
                 // 判断该用户是否是这个实验的原始创建者
                 if (originItem.createdByNumber != PersonalInfo.number) {
@@ -60,16 +60,16 @@ angular.module('myApp')
                     });
                 } else {
                     var url = '/teacher/update-item';
-                    var keyArr = ['name', 'description'];
+                    var keyArr = ['name', 'description', 'isPublic', 'labCategory'];
                     var data = { length: 0 };
                     for (var i = 0, len = keyArr.length; i < len; i++) {
-                        if (originItem[keyArr[i]] != curItem[keyArr[i]]) {
-                            data[keyArr[i]] = curItem[keyArr[i]];
+                        if (originItem[keyArr[i]] != update[keyArr[i]]) {
+                            data[keyArr[i]] = update[keyArr[i]];
                             data.length++;
                         }
                     }
-                    if (curItem.image != undefined) {
-                        data['image'] = curItem.image;
+                    if (update.image != undefined) {
+                        data['image'] = update.image;
                         data.length++;
                     }
                     if (data.length > 0) {
@@ -84,7 +84,6 @@ angular.module('myApp')
                         upload.then(function(response) {
                             // file is uploaded successfully
                             if (response.data.success) {
-                                var update = response.data.labItem;
                                 response.data = {
                                     success: true,
                                     update: update

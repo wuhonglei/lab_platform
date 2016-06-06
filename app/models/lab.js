@@ -87,10 +87,6 @@ var labRefSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    isPublic: {
-        type: Boolean,
-        default: false
-    },
     labName: {
         type: String,
         required: true

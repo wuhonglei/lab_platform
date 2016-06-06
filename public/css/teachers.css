@@ -57,7 +57,6 @@
 
 /*实验详情*/
 
-
 /*
     displaying the editor in a sensible fashion:
 */
@@ -85,30 +84,8 @@
     clear: both;
 }
 
-
-/*[contenteditable="true"]:hover,
-[contenteditable="true"]:focus */
-
-[contenteditable="true"] {
-    background: #FFFFD3;
-    outline: 2px dashed #0090D2;
-}
-
-#content_wrapper {
-    padding: 0 20px 20px 20px;
-}
-
-#content_wrapper .img-size {
-    width: 241.922px;
-    height: 150px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-}
-
-#content_wrapper h3 {
-    border-bottom: 1px solid #eee;
-    /*紫色*/
-    color: #FF6600;
+.padding-0 {
+    padding-left: 0;
 }
 
 .form-margin-bottom {

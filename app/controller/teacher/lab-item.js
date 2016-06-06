@@ -53,31 +53,25 @@ module.exports.updateLabItem = function(req, res) {
                 });
             } else {
                 if (labItem != null) {
-                    //   更新实验引用表
-                    if (req.body.isPublic != undefined) {
-                        // isPublic 被改变后, 更新实验引用表中 isPublic 的值
-                        labRef.updateLabRef(res, labItem);
-                    } else {
-                        labItem.update(update, function(err) {
-                            if (err) {
-                                return res.status(404).json({
-                                    success: false,
-                                    message: '更新失败'
-                                });
-                            }
-                            res.status(200).json({
-                                success: true,
-                                labItem: update
+                    labItem.update(update, function(err) {
+                        if (err) {
+                            return res.status(404).json({
+                                success: false,
+                                message: '更新失败'
                             });
-                            // 更新图片, 删除原有图片
-                            if (update.thumbnail != undefined) {
-                                var path = '.' + imgItemPath + '/' + labItem.thumbnail;
-                                fs.unlink(path, function(err) {
-                                    return;
-                                });
-                            }
+                        }
+                        res.status(200).json({
+                            success: true,
+                            labItem: update
                         });
-                    }
+                        // 更新图片, 删除原有图片
+                        if (update.thumbnail != undefined) {
+                            var path = '.' + imgItemPath + '/' + labItem.thumbnail;
+                            fs.unlink(path, function(err) {
+                                return;
+                            });
+                        }
+                    });
                 } else {
                     return res.status(404).json({
                         success: false,

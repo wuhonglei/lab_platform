@@ -1,5 +1,5 @@
 // 新建 module
-var myApp = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'textAngular', 'angularSpectrumColorpicker', 'mgcrea.ngStrap.alert']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngFileUpload', 'textAngular', 'angularSpectrumColorpicker', 'mgcrea.ngStrap.alert', 'ui.bootstrap']);
 
 // 设置http默认的头部, 认证token是否过期
 myApp.run(function($http, $window, $rootScope, Authentication) {

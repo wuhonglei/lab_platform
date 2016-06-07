@@ -81,3 +81,19 @@ module.exports.getLabDetail = function(req, res) {
         }
     });
 };
+
+// 实验详情页面 upload image 
+module.exports.uploadImage = function(req, res) {
+    return res.status(200).json({
+        success: true,
+        image: req.file.filename
+    });
+};
+
+// 实验详情页面 upload file
+module.exports.uploadFile = function(req, res) {
+    return res.status(200).json({
+        success: true,
+        file: req.file.filename
+    });
+};

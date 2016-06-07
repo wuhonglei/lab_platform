@@ -85,7 +85,7 @@ angular.module('myApp')
                             if (response.data.success) {
                                 response.data = {
                                     success: true,
-                                    update: update
+                                    update: response.data.update
                                 };
                                 deferred.resolve(response);
                             } else {

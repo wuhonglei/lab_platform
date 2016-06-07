@@ -62,7 +62,7 @@ module.exports.updateLabItem = function(req, res) {
                         }
                         res.status(200).json({
                             success: true,
-                            labItem: update
+                            update: update
                         });
                         // 更新图片, 删除原有图片
                         if (update.thumbnail != undefined) {
@@ -205,7 +205,6 @@ module.exports.deleteLabs = function(req, res) {
                 LabRef.remove({ expItemId: expItemIdObj.expItemId }).exec();
                 hasDeleted.push(expItemIdObj.index);
                 LabItem.findOneAndRemove({ expItemId: expItemIdObj.expItemId }, function(err, labItem) {
-                    console.info("labItem = ", labItem);
                     if (labItem.thumbnail != undefined) {
                         var path = '.' + imgItemPath + '/' + labItem.thumbnail;
                         fs.unlink(path, function(err) {

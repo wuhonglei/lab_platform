@@ -101,7 +101,7 @@ angular.module('myApp')
                 $scope.updateLabItem = function(update) {
                     LabItem.update(originItem, update)
                         .then(function(response) {
-                            // 请求成功
+                            // 请求成功 
                             if (response.data.success) {
                                 var item = response.data.update;
                                 // 更新数据

@@ -1,9 +1,10 @@
    angular.module('myApp')
        .config(function($provide) {
-           $provide.decorator('taOptions', ['taRegisterTool', '$modal', '$delegate',
-               function(taRegisterTool, $modal, taOptions) {
+           $provide.decorator('taOptions', ['taRegisterTool', '$uibModal', '$delegate',
+               function(taRegisterTool, $uibModal, taOptions) {
                    // $delegate is the taOptions we are decorating
                    // register the tool with textAngular
+                   // 
                    taRegisterTool('backgroundColor', {
                        display: "<div spectrum-colorpicker class='btn-xs' ng-model='color' on-change='!!color && action(color)' format='\"hex\"' options='options'></div>",
                        action: function(color) {
@@ -22,6 +23,7 @@
                        },
                        color: "#fff"
                    });
+                   // 字体颜色
                    taRegisterTool('fontColor', {
                        display: "<spectrum-colorpicker class='btn-xs' trigger-id='{{trigger}}' ng-model='color' on-change='!!color && action(color)' format='\"hex\"' options='options'></spectrum-colorpicker>",
                        action: function(color) {
@@ -40,7 +42,7 @@
                        },
                        color: "#000"
                    });
-
+                   // 字体大小
                    taRegisterTool('fontSize', {
                        display: "<span class='bar-btn-dropdown dropdown'>" +
                            "<button class='btn btn-xs btn-blue dropdown-toggle' type='button' ng-disabled='showHtml()'><i class='fa fa-text-height'></i><i class='fa fa-caret-down'></i></button>" +
@@ -67,12 +69,108 @@
 
                        ]
                    });
+                   // upload image
+                   taRegisterTool('uploadImage', {
+                       buttontext: 'Upload Image',
+                       iconclass: "fa fa-image",
+                       action: function(deferred, restoreSelection) {
+                           $uibModal.open({
+                               controller: 'UploadImageModalInstance',
+                               templateUrl: 'partials/teacher/lab-detail-upload-image-modal.html'
+                           }).result.then(
+                               function(result) {
+                                   // upload success
+                                   restoreSelection();
+                                   document.execCommand('insertImage', true, result);
+                                   deferred.resolve();
+                               },
+                               function() {
+                                   // upload failed
+                                   deferred.resolve();
+                               }
+                           );
+                           return false;
+                       }
+                   });
+                   // upload file
+                   taRegisterTool('uploadFile', {
+                       buttontext: 'Upload File',
+                       iconclass: "fa fa-file",
+                       action: function(deferred, restoreSelection) {
+                           $uibModal.open({
+                               controller: 'UploadFileModalInstance',
+                               templateUrl: 'partials/teacher/lab-detail-upload-files-modal.html'
+                           }).result.then(
+                               function(result) {
+                                   // upload success
+                                   restoreSelection();
+                                   document.execCommand('createLink', true, result);
+                                   deferred.resolve();
+                               },
+                               function() {
+                                   // upload failed
+                                   deferred.resolve();
+                               }
+                           );
+                           return false;
+                       }
+                   });
 
+                   taOptions.toolbar[3].splice(1, 0, 'uploadImage');
+                   taOptions.toolbar[3].splice(3, 0, 'uploadFile');
                    taOptions.toolbar[1].push('backgroundColor', 'fontColor', 'fontSize');
                    return taOptions;
                }
            ]);
        })
+       // 图片上传
+       .controller('UploadImageModalInstance', ['$scope', '$uibModalInstance', 'Upload',
+           function($scope, $uibModalInstance, Upload) {
+
+               $scope.upload = function() {
+                   if (!!$scope.file) {
+
+                       Upload.upload({
+                           url: '/teacher/upload-image',
+                           data: { image: $scope.file }
+                       }).then(function(response) {
+                           // post success
+                           $scope.image = response.data.image;
+                       }, function(response) {
+                           // post failed 
+                       });
+                   }
+               };
+
+               $scope.insert = function() {
+                   $uibModalInstance.close($scope.image);
+               };
+           }
+       ])
+       // 文件上传
+       .controller('UploadFileModalInstance', ['$scope', '$uibModalInstance', 'Upload',
+           function($scope, $uibModalInstance, Upload) {
+               var filename;
+               $scope.upload = function() {
+                   if (!!$scope.file) {
+                       Upload.upload({
+                           url: '/teacher/upload-file',
+                           data: { file: $scope.file }
+                       }).then(function(response) {
+                           // post success
+                           $scope.filename = $scope.file.name;
+                           filename = response.data.file;
+                       }, function(response) {
+                           // post failed 
+                       });
+                   }
+               };
+
+               $scope.insert = function() {
+                   $uibModalInstance.close(filename);
+               };
+           }
+       ])
        .controller('LabDetailCtrl', ['$scope', '$routeParams', '$filter', 'LabDetail', 'LabRef', 'Alert',
            function($scope, $routeParams, $filter, LabDetail, LabRef, Alert) {
                var createdByNumber;

@@ -16,7 +16,7 @@
         ],
         teacher: [
             'js/public/teachers-app.js', 'js/services/teachers/lab-item.js', 'js/services/teachers/lab-detail.js',
-            'js/services/teachers/lab-ref.js',
+            'js/services/teachers/lab-ref.js', 'js/lib/angular-ui-modal/ui-bootstrap-custom-tpls-1.3.3.js',
             'js/services/teachers/lab-select.js', 'js/controllers/teachers/lab-list-ctrl.js',
             'js/controllers/teachers/student-work-desc-ctrl.js', 'js/controllers/teachers/lab-detail-ctrl.js',
             'bower_components/textAngular/dist/textAngular-rangy.min.js', 'bower_components/spectrum/spectrum.js',

@@ -13,6 +13,8 @@ mongoose.connect(config.url); // connect to mongoDB database on modulus.io
 
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + config.imgItemPath)); // set the lab item thumbnail image path
+app.use(express.static(__dirname + config.imgDetailPath)); // set the lab detail image path
+app.use(express.static(__dirname + config.filePath)); // set the lab detail image path
 app.use(express.static(__dirname + config.pdfPath)); // set the lab pdf path
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.urlencoded({ 'extended': 'true' })); // parse application/x-www-form-urlencoded

@@ -1,0 +1,18 @@
+<form ng-submit="insert()">
+    <div class="modal-header">
+        <div class="col-md-10">
+            <h4 class="modal-title"><span class="glyphicon glyphicon-file"></span> Upload File</h4>
+        </div>
+        <div class="col-md-2 right">
+            <a class="close" href data-ng-click="$dismiss()"><span class="glyphicon glyphicon-remove"></span></a>
+        </div>
+    </div>
+    <div class="modal-body">
+        <p>文件名称: {{filename}}</p>
+    </div>
+    <div class="modal-footer center clearfix">
+        <button ng-click="$dismiss()" type="button" class="btn btn-default pull-left">Cancel</button>
+        <button type="submit" ng-disabled="filename == null || filename == ''" class="btn btn-primary pull-right">Insert file</button>
+        <button type="button" ngf-select ngf-change="upload()" ng-model="file" ngf-accept="'*'" ngf-max-size="5MB" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-file mR5"></span>Upload File</button>
+    </div>
+</form>

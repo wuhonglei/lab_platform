@@ -15,7 +15,11 @@ module.exports = router.use(function(req, res, next) {
         jwt.verify(token, secret.secret, function(err, decoded) {
             if (err) {
                 // TokenExpiredError, JsonWebTokenError
-                return res.status(401).redirect('/login.html');
+                return res.status(401).json({
+                    success: false,
+                    isLoggedOut: true,
+                    message: 'token过期'
+                });
             } else {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;

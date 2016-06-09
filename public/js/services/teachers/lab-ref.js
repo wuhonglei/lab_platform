@@ -14,11 +14,15 @@ angular.module('myApp')
                     }
                 }, function(response) {
                     // 请求失败
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
                     deferred.reject(response);
                 });
             return deferred.promise;
         };
- 
+
         // 引用该实验
         var createRefName = function(expItemId) {
             var deferred = $q.defer();
@@ -34,6 +38,10 @@ angular.module('myApp')
                     }
                 }, function(response) {
                     // 请求失败
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
                     deferred.reject(response);
                 });
             return deferred.promise;
@@ -44,18 +52,22 @@ angular.module('myApp')
             var deferred = $q.defer();
             var url = '/teacher/deleteRefName/' + expItemId;
             $http.delete(url)
-            	.then(function(response) {
-            		// 请求成功
+                .then(function(response) {
+                    // 请求成功
                     if (response.data.success) {
                         deferred.resolve(response);
                     } else {
                         deferred.reject(response);
                     }
-            	}, function(response) {
-            		// 请求失败
-            		deferred.reject(response);
-            	});
-           	return deferred.promise;
+                }, function(response) {
+                    // 请求失败
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
+                    deferred.reject(response);
+                });
+            return deferred.promise;
         };
 
         return {

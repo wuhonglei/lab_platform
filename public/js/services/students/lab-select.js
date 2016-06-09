@@ -25,6 +25,10 @@ angular.module('myApp')
                         }
                     }, function(response) {
                         // 请求失败
+                        if (response.data.isLoggedOut) {
+                            // token过期, 
+                            location.href = '/login.html';
+                        }
                         deferred.reject(response);
                     });
                 return deferred.promise;
@@ -44,6 +48,10 @@ angular.module('myApp')
                         }
                     }, function(response) {
                         // 请求失败
+                        if (response.data.isLoggedOut) {
+                            // token过期, 
+                            location.href = '/login.html';
+                        }
                         deferred.reject(response);
                     });
                 return deferred.promise;
@@ -66,6 +74,10 @@ angular.module('myApp')
                     }
                 }, function(response) {
                     // handle error
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
                     deferred.reject(response);
                 });
 

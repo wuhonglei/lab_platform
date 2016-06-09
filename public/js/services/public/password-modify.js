@@ -12,6 +12,10 @@ angular.module('myApp')
                         deferred.reject(response);
                     }
                 }, function(response) {
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
                     deferred.reject(response);
                 });
             return deferred.promise;

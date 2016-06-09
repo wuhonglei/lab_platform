@@ -7,7 +7,6 @@ myApp.run(function($http, $window, $rootScope, Authentication) {
     $http.defaults.headers.common['x-access-token'] = $window.localStorage['token'];
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if (!Authentication.isLoggedIn()) {
-            console.info("重新登陆");
             location.href = '/login.html';
         }
     });

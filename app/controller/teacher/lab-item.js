@@ -92,6 +92,8 @@ var getLabs = function(req, res, query) {
     };
     // 按照修改时间排序: 降序
     var options = {
+        limit: +req.query.limit,
+        skip: (+req.query.pageNumber - 1) * (+req.query.limit),
         sort: {
             // 1 是升序, -1 是降序
             "modifiedDate": -1
@@ -104,10 +106,20 @@ var getLabs = function(req, res, query) {
                 message: "实验列表获取失败"
             });
         } else {
-            return res.status(200).json({
-                success: true,
-                labItems: labItems
+            LabItem.count(query).exec(function(err, count) {
+                if (err) {
+                    return res.status(404).json({
+                        success: false,
+                        message: "实验列表获取失败"
+                    });
+                }
+                return res.status(200).json({
+                    success: true,
+                    count: count,
+                    labItems: labItems
+                });
             });
+
         }
     });
 };

@@ -2,9 +2,16 @@
 angular.module('myApp')
     .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem', 'Alert', 'Sidebar',
         function($scope, $routeParams, $filter, PersonalInfo, LabItem, Alert, Sidebar) {
-            // 获取实验列表
+            // 获取实验列表 
             var category = $routeParams.categoryID;
             $scope.navName = Sidebar.name(category);
+            $scope.labItems = [];
+            $scope.totalItems = 0;
+            // display 5 items one page
+            $scope.itemPerPage = 5;
+            $scope.currentPage = 1;
+
+
             var url;
             if (category != 'my-labs') {
                 url = '/teacher/' + category + '/get-items';
@@ -17,16 +24,34 @@ angular.module('myApp')
                 $scope.categories = categories;
                 url = '/teacher/get-personal-labs';
             }
-            LabItem.get(url)
-                .then(function(response) {
-                    // 请求成功
-                    if (response.data.success) {
+
+            var getResultsPage = function(newPage) {
+                var data = {
+                    limit: $scope.itemPerPage,
+                    pageNumber: newPage
+                };
+                console.info("data = ", data);
+                // console.info("newPage = ", newPage);
+                LabItem.get(url, data)
+                    .then(function(response) {
+                        // 请求成功
+                        console.info("response = ", response);
                         $scope.labItems = response.data.labItems;
-                    }
-                }, function(response) {
-                    // 请求失败
-                    console.error(response);
-                });
+                        $scope.totalItems = response.data.count;
+                    }, function(response) {
+                        // 请求失败
+                        console.error(response);
+                    });
+            }
+
+            // 第一次默认加载首页
+            getResultsPage(1);
+
+            // 分页, 浏览下一页实验列表
+            $scope.pageChangeHandler = function(newPageNumber) {
+                // 请求新的 items 内容
+                getResultsPage(newPageNumber);
+            };
 
             // 添加新实验
             $scope.addSubmited = false;
@@ -126,7 +151,7 @@ angular.module('myApp')
                 };
             };
 
-            
+
 
             // delete the lab item
             $scope.getDeltedLabItem = function() {

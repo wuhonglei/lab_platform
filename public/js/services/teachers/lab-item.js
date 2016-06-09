@@ -2,9 +2,15 @@
 angular.module('myApp')
     .factory('LabItem', ['$http', '$q', 'Upload', 'PersonalInfo',
         function($http, $q, Upload, PersonalInfo) {
-            var getLabItems = function(url) {
+            var getLabItems = function(url, data) {
                 var deferred = $q.defer();
-                $http.get(url)
+                console.info("service data = ", data);
+                var request = {
+                    url: url,
+                    method: 'GET',
+                    params: data
+                }
+                $http(request)
                     .then(function(response) {
                         // 请求成功
                         var data = response.data.labItems;

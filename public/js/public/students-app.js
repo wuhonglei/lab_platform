@@ -1,6 +1,6 @@
 // 学生界面 -- 新建模块
 // 新建 module
-var myApp = angular.module('myApp', ['ngRoute', 'ngSanitize', 'ngFileUpload', 'mgcrea.ngStrap.alert']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngSanitize', 'ngFileUpload', 'mgcrea.ngStrap.alert', 'angularUtils.directives.dirPagination']);
 
 // 设置http默认的头部
 myApp.run(function($http, $window, $rootScope, Authentication) {

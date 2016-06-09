@@ -3,7 +3,7 @@
     <h2 class="page-header">{{navName}}</h2>
     <table class="table" id="lab-list-table">
         <tbody>
-            <tr ng-repeat="item in labItems">
+            <tr dir-paginate="item in labItems | itemsPerPage: itemPerPage" total-items="totalItems" current-page="currentPage">
                 <td>
                     <a class="a-default-black" href="#/{{item.labCategory}}/{{item.expItemId}}">
                         <div class="media">
@@ -16,11 +16,9 @@
                     </a>
                 </td>
             </tr>
-        </tbody>
-    </table>
-<!--     <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <li class="active" ng-repeat=" in dataset"><a href="#">{{}}</a></li>
-        <li><a href="#">&raquo;</a></li>
-    </ul> -->
+        </tbody> 
+    </table> 
+    <div class="text-center">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="partials/public/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
 </div>

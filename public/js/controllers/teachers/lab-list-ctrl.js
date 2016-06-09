@@ -1,4 +1,4 @@
-// 左侧导航栏 -- 
+// 左侧导航栏 --  
 angular.module('myApp')
     .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem', 'Alert', 'Sidebar',
         function($scope, $routeParams, $filter, PersonalInfo, LabItem, Alert, Sidebar) {
@@ -10,7 +10,6 @@ angular.module('myApp')
             // display 5 items one page
             $scope.itemPerPage = 5;
             $scope.currentPage = 1;
-
 
             var url;
             if (category != 'my-labs') {
@@ -30,22 +29,19 @@ angular.module('myApp')
                     limit: $scope.itemPerPage,
                     pageNumber: newPage
                 };
-                console.info("data = ", data);
-                // console.info("newPage = ", newPage);
                 LabItem.get(url, data)
                     .then(function(response) {
                         // 请求成功
-                        console.info("response = ", response);
                         $scope.labItems = response.data.labItems;
                         $scope.totalItems = response.data.count;
                     }, function(response) {
                         // 请求失败
                         console.error(response);
                     });
-            }
+            };
 
             // 第一次默认加载首页
-            getResultsPage(1);
+            getResultsPage($scope.currentPage);
 
             // 分页, 浏览下一页实验列表
             $scope.pageChangeHandler = function(newPageNumber) {

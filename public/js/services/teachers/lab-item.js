@@ -4,7 +4,6 @@ angular.module('myApp')
         function($http, $q, Upload, PersonalInfo) {
             var getLabItems = function(url, data) {
                 var deferred = $q.defer();
-                console.info("service data = ", data);
                 var request = {
                     url: url,
                     method: 'GET',
@@ -22,6 +21,10 @@ angular.module('myApp')
                         deferred.resolve(response);
                     }, function(response) {
                         // 请求失败
+                        if (response.data.isLoggedOut) {
+                            // token过期, 
+                            location.href = '/login.html';
+                        }
                         response.data = {
                             success: false,
                             message: "实验列表获取失败"

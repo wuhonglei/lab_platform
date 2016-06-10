@@ -36,7 +36,8 @@
                     <button type="file" class="btn btn-sm" ng-class="{'btn-success': !lab.isMarked}" accept="application/pdf" ng-model="pdf" ngf-select="uploadFiles(pdf, $index)" ng-disabled="lab.isMarked">上传PDF</button>
                 </td>
                 <td>
-                    <button class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-disabled="!lab.isPost" ng-click="previewPDF(lab.workUrl)">预览</button>
+                    <!-- <button class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-disabled="!lab.isPost" ng-click="previewPDF(lab.workUrl)">预览</button> -->
+                    <a href="{{lab.workUrl}}" class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-disabled="!lab.isPost">预览</a>
                 </td>
                 <td ng-bind="lab.score"></td>
             </tr>

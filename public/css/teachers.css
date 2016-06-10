@@ -54,6 +54,11 @@
     margin-right: 10px;
 }
 
+.pagination-bottom {
+    /*position: absolute;*/
+    /*bottom: -20px;*/
+}
+
 /*实验详情*/
 
 /*

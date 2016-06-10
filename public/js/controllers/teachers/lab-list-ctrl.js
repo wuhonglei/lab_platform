@@ -129,14 +129,14 @@ angular.module('myApp')
                                 for (var key in item) {
                                     $scope.labItems[index][key] = item[key];
                                 }
-                                // 如果修改了实验类别, 将当前修改的实验项目从实验列表中移除
-                                if (item.labCategory) {
-                                    $scope.labItems.splice(index, 1);
-                                }
                                 // 遍历勾选的下标数组, 将实验列表项, 取消勾选
                                 INDEX.forEach(function(index) {
                                     $scope.labItems[index].isChecked = false;
                                 });
+                                // 如果修改了实验类别, 将当前修改的实验项目从实验列表中移除
+                                if (item.labCategory) {
+                                    $scope.labItems.splice(index, 1);
+                                }
                                 $('#edit-lab-modal').modal('hide');
                                 // 清空checked item index array
                                 INDEX.length = 0;

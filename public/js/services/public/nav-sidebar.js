@@ -6,7 +6,10 @@ angular.module('myApp')
                 { label: '我的实验', select: 'my-labs' },
                 { label: '软件安全', select: 'software-security-labs' },
                 { label: '网络安全', select: 'network-security-labs' },
-                { label: 'web安全', select: 'web-security-labs' }
+                { label: 'web安全', select: 'web-security-labs' },
+                { label: '系统安全', select: 'system-security-labs'},
+                { label: '密码学' , select: 'cryptography-labs'},
+                { label: '移动安全', select: 'mobile-security-labs'}
             ];
         };
 

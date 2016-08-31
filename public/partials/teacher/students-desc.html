@@ -34,7 +34,7 @@
                 <td ng-bind="lab.postDate.substr(0, 10)"></td>
                 <td>
                     <!-- <button class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-click="previewPDF(lab.workUrl)" ng-disabled="!lab.isPost">预览</button> -->
-                    <a href="{{lab.workUrl}}" class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-disabled="!lab.isPost">预览</a>
+                    <a href="{{lab.workUrl}}" class="btn btn-sm" ng-class="{'btn-success': lab.isPost, 'btn-default': !lab.isPost}" ng-hide="!lab.isPost">预览</a>
                 </td>
                 <td>
                     <input type="text" class="form-control" style="width: 45px;" ng-value="lab.score" ng-model="score" ng-disabled="!lab.isPost">

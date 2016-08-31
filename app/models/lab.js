@@ -70,7 +70,7 @@ var labDetailSchema = new mongoose.Schema({
         type: String
     },
     publishDate: {
-        type: Date,
+        type: Date, 
         default: Date.now
     },
     modifiedDate: {

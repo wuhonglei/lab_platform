@@ -37,7 +37,7 @@
                 </td>
                 <td>
                     <!-- <button class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-disabled="!lab.isPost" ng-click="previewPDF(lab.workUrl)">预览</button> -->
-                    <a href="{{lab.workUrl}}" class="btn btn-sm" ng-class="{'btn-success': lab.isPost}" ng-disabled="!lab.isPost">预览</a>
+                    <a href="{{lab.workUrl}}" class="btn btn-sm" ng-class="{'btn-success': lab.isPost, 'btn-default': !lab.isPost}" ng-hide="!lab.isPost">预览</a>
                 </td>
                 <td ng-bind="lab.score"></td>
             </tr>

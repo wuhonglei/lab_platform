@@ -1,5 +1,7 @@
 body {
     padding-top: 90px;
+    background: url('../login_bg.jpg');
+    background-repeat: no-repeat;
 }
 
 .panel-login {

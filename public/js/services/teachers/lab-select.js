@@ -1,4 +1,4 @@
-// 学生界面 -- 显示选择该老师的学生列表
+// 教师界面 -- 显示选择该老师的学生列表
 angular.module('myApp')
     .factory('Student', ['$http', '$q', function($http, $q) {
         // 获取该学生选择的实验列表

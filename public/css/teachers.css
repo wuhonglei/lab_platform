@@ -13,6 +13,35 @@
 }
 
 
+/* 学生信息 */
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.inputfile + label {
+    padding: 6px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #337ab7;
+    border-radius: 3px;
+    border-color: #2e6da4;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+
+
 /* 实验列表  */
 
 .header-border {
@@ -59,7 +88,9 @@
     /*bottom: -20px;*/
 }
 
+
 /*实验详情*/
+
 
 /*
     displaying the editor in a sensible fashion:
@@ -108,8 +139,8 @@
 }
 
 .divider {
-     color: #fff;
-     font-size: 14px;
-     background-color: grey;
-     font-weight: bold;
+    color: #fff;
+    font-size: 14px;
+    background-color: grey;
+    font-weight: bold;
 }

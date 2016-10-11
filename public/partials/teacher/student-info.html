@@ -1,0 +1,38 @@
+<!-- 教师界面: 学生信息 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">学生信息</h2>
+    <ul class="pull-right li-inline">
+        <li>
+            <input type="file" name="file" id="file" class="inputfile" accept=".xlsx, .xls, .csv" ng-model="excel" ngf-select="upload(excel)" />
+            <label for="file"><i class="fa fa-plus-square"></i> 导入excel</label>
+        </li>
+        <li>
+            <button class="btn btn-default" data-toggle="modal" data-target='#edit-lab-modal' ng-disabled="!checkChoosed()" ng-click="getLabItem()"><i class="fa fa-pencil-square-o "></i> 编辑条目</button>
+        </li>
+        <li>
+            <button type="button" class="btn btn-default"> 添加条目</button>
+        </li>
+        <li>
+            <button class="btn btn-danger" data-toggle="modal" data-target='#delete-lab-modal' ng-disabled="!checkChoosed()" ng-click="getDeltedLabItem()"><i class="fa fa-times"></i> 删除实验</button>
+        </li>
+    </ul>
+    <!-- 显示学生信息 -->
+    <table class="table table-bordered table-striped" ng-repeat="classOne in classLists">
+        <caption ng-bind="classOne.description"></caption>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>学号</th>
+                <th>姓名</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in classOne.info | orderBy: item.number as result track by $index">
+                <td ng-bind="$index + 1"></td>
+                <td ng-bind="item.number"></td>
+                <td ng-bind="item.name"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

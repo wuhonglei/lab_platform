@@ -1,7 +1,7 @@
-// 教师界面 -- 学生提交的作业概览控制器
+// 教师界面 -- 学生成绩控制器
 'use strict';
 angular.module('myApp')
-    .controller('StudentsWorkDescCtrl', ['$scope', 'Student', 'PDF', 'Alert',
+    .controller('StudentsGradesCtrl', ['$scope', 'Student', 'PDF', 'Alert',
         function($scope, Student, PDF, Alert) {
             // 获取选择该老师实验的学生列表
             Student.getList()

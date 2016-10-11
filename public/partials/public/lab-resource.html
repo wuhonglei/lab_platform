@@ -1,0 +1,236 @@
+<!-- 公共部分: 实验资源 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">实验资源</h2>
+    <!-- 折叠面板组 -->
+    <div class="panel-group" id="accordion">
+        <!-- 移动安全静态分析工具 高跃进-->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+                    移动安全静态分析
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <p>
+                            Androguard官网: <a href="http://doc.androguard.re/html/index.html" target="_blank">Androguard</a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>
+                            <strong>Drozer</strong>
+                            <br> Drozer是MWRLabs开发的一款Android安全测试框架,是目前最好的 Android 安全测试工具之一.
+                            <br>安装及使用文档: <a href="lab-resource/mobie-static-analysis-tool/drozer.pdf" target="_blank">drozer</a>
+                            <br>drozer下载: <a href="lab-resource/malware-relevant/drozer-develop.zip">drozer-develop.zip</a>
+                            <br>github: <a href="https://github.com/mwrlabs/drozer" target="_blank">github.com/mwrlabs/drozer</a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>
+                            <strong>FlowDroid</strong>
+                            <br>FlowDroid 是一个静态污点分析工具, 能够生成过程间控制流图(ICFG)
+                            <br>安装文档: <a href="lab-resource/mobie-static-analysis-tool/FlowDroid.pdf" target="_blank">FlowDroid.pdf</a>
+                            <br>drozer下载: <a href="lab-resource/malware-relevant/drozer-develop.zip">drozer-develop.zip</a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>
+                            <strong>IC3</strong>
+                            <br>IC3是一款针对于Android应用程序进行组件间通信关系分析的静态工具
+                            <br>IC3下载: <a href="lab-resource/malware-relevant/ic3-master.zip">ic3-master.zip</a>
+                            <br>参考网址:
+                            <br><a href="http://siis.cse.psu.edu/ic3/" target="_blank">siis.cse.psu.edu/ic3/</a>
+                            <br><a href="https://github.com/siis/ic3" target="_blank">github.com/siis/ic3</a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>
+                            <strong>IccTA</strong>
+                            <br>IccTA是一个针对android应用程序进行进行多组件的污点流分析工具
+                            <br>参考网址:
+                            <br>
+                            <a href="https://github.com/lilicoding/soot-infoflow-android-iccta" target="_blank">github.com/lilicoding/soot-infoflow-android-iccta</a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>
+                            <strong>ZjDroid</strong>
+                            <br>ZjDroid 是基于 Xposed Framework 的动态逆向分析工具,这是安装在手机端的部分。通过电脑端的 adb 调 试桥完成各种任务.
+                            <br>ZjDroid使用文档: <a href="lab-resource/mobie-static-analysis-tool/ZjDroid的使用文档.pdf" target="_blank">ZjDroid使用文档.pdf</a>
+                            <br>ZjDroid下载: <a href="lab-resource/malware-relevant/ZjDroid-master.zip">ZjDroid-master.zip</a>
+                            <br>参考网址:
+                            <br><a href="http://www.cnblogs.com/goodhacker/p/3961045.html" target="_blank">www.cnblogs.com/goodhacker/p/3961045.html</a>
+                            <br><a href="https://github.com/halfkiss/ZjDroid" target="_blank">github.com/halfkiss/ZjDroid</a>
+                        </p>
+                    </li>
+                    <li class="list-group-item">
+                        <p>
+                            <strong>MobSF</strong>
+                            <br>移动安全框架 (MobSF) 是一个智能化、一体化的开源移动应用(Android / iOS)自动测试框架,能够 对以上两种移动应用进行静态和动态分析(动态分析目前暂时只支持 Android)
+                            <br>MobSF安装使用文档: <a href="lab-resource/mobie-static-analysis-tool/MobSF.pdf" target="_blank">MobSF.pdf</a>
+                            <br>MobSF下载: <a href="lab-resource/malware-relevant/Mobile-Security-Framework-MobSF-master.zip">Mobile-Security-Framework-MobSF-master.zip</a>
+                            <br>参考网址:
+                            <br><a href="https://github.com/ajinabraham/Mobile-Security-Framework-MobSF" target="_blank">github.com/ajinabraham/Mobile-Security-Framework-MobSF</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 漏洞相关 彭臻佳-->
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+                    漏洞相关
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>sqlmap</strong>
+                        <br>sqlmap是一款非常强大的开源sql自动化注入工具，可以用来检测和利用sql注入漏洞。它由Python语言开发而成，因此运行需要安装python环境。
+                        <br>sqlmap使用说明: <a href="lab-resource/malware-relevant/sqlmap.pdf" target="_blank">sqlmap.pdf</a>
+                        <br>sqlmap工具下载: <a href="lab-resource/malware-relevant/sqlmap.zip" target="_blank">sqlmap.zip</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>ZAP</strong>
+                        <br>Zed Attack Proxy 简写为 ZAP,是一个简单易用的渗透测试工具,是发现 Web 应用中的漏洞的利器,更是渗透测试爱好者的好东西。
+                        <br>ZAP使用说明: <a href="lab-resource/malware-relevant/ZAP.pdf" target="_blank">ZAP.pdf</a>
+                        <br>ZAP官方指南: <a href="lab-resource/malware-relevant/ZAP官方指南.pdf" target="_blank">ZAP官方指南.pdf</a>
+                        <br>ZAP软件下载: <a href="lab-resource/malware-relevant/ZAP_WEEKLY_D-2016-09-26.zip" target="_blank">ZAP_WEEKLY_D-2016-09-26.zip</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>w3af</strong>
+                        <br>w3af 是一个 Web 应用程序攻击和检查框架.该项目已超过 130 个插件,其中包括检查网站爬虫,SQL 注入(SQL Injection),跨站(XSS), 本地文件包含(LFI),远程文件包含(RFI)等.该项目的目标是要建立一个框架,以寻找和开发 Web 应用安全漏洞,所以很容易使用和扩展.
+                        <br>源码下载: <a href="lab-resource/malware-relevant/w3af-master.zip">w3af-master.zip</a>
+                        <br>w3af官网: <a href="http://w3af.org/" target="_blank">w3af.org</a>
+                        <br>github: <a href="https://github.com/andresriancho/w3af" target="_blank">github.com/andresriancho/w3af</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>DVWA</strong>
+                        <br>漏洞演示系统DVWA(Damn Vulnerable Web Application)
+                        <br>DVWA指南: <a href="lab-resource/malware-relevant/DVWA指南.pdf" target="_blank">DVWA指南.pdf</a>
+                        <br>DVWA下载: <a href="lab-resource/malware-relevant/DVWA.zip" target="_blank">DVWA.zip</a>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>bwapp</strong>
+                        <br>buggy web Application 这是一个集成了各种常见漏洞和最新漏洞的开源 Web 应用程序,目的是帮助 网络安全爱好者、开发人员和学生发现并防止网络漏洞。包含了超过 100 种漏洞,涵盖了所有主要的已知 Web 漏洞,包括 OWASP Top10 安全风险,最重要的是已经包含了 OpenSSL 和 ShellShock 漏洞。
+                        <br>w3af简明文档: <a href="lab-resource/malware-relevant/w3af简明文档.pdf" target="_blank">w3af简明文档.pdf</a>
+                        <br>下载地址: <a href="http://w3af.org/" target="_blank">w3af.org</a>
+                        <br>github: <a href="https://github.com/andresriancho/w3af" target="_blank">github.com/andresriancho/w3af</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 虚拟化 刘文继-->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+                    虚拟化
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="lab-resource/virtualization/虚拟化相关介绍.pdf" target="_blank">虚拟化相关介绍.pdf</a>
+                        <br><a href="lab-resource/virtualization/云计算与OpenStack相关介绍.pdf" target="_blank">云计算与openstack相关介绍.pdf</a>
+                        <br><a href="lab-resource/virtualization/VMware Workstation 安装组网使用教程.pdf" target="_blank">VMware Workstation 安装组网使用教程.pdf</a>
+                        <br><a href="lab-resource/virtualization/OpenStack Kilo版本安装教程指南（Ubuntu Server 14.04 + OVS）.pdf" target="_blank">OpenStack Kilo版本安装教程指南（Ubuntu Server 14.04 + OVS）.pdf</a>
+                        <br>资源下载:
+                        <br><i class="fa fa-windows" aria-hidden="true"></i> <a href="lab-resource/virtualization/VMware-workstation-full-12.1.0-3272444.exe">VMware-workstation-full-12.1.0-3272444.exe</a> <i class="fa fa-linux" aria-hidden="true"></i> <a href="lab-resource/virtualization/VMware-Workstation-Full-12.1.0-3272444.x86_64.bundle">VMware-Workstation-Full-12.1.0-3272444.x86_64.bundle</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- javascript程序分析 柏军洋-->
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseFour">
+                    javascript程序分析
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        JavaScript程序分析工具及说明 <a href="lab-resource/javascript/JavaScript程序分析工具及说明.pdf" target="_blank">JavaScript程序分析工具及说明.pdf</a>
+                        <br>
+                        <br>信息流分析工具JSFlow文档: <a href="lab-resource/javascript/信息流分析工具/JSFlow.pdf" target="_blank">JSFlow.pdf</a>
+                        <br>JSFlow下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/信息流分析工具/JSFlow.tgz" target="_blank">JSFlow.tgz</a>
+                        <br>
+                        <br>数据流分析工具JSAI: <a href="lab-resource/javascript/数据流分析工具/JSAI.pdf" target="_blank">JSAI.pdf</a>
+                        <br>数据流分析工具TAJS: <a href="lab-resource/javascript/数据流分析工具/TAJS.pdf" target="_blank">TAJS.pdf</a>
+                        <br>数据流分析工具WALA: <a href="lab-resource/javascript/数据流分析工具/WALA.pdf" target="_blank">WALA.pdf</a>
+                        <br>JSAI下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/数据流分析工具/JSAI.zip" target="_blank">JSAI.zip</a>
+                        <br>TAJS下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/数据流分析工具/TAJS.zip" target="_blank">TAJS.zip</a>
+                        <br>WALA下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/数据流分析工具/WALA.zip" target="_blank">WALA.zip</a>
+                        <br>
+                        <br>污点分析工具DOMinatorPro: <a href="lab-resource/javascript/污点分析工具/DOMinatorPro.pdf" target="_blank">DOMinatorPro.pdf</a>
+                        <br>DominatorPro下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/污点分析工具/DominatorPro.rar" target="_blank">DominatorPro.rar</a>
+                        <br>
+                        <br>漏洞检测工具DOMXSSScanner: <a href="lab-resource/javascript/漏洞检测工具/DOMXSSScanner.pdf" target="_blank">DOMXSSScanner.pdf</a>
+                        <br>漏洞检测工具JSPrime: <a href="lab-resource/javascript/漏洞检测工具/JSPrime.pdf" target="_blank">JSPrime.pdf</a>
+                        <br>漏洞检测工具StaticDOMXSSScanner: <a href="lab-resource/javascript/漏洞检测工具/StaticDOMXSSScanner.pdf" target="_blank">StaticDOMXSSScanner.pdf</a>
+                        <br>DOMXSSScanner下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/漏洞检测工具/DOMXSSScanner.rar" target="_blank">DOMXSSScanner.rar</a>
+                        <br>JSPrime下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/漏洞检测工具/JSPrime.rar" target="_blank">JSPrime.rar</a>
+                        <br>StaticDOMXSSScanner下载: <i class="fa fa-download" aria-hidden="true"></i> <a href="lab-resource/javascript/漏洞检测工具/StaticDOMXSSScanner.rar" target="_blank">StaticDOMXSSScanner.rar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- TaintDroid 覃岩-->
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseFive">
+                    TaintDroid
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseFive" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>TaintDroid：用于在智能手机上实时监控隐私数据的信息流跟踪系统</strong>
+                        <br>TaintDroid说明文档 <a href="lab-resource/TaintDroid/TaintDroid说明文档.pdf" target="_blank">TaintDroid说明文档.pdf</a>
+                        <br>附件:
+                        <br>相关论文: <a href="lab-resource/TaintDroid/相关论文.zip" target="_blank">相关论文.zip</a>
+                        <br>相关资料: <a href="lab-resource/TaintDroid/相关资料.zip" target="_blank">相关资料.zip</a>
+                        <br>taintdroid4_3源码: <a href="lab-resource/TaintDroid/taintdroid4_3_frame_dalvik.zip" target="_blank">taintdroid4_3源码.zip</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Xposed 刘楚舒-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" data-target="#collapseSix">
+                    Xposed
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseSix" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Xposed框架是一个hook安卓平台API的轻量级框架,通过它可以在几乎任何安卓平台的API的调用
+                        前后插入自己的代码</strong>
+                        <br>Xposed框架安装文档 <a href="lab-resource/Xposed/Xposed框架.pdf" target="_blank">Xposed框架.pdf</a>
+                        <br>附件:
+                        <br>xposed-v86-sdk23-x86 <a href="lab-resource/Xposed/相关论文.zip" target="_blank">xposed-v86-sdk23-x86.zip</a>
+                        <br>xposed-v86-sdk23-arm64: <a href="lab-resource/Xposed/xposed-v86-sdk23-arm64.zip" target="_blank">xposed-v86-sdk23-arm64.zip</a>
+                        <br>xposed-v86-sdk23-arm: <a href="lab-resource/Xposed/xposed-v86-sdk23-arm.zip" target="_blank">xposed-v86-sdk23-arm.zip</a>
+                        <br>XposedInstaller_3.0_alpha4: <a href="lab-resource/Xposed/XposedInstaller_3.0_alpha4.apk" target="_blank">XposedInstaller_3.0_alpha4.apk</a>
+                        <br>de.robv.android.xposed.installer_v33_36570c: <a href="lab-resource/Xposed/de.robv.android.xposed.installer_v33_36570c.apk" target="_blank">de.robv.android.xposed.installer_v33_36570c.apk</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

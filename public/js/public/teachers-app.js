@@ -17,8 +17,20 @@ myApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     // 根据<a href="#/id">  --导航--> /id
         .when('/', {
-            templateUrl: 'partials/teacher/students-desc.html',
-            controller: 'StudentsWorkDescCtrl'
+            templateUrl: 'partials/teacher/students-grades.html',
+            controller: 'StudentsGradesCtrl'
+        })
+        .when('/student-grades', {
+            templateUrl: 'partials/teacher/students-grades.html',
+            controller: 'StudentsGradesCtrl'
+        })
+        .when('/student-info', {
+            templateUrl: 'partials/teacher/student-info.html',
+            controller: 'studentInfoCtrl'
+        })
+        .when('/lab-resource', {
+            templateUrl: 'partials/public/lab-resource.html',
+            controller: 'labResourceCtrl'
         })
         .when('/:categoryID', {
             templateUrl: 'partials/teacher/lab-item.html',

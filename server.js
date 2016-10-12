@@ -30,9 +30,13 @@ app.use(require('./app/routes/public/token-valid'));
 // 修改用户密码
 app.use('/user', require('./app/routes/public/modify-password'));
 
+// 老师上传学生信息表格, 修改学生信息, 删除学生信息
+app.use('/teacher', require('./app/routes/teacher/student-info'));
+
 // 老师 创建, 更新, 删除实验列表
 app.use('/teacher', require('./app/routes/teacher/lab'));
 app.use('/student', require('./app/routes/student/lab'));
+
 
 // listen (start app with node server.js) ======================================
 app.listen(port);

@@ -53,11 +53,7 @@ angular.module('myApp')
             $scope.addSubmited = false;
             $scope.createLabItem = function(data, invalid) {
                 $scope.addSubmited = true;
-                if (invalid) {
-                    // 表单输入无效
-                    return;
-                }
-                if ($scope.labItem.image) {
+                if (!invalid && $scope.labItem.image) {
                     if (!$scope.myLab) {
                         data.labCategory = category;
                     }

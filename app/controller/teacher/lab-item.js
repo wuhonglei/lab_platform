@@ -232,7 +232,7 @@ module.exports.deleteLabs = function(req, res) {
         });
     }, function(err) {
         if (err) {
-            return res.status(404).json({
+            return res.status(403).json({
                 success: false,
                 message: "删除失败"
             });

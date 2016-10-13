@@ -17,8 +17,10 @@
         teacher: [
             'js/public/teachers-app.js', 'js/services/teachers/lab-item.js', 'js/services/teachers/lab-detail.js',
             'js/services/teachers/lab-ref.js', 'js/lib/angular-ui-modal/ui-bootstrap-custom-tpls-1.3.3.js',
-            'js/services/teachers/lab-select.js', 'js/services/teachers/parse-excel.js',
-            'js/controllers/teachers/lab-list-ctrl.js', 'js/controllers/public/lab-resource-ctrl.js', 
+            'js/services/teachers/lab-select.js', 'js/filters/teachers/student-info.js',
+            'js/services/teachers/student-info.js', 'js/services/teachers/student-info.js',
+            'js/services/teachers/parse-excel.js',
+            'js/controllers/teachers/lab-list-ctrl.js', 'js/controllers/public/lab-resource-ctrl.js',
             'js/controllers/teachers/student-grade-ctrl.js', 'js/controllers/teachers/lab-detail-ctrl.js',
             'js/controllers/teachers/student-info-ctrl.js', 'bower_components/js-xlsx/dist/xlsx.core.min.js',
             'bower_components/js-xlsx/dist/cpexcel.js', 'bower_components/js-xlsx/dist/ods.js',

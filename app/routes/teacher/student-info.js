@@ -5,5 +5,7 @@ var studentInfo = require('../../controller/teacher/student-info');
 
 // 保存excel导入的学生信息
 router.post('/upload-student-info', studentInfo.save);
+router.get('/get-student-info', studentInfo.getInfoList);
+router.get('/get-select-list', studentInfo.getSelectedList);
 
 module.exports = router;

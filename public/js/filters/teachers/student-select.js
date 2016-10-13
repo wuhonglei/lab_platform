@@ -27,7 +27,6 @@ angular.module('myApp')
                     out.push(item);
                 }
             });
-
             return out;
         };
     });

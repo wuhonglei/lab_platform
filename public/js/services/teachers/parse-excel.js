@@ -18,37 +18,46 @@ angular.module('myApp')
                     console.time(TIMELABLE);
                     // 合并同名的班级
                     var length = result.data.length;
-                    console.log('解析数据前: ', result.data);
                     // 存放所有班级的描述
                     var descriptions = [];
                     var newData = [];
+                    var infoList = {
+                        years: [],
+                        courses: [],
+                        classes: [],
+                        descriptions: []
+                    };
                     // 存放班级对应的数组下标
                     var flag = [];
                     var isSame = false;
                     for (var i = 0; i < length; i++) {
-                        var desc = result.data[i].description;
+                        var curVar = result.data[i];
+                        var desc = curVar.description;
                         if (descriptions.length) {
                             var index = descriptions.indexOf(desc);
                             isSame = false;
                             if (index != -1) {
-                                console.log('desc = ', desc);
-                                var tmpInfo = result.data[i].info;
+                                var tmpInfo = curVar.info;
                                 newData[flag[index]].info = newData[flag[index]].info.concat(tmpInfo);
                                 isSame = true;
                             }
                         }
                         if (!isSame) {
-                            console.log('push');
-                            descriptions.push(result.data[i].description);
-                            newData.push(result.data[i]);
+                            descriptions.push(curVar.description);
+                            newData.push(curVar);
+                            infoList.years.push(curVar.year);
+                            infoList.courses.push(curVar.course);
+                            infoList.classes.push(curVar.class);
+                            infoList.descriptions.push(curVar.description);
                             flag.push(i);
                         }
                     }
                     result.data = (newData.length) ? newData : result.data;
+                    result.infoList = infoList;
                     console.timeEnd(TIMELABLE);
-                    console.log('解析数据后: ', result.data);
-                    deferred.resolve(result.data);
+                    deferred.resolve(result);
                 } else {
+                    result.data = result;
                     deferred.reject(result);
                 }
             };

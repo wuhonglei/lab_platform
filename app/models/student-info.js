@@ -1,7 +1,7 @@
 // 数据库模式 -- 学生信息表
 var mongoose = require('mongoose');
 
-var studentInfoSchma = new mongoose.Schema({
+var studentInfoSchema = new mongoose.Schema({
     description: {
         type: String,
         unique: true,
@@ -27,4 +27,17 @@ var studentInfoSchma = new mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.model('StudentInfo', studentInfoSchma);
+var infoListSChema = new mongoose.Schema({
+    number: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    years: [],
+    courses: [],
+    classes: [],
+    descriptions: []
+});
+
+module.exports.StudentInfo = mongoose.model('StudentInfo', studentInfoSchema);
+module.exports.InfoList = mongoose.model('InfoList', infoListSChema);

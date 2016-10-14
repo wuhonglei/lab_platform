@@ -21,7 +21,7 @@ var labItemSchema = new mongoose.Schema({
         required: true
     },
     createdByNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     isPublic: {
@@ -63,10 +63,14 @@ var labDetailSchema = new mongoose.Schema({
         required: true
     },
     createdByNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     labDetail: {
+        type: String,
+        default: ""
+    },
+    labName: {
         type: String
     },
     publishDate: {
@@ -101,7 +105,7 @@ var labRefSchema = new mongoose.Schema({
     },
     refName: [{
         name: String,
-        number: Number
+        number: String
     }]
 });
 

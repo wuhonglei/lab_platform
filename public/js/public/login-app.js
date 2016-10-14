@@ -1,6 +1,9 @@
 // 登陆页面 
-angular.module('userApp', ['ngMessages', 'mgcrea.ngStrap.alert'])
-    .factory('Alert', ['$alert', function($alert) {
+var userApp = angular.module('userApp', ['ngMessages', 'mgcrea.ngStrap.alert']);
+userApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+}]);
+userApp.factory('Alert', ['$alert', function($alert) {
         var showAlert = function(option) {
             if (option == undefined) {
                 option = {};
@@ -54,12 +57,9 @@ angular.module('userApp', ['ngMessages', 'mgcrea.ngStrap.alert'])
                         // 请求成功  
                         // 登陆成功
                         var token = response.data.token;
-                        var identity = response.data.identity;
                         $window.localStorage['token'] = token;
-                        payload = token.split('.')[1];
-                        payload = $window.atob(payload);
-                        payload = JSON.parse(payload);
-                        $window.localStorage['identity'] = payload.isTeacher ? 　'teacher' : 'student';
+                        $window.localStorage['identity'] = response.data.identity;
+                        $window.localStorage['name'] = response.data.name;
                         $scope.login = {};
                         $scope.loginSubmited = false;
                         location.href = '/';
@@ -99,6 +99,7 @@ angular.module('userApp', ['ngMessages', 'mgcrea.ngStrap.alert'])
                     // 请求成功
                     $scope.register = {};
                     Alert.show({ title: '注册成功', content: '请登录' });
+                    document.getElementById("login-form-link").click();
                     $scope.registerSubmited = false;
                 }, function(response) {
                     // 请求失败

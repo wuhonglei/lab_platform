@@ -8,7 +8,7 @@ var studentInfoSchema = new mongoose.Schema({
         required: true
     },
     number: {
-        type: Number,
+        type: String,
         required: true
     },
     year: {
@@ -22,14 +22,14 @@ var studentInfoSchema = new mongoose.Schema({
     class: String,
     info: [{
         index: { type: Number, default: 0 },
-        number: Number,
+        number: String,
         name: String
     }]
 });
 
 var infoListSChema = new mongoose.Schema({
     number: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },

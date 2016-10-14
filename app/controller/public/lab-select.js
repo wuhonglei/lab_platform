@@ -1,9 +1,9 @@
 // 学生界面 -- 选择实验函数
 var fs = require('fs');
 var LabPost = require('../../models/lab-post').LabPost;
-var LabRequest = require('./lab-requst-params');
+var LabRequest = require('../public/lab-requst-params');
 var pdfPath = require('../../config/config').pdfPath;
-
+ 
 // 创建学生所选实验列表
 module.exports.chooseLab = function(req, res) {
     // 获取请求的参数
@@ -33,7 +33,7 @@ module.exports.chooseLab = function(req, res) {
     }
 };
 
-// 学生上传PDF, 后者老师上传成绩
+// 学生上传PDF后, 老师上传成绩
 module.exports.postScore = module.exports.postPdf = function(req, res) {
     // 获取请求的参数
     if (!req.decoded.isTeacher && req.file.mimetype != 'application/pdf') {

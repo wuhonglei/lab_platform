@@ -5,6 +5,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngSanitize', 'ngFileUpload', 'm
 // 设置http默认的头部
 myApp.run(function($http, $window, $rootScope, Authentication) {
     $http.defaults.headers.common['x-access-token'] = $window.localStorage['token'];
+    $http.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
         if (!Authentication.isLoggedIn()) {
             location.href = '/login.html';

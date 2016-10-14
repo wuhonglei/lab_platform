@@ -9,7 +9,7 @@ var labDetail = require('./lab-detail');
 var async = require('async');
 var fs = require('fs');
 var imgItemPath = require('../../config/config').imgItemPath;
-
+// require('./lab-update-mongodb.js').changeLabDetailNumberType();
 // 创建实验列表 
 module.exports.createLabItem = function(req, res) {
     // 获取请求的参数    

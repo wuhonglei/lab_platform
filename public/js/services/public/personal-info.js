@@ -6,10 +6,9 @@ angular.module('myApp')
             payload = decodeURIComponent(escape($window.atob(payload)));
             payload = JSON.parse(payload);
             return {
-                name: payload.name,
+                name: $window.localStorage.name,
                 number: payload.number
             };
         })();
-
         return info;
     }])

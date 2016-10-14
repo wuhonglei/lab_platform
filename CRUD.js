@@ -1,3 +1,5 @@
+// 参考网址: http://mongoosejs.com/docs/2.7.x/
+
 // 声明一个模式
 var SCheme = require('/path/to/scheme');
 
@@ -7,7 +9,7 @@ var doc = new SCheme();
 // assigment to doc
 
 /*
-	================================保存到数据库====================================
+    ================================保存到数据库====================================
 */
 // 或者直接写 doc.save();
 // doc.save().exec()
@@ -20,7 +22,7 @@ doc.save(function(err) {
 });
 
 /*
-	================================查询===========================================
+    ================================查询===========================================
 */
 // 查询条件
 var query = {
@@ -54,9 +56,9 @@ SCheme.findOne(query, projection, function(err, doc) {
 });
 
 // 找到一个并删除
-SCheme.findOneAndRemove(query, options, function(err, doc) {
+SCheme.findOneAndRemove(query, options, function(err, updateState) {
     // error: errors that occurred 
-    // doc: the document before updates are applied if `new: false`, or after updates if `new = true`(default is false)
+    // updateState: { ok: 1, nModified: 37, n: 37 }
 });
 
 // 找到一个并更新
@@ -65,13 +67,13 @@ var doc = {
         key1: value1
     }
 }
-SCheme.findOneAndUpdate(query, doc, options, function(err, doc) {
+SCheme.findOneAndUpdate(query, doc, options, function(err, updateState) {
     // error: errors that occurred 
-    // doc: the document before updates are applied if `new: false`, or after updates if `new = true`(default is false)
+    // updateState: { ok: 1, nModified: 37, n: 37 }
 });
 
 /*
-	================================删除===========================================
+    ================================删除===========================================
 */
 SCheme.remove(query, function(err, removed) {
     // removed 表示删除的documents数量
@@ -83,18 +85,62 @@ SCheme.remove(query).exec();
 doc.remove();
 
 /*
-	================================更新===========================================
+    ================================更新===========================================
 */
 var doc = {
-    $set: {
-        key1: value1
+        $set: {
+            key1: value1
+        }
     }
-}
-// or SChema.update(query, doc, options).exec();
-SCheme.update(query, doc, options, function(err, doc) {
-    // doc: the document before updates are applied if `new: false`, or after updates if `new = true`(default is false)
+    // or SChema.update(query, doc, options).exec();
+SCheme.update(query, doc, options, function(err, updateState) {
+    // updateState: { ok: 1, nModified: 37, n: 37 }
+    // ok: 操作是否被正常执行   nModified: 修改的document数目, n: 符合更新条件的数目
 });
 
 // or document.update(query, doc, options).exec();
-document.update(doc, options, function(err) {
-});
+document.update(doc, options, function(err) {});
+/* ---------options------------
+upsert: true 如果更新不存在则, 创建一个documents插入
+multi: true  如果满足条件的docs存在, 则可以更新多条docs
+writeConcern
+ --------options------------*/
+
+/*
+    更新例子:
+//给定的数据如下: 
+{
+  _id: 1,
+  item: "TBD",
+  stock: 0,
+  info: { publisher: "1111", pages: 430 },
+  tags: [ "technology", "computer" ],
+  ratings: [ { by: "ijk", rating: 4 }, { by: "lmn", rating: 5 } ],
+  reorder: false
+}
+
+//更新操作
+db.books.update(
+   { _id: 1 },
+   {
+     $inc: { stock: 5 },
+     $set: {
+       item: "ABC123",
+       "info.publisher": "2222",
+       tags: [ "software" ],
+       "ratings.1": { by: "xyz", rating: 3 }
+     }
+   }
+)
+
+//更新结果是: 
+{
+  "_id" : 1,
+  "item" : "ABC123",
+  "stock" : 5,
+  "info" : { "publisher" : "2222", "pages" : 430 },
+  "tags" : [ "software" ],
+  "ratings" : [ { "by" : "ijk", "rating" : 4 }, { "by" : "xyz", "rating" : 3 } ],
+  "reorder" : false
+}
+*/

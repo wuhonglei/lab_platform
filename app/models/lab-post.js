@@ -1,6 +1,6 @@
 // 定义学生选择某知道老师实验后创建的表的结构, 学生作业, 实验作业表
 var mongoose = require('mongoose');
-
+ 
 // 学生界面, 学生提交实验作业 Schema
 var labPostSchema = new mongoose.Schema({
     expItemId: {
@@ -16,7 +16,7 @@ var labPostSchema = new mongoose.Schema({
         required: true
     },
     studentNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     teacherName: {
@@ -24,7 +24,7 @@ var labPostSchema = new mongoose.Schema({
         required: true
     },
     teacherNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     choosedDate: {

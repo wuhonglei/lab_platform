@@ -10,7 +10,7 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     number: {
-        type: Number,
+        type: String,
         unique: true,
         required: true
     },
@@ -38,18 +38,18 @@ userSchema.methods.validPassword = function(password) {
     return this.password === password;
 };
 
-// 生成用户验证成功后, 返回给用户的token值
+// 用户验证成功后, 返回给用户的token值
 userSchema.methods.generateJwt = function() {
     var INTERVAL = 30 * 60 * 1000; //30min 等效毫秒
     var expiry = new Date(Date.now() + INTERVAL);
 
     var payload = {
         email: this.email,
-        name: this.name,
         number: this.number,
         isTeacher: this.isTeacher,
         exp: parseInt(expiry.getTime() / 1000)
     };
+    var options = { encoding: "base64" };
     var token = jwt.sign(payload, secret.secret); // DO NOT KEEP YOUT SECRET IN THE CODE!
     return token;
 };

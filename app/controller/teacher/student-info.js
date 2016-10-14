@@ -120,10 +120,9 @@ module.exports.getInfoList = function(req, res) {
 module.exports.getSelectedList = function(req, res) {
     var query = { number: req.decoded.number };
     InfoList.findOne(query, function(err, doc) {
-        if (err) {
+        if (err || doc == null) {
             return res.status(500).json({
-                success: false,
-                message: err.message
+                success: false
             });
         }
         return res.status(200).json({

@@ -104,8 +104,12 @@ module.exports.login = function(req, res) {
         if (user) {
             // 如果该用户存在
             var token = user.generateJwt();
+            res.charset = 'utf-8';
+            res.contentType('text');
             res.status(200).json({
                 "success": true,
+                "identity": (user.isTeacher) ? "teacher" : "student",
+                "name": user.name,
                 "token": token
             });
         } else {

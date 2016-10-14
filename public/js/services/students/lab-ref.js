@@ -49,4 +49,4 @@ angular.module('myApp')
             get: getLabRef,
             hasChoosed: hasChoosedThisLab
         };
-    }])
+    }]);

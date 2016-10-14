@@ -171,19 +171,22 @@
                };
            }
        ])
-       .controller('LabDetailCtrl', ['$scope', '$routeParams', '$filter', 'LabDetail', 'LabRef', 'Alert',
-           function($scope, $routeParams, $filter, LabDetail, LabRef, Alert) {
+       .controller('LabDetailCtrl', ['$scope', '$routeParams', '$filter', 'LabDetail', 'LabRef', 'Alert', 'StudentInfo', '$http',
+           function($scope, $routeParams, $filter, LabDetail, LabRef, Alert, StudentInfo, $http) {
                var createdByNumber;
                var originHtml;
+               var detail;
                // 获取实验详情
                LabDetail.get($routeParams.expItemId)
                    .then(function(response) {
                        // 请求成功
                        if (response.data.success) {
-                           $scope.htmlVariable = response.data.labDetail;
-                           $scope.isEditable = response.data.isEditable;
-                           createdByNumber = response.data.createdByNumber;
-                           originHtml = response.data.labDetail;
+                           detail = response.data;
+                           $scope.htmlVariable = detail.labDetail;
+                           $scope.isEditable = detail.isEditable;
+                           $scope.labName = detail.labName;
+                           createdByNumber = detail.createdByNumber;
+                           originHtml = detail.labDetail;
                        }
                    }, function(response) {
                        // 请求失败
@@ -297,6 +300,33 @@
                            });
                    };
 
+                   // 获取班级列表
+                   $scope.descriptions = undefined;
+                   (function getClassDescriptions() {
+                       var url = '/teacher/get-select-list';
+                       $http.get(url).then(function(response) {
+                           /* body... */
+                           if (response.data.success) {
+                               var data = response.data.infoList;
+                               $scope.descriptions = data.descriptions;
+                           }
+                       }, function(response) {
+                           /* body... */
+                       });
+                   })();
+
+                   // 批量布置作业
+                   $scope.postWork = function(description) {
+                       detail.description = description;
+                       LabDetail.postWork(detail).then(function(response) {
+                           // 请求成功
+                           Alert.show({ content: '批量布置成功' });
+                       }, function(response) {
+                           // 请求失败
+                           Alert.show({ content: '批量布置失败', type: 'danger' });
+                       });
+                       $("#modal-post-work").modal('hide');
+                   };
                }
            }
        ]);

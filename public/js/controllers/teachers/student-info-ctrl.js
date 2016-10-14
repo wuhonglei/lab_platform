@@ -75,7 +75,7 @@ angular.module('myApp')
                     }
                 }, function(response) {
                     /* body... */
-                })
+                });
             };
         }
     ]);

@@ -48,9 +48,46 @@ angular.module('myApp')
                 return deferred.promise;
             };
 
+            // 获取可以选择的班级列表
+            var postMultiLabs = function(labDetail) {
+                var deferred = $q.defer();
+                if (!labDetail) {
+                    var error = {
+                        success: false,
+                        message: "请求错误"
+                    };
+                    deferred.reject(error);
+                } else {
+                    if (!labDetail.description) {
+                        deferred.reject(error);
+                    }
+                    var data = {
+                        description: labDetail.description,
+                        expItemId: labDetail.expItemId,
+                        labName: labDetail.labName,
+                        number: PersonalInfo.number,
+                        name: PersonalInfo.name
+                    };
+                    var url = "/teacher/post-multi-work";
+                    $http.post(url, data).then(function(response) {
+                        // 请求成功
+                        if (response.data.success) {
+                            deferred.resolve(response);
+                        } else {
+                            deferred.reject(response);
+                        }
+                    }, function(response) {
+                        // 请求失败
+                        deferred.reject(response);
+                    });
+                }
+                return deferred.promise;
+            };
+
             return {
                 get: getLabDetail,
-                update: updateLabDetail
+                update: updateLabDetail,
+                postWork: postMultiLabs
             };
         }
     ])

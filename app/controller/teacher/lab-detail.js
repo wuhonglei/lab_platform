@@ -102,7 +102,7 @@ module.exports.uploadFile = function(req, res) {
     });
 };
 
-// 实验详情页面 给指定学生布置作业
+// 实验详情页面给指定班级学生布置作业
 module.exports.postMultiWork = function(req, res) {
     var query = {
         description: req.body.description

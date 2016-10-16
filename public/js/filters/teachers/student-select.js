@@ -2,28 +2,19 @@
 angular.module('myApp')
     .filter('tableFilter', function() {
         return function(tableItems, search) {
-            if (search == undefined) {
+            if (Object.keys(search).length == 0) {
                 return tableItems
             }
-            // 存放最后返回的元素
             var out = [];
-            var filter = {
-                isPost: undefined,
-                isMarked: undefined
-            };
-            // 将 search 转换为数字
-            search = (+search);
-            if (search <= 2) {
-                filter.isPost = (search == 1);
-                filter.isMarked = undefined;
-            } else {
-                filter.isMarked = (search == 3);
-                filter.isPost = undefined;
-            }
-
-            // 对数组中, isPost  进行遍历
             angular.forEach(tableItems, function(item, index) {
-                if (item.isPost == filter.isPost || item.isMarked == filter.isMarked) {
+                var isOK = true;
+                for (var key in search) {
+                    if (item[key] != search[key]) {
+                        isOK = false;
+                        break;
+                    }
+                }
+                if (isOK) {
                     out.push(item);
                 }
             });

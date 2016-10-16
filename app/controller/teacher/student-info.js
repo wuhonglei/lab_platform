@@ -2,7 +2,7 @@
 var StudentInfo = require('../../models/student-info').StudentInfo;
 var InfoList = require('../../models/student-info').InfoList;
 var async = require('async');
-
+ 
 // 遍历对象属性
 var iterateObj = function(objName) {
     if (typeof objName != 'object') {

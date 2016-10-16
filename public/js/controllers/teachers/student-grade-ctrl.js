@@ -1,12 +1,15 @@
 // 教师界面 -- 学生成绩控制器
 'use strict';
 angular.module('myApp')
-    .controller('StudentsGradesCtrl', ['$scope', 'Student', 'PDF', 'Alert',
-        function($scope, Student, PDF, Alert) {
+    .controller('StudentsGradesCtrl', ['$scope', 'Student', 'PDF', 'Alert', '$http', '$select',
+        function($scope, Student, PDF, Alert, $http, $select) {
+            var hasLoaded = false;
+            $scope.selected = {};
             // 获取选择该老师实验的学生列表
             Student.getList()
                 .then(function(response) {
                     // 请求成功
+                    console.info("学生列表: " ,response.data.labPost);
                     $scope.labs = response.data.labPost;
                 }, function(response) {
                     // 请求失败
@@ -59,5 +62,30 @@ angular.module('myApp')
                 }
             };
 
+            // 获取筛选列表
+            $scope.getSelectCondition = function() {
+                if (hasLoaded) {
+                    return;
+                }
+                var url = '/teacher/get-selected-condition';
+                $http.get(url).then(function(response) {
+                    // 请求成功
+                    if (response.data.success) {
+                        var data = response.data;
+                        var post = [{ value: true, label: "已提交" }, { value: false, label: "未提交" }];
+                        var mark = [{ value: true, label: "已打分" }, { value: false, label: "未打分" }];
+                        data.post = post;
+                        data.mark = mark;
+                        $scope.select = data;
+                        hasLoaded = true;
+                    }
+                }, function(response) {
+                    // 请求失败
+                });
+            };
+
+            $scope.filterGrade = function(selected) {
+                $("#modal-select").modal('hide');
+            };
         }
     ]);

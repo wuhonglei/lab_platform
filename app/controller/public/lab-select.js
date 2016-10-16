@@ -3,7 +3,8 @@ var fs = require('fs');
 var LabPost = require('../../models/lab-post').LabPost;
 var LabRequest = require('../public/lab-requst-params');
 var pdfPath = require('../../config/config').pdfPath;
- 
+var LabChoosedByStu = require('../../models/lab-post').LabChoosedByStu;
+
 // 创建学生所选实验列表
 module.exports.chooseLab = function(req, res) {
     // 获取请求的参数
@@ -13,7 +14,7 @@ module.exports.chooseLab = function(req, res) {
         labPost.save(function(err) {
             if (err) {
                 console.error("学生实验选择失败(学生表):\n", err);
-                return res.status(404).json({
+                return res.status(500).json({
                     success: false,
                     message: "实验选择失败"
                 });
@@ -37,7 +38,7 @@ module.exports.chooseLab = function(req, res) {
 module.exports.postScore = module.exports.postPdf = function(req, res) {
     // 获取请求的参数
     if (!req.decoded.isTeacher && req.file.mimetype != 'application/pdf') {
-        return res.status(404).json({
+        return res.status(500).json({
             success: false,
             message: "提交的文件类型有误"
         });
@@ -53,7 +54,7 @@ module.exports.postScore = module.exports.postPdf = function(req, res) {
     var options = { new: false };
     LabPost.findOneAndUpdate(query, update, options, function(err, labPost) {
         if (err) {
-            return res.status(404).json({
+            return res.status(500).json({
                 success: false,
                 message: "修改失败"
             });
@@ -89,7 +90,7 @@ module.exports.getChooedLab = function(req, res) {
     };
     LabPost.find(query, projection, options, function(err, labPost) {
         if (err) {
-            return res.status(404).json({
+            return res.status(500).json({
                 success: false,
                 message: "查询失败"
             });
@@ -97,6 +98,25 @@ module.exports.getChooedLab = function(req, res) {
         return res.status(200).json({
             success: true,
             labPost: labPost
+        });
+    });
+};
+
+// 获取选择实验的筛选列表(班级名称, 课程名称, 开课时间, 实验名字)
+module.exports.getSelectLabs = function(req, res) {
+    LabChoosedByStu.findOne({ number: req.decoded.number }, function(err, doc) {
+        if (err || doc == null) {
+            return res.status(500).json({
+                success: true,
+                message: "查询失败"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            classes: doc.classes,
+            courses: doc.courses,
+            years: doc.years,
+            labNames: doc.labNames
         });
     });
 };

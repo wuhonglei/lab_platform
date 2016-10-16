@@ -73,6 +73,8 @@ router.put('/mark-lab', labPost.postScore);
 
 // 获取选择该老师实验的学生
 router.get('/get-choosed-lab', labPost.getChooedLab);
+// 获取学生成绩筛选列表
+router.get('/get-selected-condition', labPost.getSelectLabs);
 
 // 新增实验引用列表中的refName条目
 router.put('/createRefName', labRef.createRefName);
@@ -83,5 +85,4 @@ router.get('/has-reffed-lab/:expItemId', labRef.hasRefedLab);
 
 // 查询一组实验中是否有实验被其他老师引用
 router.delete('/delete-labs/:expItemIdArray', lab.deleteLabs);
-
 module.exports = router;

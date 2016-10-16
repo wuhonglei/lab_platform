@@ -1,15 +1,11 @@
 <!-- 教师界面: 学生成绩概览 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header">学生成绩
-    <div class="col-sm-2 pull-right">
-        <select class="form-control" required="required" ng-model="search">
-            <option value="">不过滤</option>
-            <option value='3'>已打分</option>
-            <option value='4'>未打分</option>
-            <option value='1'>已提交作业</option>
-            <option value='2'>未提交作业</option>
-        </select>
-    </div>
+    <ul class="pull-right li-inline">
+        <li>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-select" ng-click="getSelectCondition()">筛选</button>
+        </li>
+    </ul>    
     </h2>
     <table class="table table-bordered table-hover">
         <thead>
@@ -25,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="lab in labs | tableFilter:search as result track by $index">
+            <tr ng-repeat="lab in labs | tableFilter:selected as result track by $index">
                 <td ng-bind="lab.studentName"></td>
                 <td ng-bind="lab.studentNumber"></td>
                 <td ng-bind="lab.labName"></td>
@@ -54,3 +50,73 @@
         </tfoot>
     </table>
 </div>
+<!-- 模态框: 筛选条件 -->
+<div class="modal fade" id="modal-select">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">筛选</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label for="">开课学期: </label>
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" ng-model="selected.year" data-html="1" data-placeholder="默认" data-toggle="true" bs-options="item for item in select.years" bs-select>
+                                    Action <span class="caret"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label" for="">课程: </label>
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" ng-model="selected.course" data-html="1" data-placeholder="默认" data-toggle="true" bs-options="item for item in select.courses" bs-select>
+                                    Action <span class="caret"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label" for="">班级: </label>
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" ng-model="selected.className" data-html="1" data-placeholder="默认" data-toggle="true" bs-options="item for item in select.classes" bs-select>
+                                    Action <span class="caret"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label class="control-label" for="">实验: </label>
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" ng-model="selected.labName" data-html="1" data-placeholder="默认" data-toggle="true" bs-options="item for item in select.labNames" bs-select>
+                                    Action <span class="caret"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label" for="">作业: </label>
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" ng-model="selected.isPost" data-html="1" data-placeholder="默认" data-toggle="true" bs-options="item.value as item.label for item in select.post" bs-select>
+                                    Action <span class="caret"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <label class="control-label" for="">打分: </label>
+                            <br>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" ng-model="selected.isMarked" data-html="1" data-placeholder="默认" data-toggle="true" bs-options="item.value as item.label for item in select.mark" bs-select>
+                                    Action <span class="caret"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="selected={}">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="filterGrade(selected)">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -33,8 +33,12 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'partials/students/lab-item.html',
             controller: 'CategoryNavCtrl'
         })
-        .when('/:category/:expItemId', {
+        .when('/category/:expItemId', {
             templateUrl: 'partials/students/lab-detail.html',
             controller: 'LabDetailCtrl'
         })
+        .when('/:category/:expItemId', {
+            templateUrl: 'partials/students/lab-detail.html',
+            controller: 'LabDetailCtrl'
+        });
 }]);

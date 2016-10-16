@@ -26,7 +26,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="lab in labs | tableFilter:filCondition as result track by $index">
-                <td ng-bind="lab.labName"></td>
+                <td>
+                    <a ng-href="#/category/{{lab.expItemId}}" ng-bind="lab.labName"></a>
+                </td>
                 <td ng-bind="lab.teacherName"></td>
                 <td ng-bind="lab.choosedDate.substr(0, 10)"></td>
                 <td ng-bind="lab.postDate.substr(0, 10)"></td>

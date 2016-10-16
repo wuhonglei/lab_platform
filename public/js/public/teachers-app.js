@@ -42,6 +42,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'partials/public/modify-password.html',
             controller: 'ModifyPasswordCtrl'
         })
+        .when('/category/:expItemId', {
+            templateUrl: 'partials/teacher/lab-detail.html',
+            controller: 'LabDetailCtrl'
+        })
         .when('/:category/:expItemId', {
             templateUrl: 'partials/teacher/lab-detail.html',
             controller: 'LabDetailCtrl'

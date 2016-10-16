@@ -24,7 +24,9 @@
             <tr ng-repeat="lab in labs | tableFilter:selected as result track by $index">
                 <td ng-bind="lab.studentName"></td>
                 <td ng-bind="lab.studentNumber"></td>
-                <td ng-bind="lab.labName"></td>
+                <td>
+                    <a ng-href="#/category/{{lab.expItemId}}" ng-bind="lab.labName"></a>
+                </td>
                 <td ng-if="lab.isPost">是</td>
                 <td ng-if="!lab.isPost">否</td>
                 <td ng-bind="lab.postDate.substr(0, 10)"></td>

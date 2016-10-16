@@ -21,8 +21,10 @@ angular.module('myApp')
             angular.forEach(infoList, function(item, index) {
                 var notPush = false;
                 for (var key in shouldPass) {
-                    if (shouldPass[key] !== item[key]) notPush = true;
-                    break;
+                    if (shouldPass[key] !== item[key]) {
+                        notPush = true;
+                        break;
+                    }
                 }
                 // 满足过滤规则
                 if (!notPush) out.push(item);

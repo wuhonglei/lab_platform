@@ -9,7 +9,8 @@ angular.module('myApp')
                 courses: [],
                 classes: [],
                 descriptions: []
-            }; 
+            };
+            $scope.infoLists = [];
             $scope.selected = {};
             // 获取学生信息列表
             StudentInfo.get().then(function(response) {
@@ -36,11 +37,9 @@ angular.module('myApp')
                             // 保存成功
                             $('#modal-preview-excel').modal('hide');
                             $scope.infoLists = data.reverse().concat($scope.infoLists);
-                            // 将信息表中获取的开课学期, 课程, 班级存入筛选列表中
-                            // for (var key in $scope.select) {
-                            //     $scope.select[key].push(result.infoList[key]);
-                            // }
                             Alert.show({ content: '学生信息保存成功' });
+                            hasLoadedSelect = false;
+                            $scope.getSelectedList();
                         }, function(response) {
                             // 保存失败
                             var content = response.data.description + "<br>" + response.data.errmsg;
@@ -58,7 +57,7 @@ angular.module('myApp')
                 });
             };
 
-            // 获取"筛选学生信息"里的开课日期, 课程, 班级列表
+            // 获取"筛选学生信息"里的开课日期, 课程, 班级列表, 描述信息
             $scope.getSelectedList = function() {
                 if (hasLoadedSelect) {
                     return;
@@ -71,12 +70,38 @@ angular.module('myApp')
                         for (var key in $scope.select) {
                             $scope.select[key] = data[key];
                         }
+                        $scope.descriptions = data.descriptions;
                         hasLoadedSelect = true;
                     }
                 }, function(response) {
                     /* body... */
                 });
             };
+
+            // 删除某班级学生信息
+            $scope.deleteClass = function(description) {
+                if (!description) return;
+                var url = '/teacher/delete-class-info';
+                var data = {
+                    description: description
+                };
+                $http.post(url, data).then(function(response) {
+                    // 请求成功
+                    if (response.data.success) {
+                        $('#modal-delete-student-info').modal('hide');
+                        Alert.show({ content: "删除成功" });
+                        $scope.infoLists = $scope.infoLists.filter(function(element, index, array) {
+                            return element.description != description;
+                        });
+                        hasLoadedSelect = false;
+                        $scope.getSelectedList();
+                    }
+                }, function(response) {
+                    // 请求失败
+                    $('#modal-delete-student-info').modal('hide');
+                    Alert.show({ content: "删除失败", type: 'danger' });
+                    console.error('删除失败');
+                });
+            };
         }
     ]);
-

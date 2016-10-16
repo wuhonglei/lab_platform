@@ -11,14 +11,14 @@
             <input type="file" name="file" id="file" class="inputfile" accept=".xlsx, .xls, .csv" ng-model="excel" ngf-select="import(excel)" />
             <label for="file"><i class="fa fa-plus-square"></i> 导入excel</label>
         </li>
-        <li>
+        <!--         <li>
             <button type="button" class="btn btn-default"> 手动添加</button>
         </li>
         <li>
             <button class="btn btn-default" data-toggle="modal" data-target='#edit-lab-modal' ng-disabled="!checkChoosed()" ng-click="getLabItem()"><i class="fa fa-pencil-square-o "></i> 修改</button>
-        </li>
+        </li> -->
         <li>
-            <button class="btn btn-danger" data-toggle="modal" data-target='#modal-excel-err' ng-disabled="" ng-click="getDeltedLabItem()"><i class="fa fa-times"></i> 删除</button>
+            <button class="btn btn-danger" data-toggle="modal" data-target='#modal-delete-student-info' ng-disabled="!infoLists.length" ng-click="getSelectedList()"><i class="fa fa-times"></i> 删除</button>
         </li>
     </ul>
     <!-- 显示学生信息 -->
@@ -153,6 +153,31 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="selected={}">取消</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框: 删除班级信息 -->
+<div class="modal fade" id="modal-delete-student-info">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="description=undefined">&times;</button>
+                <h4 class="modal-title">删除学生信息</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="description">班级:</label>
+                        <button type="button" id="description" class="btn btn-default" ng-model="description" data-html="1" data-toggle="true" data-placeholder="请从列表中选择一个班级" bs-options="item for item in descriptions" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="deleteClass(description)">确认</button>
             </div>
         </div>
     </div>

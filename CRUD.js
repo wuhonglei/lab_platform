@@ -49,7 +49,9 @@ var options = {
 SCheme.find(query, projection, options, function(err, docs) {
     /* body... */
     // docs 是一个数组
-})
+});
+// 查询链接: https://docs.mongodb.com/manual/tutorial/query-documents/
+// 查询数组中的某一个元素: queray = {arrayName: elementValue}
 
 SCheme.findOne(query, projection, function(err, doc) {
     // doc 是一个对象
@@ -98,7 +100,6 @@ SCheme.update(query, doc, options, function(err, updateState) {
     // ok: 操作是否被正常执行   nModified: 修改的document数目, n: 符合更新条件的数目
 });
 
-// or document.update(query, doc, options).exec();
 document.update(doc, options, function(err) {});
 /* ---------options------------
 upsert: true 如果更新不存在则, 创建一个documents插入

@@ -3,7 +3,7 @@
     <h2 class="page-header">学生成绩
     <ul class="pull-right li-inline">
         <li>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-select" ng-click="getSelectCondition()">筛选</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-select" ng-disabled="!labs.length" ng-click="getSelectCondition()">筛选</button>
         </li>
     </ul>    
     </h2>

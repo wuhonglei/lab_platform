@@ -13,8 +13,8 @@ module.exports.get = function(req, isUpdate) {
         }
     } 
     if (!isUpdate) {
-        labPost.studentName = req.decoded.name;
-        labPost.studentNumber = req.decoded.number;
+        labPost.studentName = req.body.studentName;
+        labPost.studentNumber = req.body.studentNumber;
     } else {
         if (req.decoded.isTeacher) {
             // 修改人是老师

@@ -32,7 +32,7 @@ module.exports.chooseLab = function(req, res) {
             message: "你无权选择"
         });
     }
-};
+}; 
 
 // 学生上传PDF后, 老师上传成绩
 module.exports.postScore = module.exports.postPdf = function(req, res) {

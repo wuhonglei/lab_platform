@@ -17,8 +17,8 @@ angular.module('myApp')
             ];
             // 学生部分
             var categoryStu = [
-                { label: '我的成绩', select: 'my-grades' },
-                { label: '我的实验', select: 'my-labs' }
+                { label: '我的成绩', select: 'my-grades' }
+                // { label: '我的实验', select: 'my-labs' }
             ];
             // 老师部分
             var categoryTea = [

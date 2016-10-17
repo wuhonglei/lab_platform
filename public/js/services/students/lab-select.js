@@ -1,5 +1,5 @@
 // 学生界面 -- 选择某实验后在首页显示学生所选取实验列表
-angular.module('myApp')
+angular.module('myApp') 
     .factory('labPost', ['$http', '$q', 'PersonalInfo', 'Upload',
         function($http, $q, PersonalInfo, Upload) {
             // 新建实验列表
@@ -14,6 +14,7 @@ angular.module('myApp')
                     teacherName: selectTeacher.name,
                     teacherNumber: selectTeacher.number
                 };
+                console.log('data: ', data);
                 // 学生实验后, 建立学生和老师之间的关系
                 $http.post(url, data)
                     .then(function(response) {

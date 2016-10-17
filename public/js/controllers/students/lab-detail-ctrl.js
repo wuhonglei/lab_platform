@@ -3,11 +3,12 @@ angular.module('myApp')
     .controller('LabDetailCtrl', ['$scope', '$routeParams', 'LabDetail', 'LabRef', 'labPost', 'Alert',
         function($scope, $routeParams, LabDetail, LabRef, labPost, Alert) {
             var expItemId = $routeParams.expItemId;
-            // 请求实验详情
+            // 获取实验详情 
             LabDetail.get(expItemId)
                 .then(function(response) {
                     // 请求成功
                     $scope.htmlContent = response.data.labDetail.labDetail;
+                    $scope.labName = response.data.labDetail.labName
 
                 }, function(response) {
                     // 请求失败

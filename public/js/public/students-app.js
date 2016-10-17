@@ -21,6 +21,14 @@ myApp.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'partials/students/work-desc.html',
             controller: 'StudentsWorkDescCtrl'
         })
+        .when('/my-grades', {
+            templateUrl: 'partials/students/work-desc.html',
+            controller: 'StudentsWorkDescCtrl'
+        })
+        .when('/lab-resource', {
+            templateUrl: 'partials/public/lab-resource.html',
+            controller: 'labResourceCtrl'
+        })
         .when('/account/modify-password', {
             templateUrl: 'partials/public/modify-password.html',
             controller: 'ModifyPasswordCtrl'

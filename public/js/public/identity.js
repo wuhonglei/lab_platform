@@ -11,6 +11,7 @@
         student: [
             'js/public/students-app.js', 'js/services/students/lab-detail.js', 'js/services/students/lab-ref.js',
             'js/services/students/lab-select.js', 'js/services/students/lab-item.js',
+            'js/controllers/public/lab-resource-ctrl.js',
             'js/controllers/students/lab-list-ctrl.js', 'js/controllers/students/lab-detail-ctrl.js',
             'js/controllers/students/student-work-desc-ctrl.js', 'js/filters/students/work-select.js'
         ],

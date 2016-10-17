@@ -6,8 +6,20 @@ angular.module('myApp')
         var readExcel = function(file) {
             const PARSELABLE = "------------------解析表格----------------------";
             console.time(PARSELABLE);
-            var reader = new FileReader();
             var deferred = $q.defer();
+            var reader = new FileReader();
+            var name = file.name;
+            var regExp = /.(\.xlsx)$/;
+            if (!regExp.test(name)) {
+                var response = {
+                    data: {
+                        success: false,
+                        message: "请导入.xlsx文件"
+                    }
+                };
+                deferred.reject(response);
+                return deferred.promise;
+            }
             reader.onload = function(e) {
                 var data = e.target.result;
                 var workbook = XLSX.read(data, { type: 'binary' });

@@ -48,6 +48,11 @@ angular.module('myApp')
                         });
                     }
                 }, function(result) {
+                    if (result.data.success == false) {
+                        $("#modal-excel-err").modal('hide');
+                        Alert.show({ content: result.data.message, type: 'danger' });
+                        return;
+                    }
                     // 解析出错
                     $scope.error = result.data;
                     // 按下 ESC 按钮退出

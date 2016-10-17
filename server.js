@@ -16,6 +16,7 @@ app.use(express.static(__dirname + config.imgItemPath)); // set the lab item thu
 app.use(express.static(__dirname + config.imgDetailPath)); // set the lab detail image path
 app.use(express.static(__dirname + config.filePath)); // set the lab detail image path
 app.use(express.static(__dirname + config.pdfPath)); // set the lab pdf path
+app.use(express.static(__dirname + config.labResourcePath)); // set the lab resource path
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.urlencoded({ 'extended': 'true' })); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json

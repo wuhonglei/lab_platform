@@ -7,7 +7,7 @@
             <button class="btn btn-primary" ng-if="isEditable" ng-click="toggleEdit($event)">编辑</button>
         </li>
         <li>
-            <button class="btn btn-success" data-toggle="modal" data-target="#modal-post-work">布置实验</button>
+            <button class="btn btn-success" data-toggle="modal" data-target="#modal-post-work" ng-if="isEditable || !isEditable && hasRefed">布置实验</button>
         </li>
         <li>
             <!-- 引用该实验: 1. 不是该实验的创建者(LabRef表refName数组中新增一个对象) -->

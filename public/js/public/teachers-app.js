@@ -19,33 +19,60 @@ myApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     // 根据<a href="#/id">  --导航--> /id
         .when('/', {
-            templateUrl: 'partials/teacher/students-grades.html',
-            controller: 'StudentsGradesCtrl'
+            templateUrl: 'partials/teacher/published-labs.html',
+            controller: 'publishedLabsCtrl'
         })
-        .when('/student-grades', {
-            templateUrl: 'partials/teacher/students-grades.html',
-            controller: 'StudentsGradesCtrl'
+        // 布置实验
+        .when('/publish-labs', {
+            templateUrl: 'partials/teacher/publish-labs.html',
+            controller: 'publishLabsCtrl'
         })
-        .when('/student-info', {
-            templateUrl: 'partials/teacher/student-info.html',
-            controller: 'studentInfoCtrl'
+        // 已布置的实验
+        .when('/published-labs', {
+            templateUrl: 'partials/teacher/published-labs.html',
+            controller: 'publishedLabsCtrl'
         })
-        .when('/lab-resource', {
-            templateUrl: 'partials/public/lab-resource.html',
-            controller: 'labResourceCtrl'
+        // 打分
+        .when('/grade-labs', {
+            templateUrl: 'partials/teacher/grade-labs.html',
+            controller: 'gradeLabsCtrl'
         })
+        // 导入学生信息
+        .when('/import-student-info', {
+            templateUrl: 'partials/teacher/import-student-info.html',
+            controller: 'importStudentInfoCtrl'
+        })
+        // 管理学生名单
+        .when('/manage-student-info', {
+            templateUrl: 'partials/teacher/manage-student-info.html',
+            controller: 'manageStudentInfoCtrl'
+        })
+        // 引用其他实验
+        .when('/quote-labs', {
+            templateUrl: 'partials/teacher/quote-labs.html',
+            controller: 'quoteLabsCtrl'
+        })
+        // 实验工具
+        .when('/lab-tools', {
+            templateUrl: 'partials/public/lab-tools.html',
+            controller: 'labToolsCtrl'
+        })
+        // 实验类别
         .when('/:categoryID', {
             templateUrl: 'partials/teacher/lab-item.html',
             controller: 'CategoryNavCtrl'
         })
+        // 修改密码
         .when('/account/modify-password', {
             templateUrl: 'partials/public/modify-password.html',
             controller: 'ModifyPasswordCtrl'
         })
+        // 实验详情
         .when('/category/:expItemId', {
             templateUrl: 'partials/teacher/lab-detail.html',
             controller: 'LabDetailCtrl'
         })
+        // 实验详情
         .when('/:category/:expItemId', {
             templateUrl: 'partials/teacher/lab-detail.html',
             controller: 'LabDetailCtrl'

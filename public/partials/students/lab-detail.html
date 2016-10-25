@@ -7,10 +7,9 @@
     <div class="form-group">
         <!-- <label for="input" class="col-sm-2 control-label">选择老师</label> -->
         <div class="col-sm-2">
-            <select class="form-control" ng-options="item.name for item in labRef.refName" ng-model="selectTeacher" ng-change="choose(selectTeacher)" ng-disabled="hasChoosed">
+            <select ng-if="false" class="form-control" ng-options="item.name for item in labRef.refName" ng-model="selectTeacher" ng-change="choose(selectTeacher)" ng-disabled="hasChoosed">
                 <option value="" ng-bind="desc"></option>
             </select>
         </div>
     </div>
 </div>
- 

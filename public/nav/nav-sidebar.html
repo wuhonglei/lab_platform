@@ -1,7 +1,21 @@
 <!-- 左侧导航 -->
 <div class="col-sm-3 col-md-2 sidebar">
     <!-- 左侧导航栏列表 -->
-    <ul class="nav nav-sidebar" ng-repeat="item in categories">
+    <!-- <ul class="nav nav-sidebar" ng-repeat="item in categories">
         <li><a ng-href="#/{{item.select}}">{{item.label}}</a></li>
-    </ul>
+    </ul> -->
+    <div class="panel panel-default" ng-repeat="menu in categories track by $index">
+        <div class="panel-heading">
+            <span data-toggle="collapse" data-target="#collapse{{$index}}" ng-bind="menu.firstLevelMenu"></span>
+        </div>
+        <div id="collapse{{$index}}" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <ul class="nav nav-sidebar">
+                    <li ng-repeat="item in menu.secondLevelMenu">
+                        <a href="#/{{item.select}}" ng-bind="item.label"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

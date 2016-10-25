@@ -37,6 +37,9 @@ var labPostSchema = new mongoose.Schema({
     postDate: {
         type: Date
     },
+    deadline: {
+        type: Date
+    },
     isPost: {
         type: Boolean,
         default: false
@@ -76,6 +79,31 @@ var labChoosedByStuSChema = new mongoose.Schema({
         required: true
     }]
 });
+// 教师界面, 已布置实验列表
+var labPublishedList = new mongoose.Schema({
+    number: {
+        type: String,
+        required: true
+    },
+    expItemId: {
+        type: mongoose.Schema.ObjectId,
+        required: true
+    },
+    description: String,
+    labName: String,
+    labCategory: String,
+    class: String,
+    course: String,
+    year: String,
+    publishedTime: {
+        type: Date,
+        default: Date.now
+    },
+    deadline: {
+        type: Date
+    }
+});
 
 module.exports.LabPost = mongoose.model('LabPost', labPostSchema);
 module.exports.LabChoosedByStu = mongoose.model('LabChoosedByStu', labChoosedByStuSChema);
+module.exports.LabPublishedList = mongoose.model('LabPublishedList', labPublishedList);

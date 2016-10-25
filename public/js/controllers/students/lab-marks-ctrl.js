@@ -1,6 +1,6 @@
 // 学生界面 -- 学生选做实验概览
 angular.module('myApp')
-    .controller('StudentsWorkDescCtrl', ['$scope', '$http', 'Upload', 'labPost', 'PDF', 'Alert',
+    .controller('labMarksCtrl', ['$scope', '$http', 'Upload', 'labPost', 'PDF', 'Alert',
         function($scope, $http, Upload, labPost, PDF, Alert) {
             // 获取学生选做实验列表
             labPost.get()

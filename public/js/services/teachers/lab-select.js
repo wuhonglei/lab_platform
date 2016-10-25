@@ -2,9 +2,9 @@
 angular.module('myApp')
     .factory('Student', ['$http', '$q', function($http, $q) {
         // 获取该学生选择的实验列表
-        var getStudentList = function() {
+        var getStudentList = function(selected) {
             var deferred = $q.defer();
-            var url = '/teacher/get-choosed-lab';
+            var url = '/teacher/get-choosed-lab/' + JSON.stringify(selected);
             $http.get(url)
                 .then(function(response) {
                     // 请求成功

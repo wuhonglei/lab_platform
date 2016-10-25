@@ -48,7 +48,7 @@ angular.module('myApp')
                 return deferred.promise;
             };
 
-            // 获取可以选择的班级列表
+            // 给班级布置实验
             var postMultiLabs = function(labDetail) {
                 var deferred = $q.defer();
                 if (!labDetail) {
@@ -63,8 +63,10 @@ angular.module('myApp')
                     }
                     var data = {
                         description: labDetail.description,
+                        labCategory: labDetail.labCategory,
                         expItemId: labDetail.expItemId,
                         labName: labDetail.labName,
+                        deadline: labDetail.deadline * 24 * 3600 * 1000,
                         number: PersonalInfo.number,
                         name: PersonalInfo.name
                     };
@@ -78,6 +80,10 @@ angular.module('myApp')
                         }
                     }, function(response) {
                         // 请求失败
+                        if (response.data.isLoggedOut) {
+                            // token过期, 
+                            location.href = '/login.html';
+                        }
                         deferred.reject(response);
                     });
                 }

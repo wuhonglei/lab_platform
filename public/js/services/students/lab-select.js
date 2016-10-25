@@ -2,13 +2,14 @@
 angular.module('myApp') 
     .factory('labPost', ['$http', '$q', 'PersonalInfo', 'Upload',
         function($http, $q, PersonalInfo, Upload) {
-            // 新建实验列表
-            var createLabPost = function(labRef, selectTeacher) {
+            // 选择实验
+            var createLabPost = function(labRef, selectTeacher, category) {
                 var deferred = $q.defer();
                 var url = '/student/choose-lab';
                 var data = {
                     expItemId: labRef.expItemId,
                     labName: labRef.labName,
+                    labCategory: category,
                     studentName: PersonalInfo.name,
                     studentNumber: PersonalInfo.number,
                     teacherName: selectTeacher.name,

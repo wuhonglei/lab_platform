@@ -1,0 +1,108 @@
+<!-- 教师界面: 导入学生信息 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">导入学生信息</h2>
+    <ul class="pull-right li-inline">
+        <li>
+            <!-- <input type="file" name="file" id="file" class="inputfile" accept=".xlsx, .xls, .csv" ng-model="excel" ngf-select="import(excel)" /> -->
+            <input type="file" name="file" id="file" class="inputfile" accept=".xlsx" ng-model="excel" ngf-select="import(excel)" />
+            <label for="file"><i class="fa fa-plus-square"></i> 导入excel</label>
+        </li>
+        <!--         <li>
+            <button type="button" class="btn btn-default"> 手动添加</button>
+        </li>
+        <li>
+            <button class="btn btn-default" data-toggle="modal" data-target='#edit-lab-modal' ng-disabled="!checkChoosed()" ng-click="getLabItem()"><i class="fa fa-pencil-square-o "></i> 修改</button>
+        </li> -->
+    </ul>
+    <!-- 显示学生信息 -->
+    <table class="table table-bordered table-striped" ng-repeat="classOne in infoLists | infoFilter:selected">
+        <caption ng-bind="classOne.description"></caption>
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>学号</th>
+                <th>姓名</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in classOne.info | orderBy: item.index as result track by $index">
+                <td ng-bind="item.index"></td>
+                <td ng-bind="item.number"></td>
+                <td ng-bind="item.name"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" ng-show="result.length"><em><i class="fa fa-user" aria-hidden="true"></i> {{result.length}}人</em></td>
+            </tr>
+            <tr>
+                <td colspan="4" ng-if="result.length == 0" class="text-center"><i class="fa fa-space-shuttle" aria-hidden="true"></i>&nbsp;<em>无学生信息</em>&nbsp;<i class="fa fa-space-shuttle" aria-hidden="true"></i></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<!-- 模态提醒框 -->
+<!-- excel格式错误 -->
+<div class="modal fade" id="modal-excel-err">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Excel 格式错误</h4>
+            </div>
+            <div class="modal-body">
+                <h4>正确的excel表格格式:</h4>
+                <img src="../../image/excel-error.png" class="img-responsive" alt="错误提示">
+                <br>
+                <div class="alert alert-danger">表单 <strong>{{error.sheetName}}</strong>, 第 <strong>{{error.rowNum}}</strong> 行格式有误</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 显示excel表格 -->
+<div class="modal fade" id="modal-preview-excel">
+    <div class="modal-dialog">
+        <div class="modal-content" wid>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">上传Excel</h4>
+            </div>
+            <div class="modal-body">
+                <!-- 显示上传的表格信息 -->
+                <table class="table table-bordered table-striped" ng-repeat="classOne in classLists">
+                    <caption ng-bind="classOne.description"></caption>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>学号</th>
+                            <th>姓名</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in classOne.info | orderBy: item.index as result track by $index">
+                            <td ng-bind="item.index"></td>
+                            <td ng-bind="item.number"></td>
+                            <td ng-bind="item.name"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" ng-show="result.length"><em><i class="fa fa-user" aria-hidden="true"></i> {{result.length}}人</em></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" ng-if="result.length == 0" class="text-center"><i class="fa fa-space-shuttle" aria-hidden="true"></i>&nbsp;<em>无学生信息</em>&nbsp;<i class="fa fa-space-shuttle" aria-hidden="true"></i></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" ng-disabled="notUpload" ng-click="upload(classLists)"><i class="fa fa-upload" aria-hidden="true"></i> 提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+

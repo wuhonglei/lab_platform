@@ -32,7 +32,7 @@ module.exports.chooseLab = function(req, res) {
             message: "你无权选择"
         });
     }
-}; 
+};
 
 // 学生上传PDF后, 老师上传成绩
 module.exports.postScore = module.exports.postPdf = function(req, res) {
@@ -75,7 +75,14 @@ module.exports.postScore = module.exports.postPdf = function(req, res) {
 
 // 获取选择的实验
 module.exports.getChooedLab = function(req, res) {
-    var query = req.decoded.isTeacher ? { teacherNumber: req.decoded.number } : { studentNumber: req.decoded.number };
+    var query;
+    if (req.decoded.isTeacher) {
+        var selected = JSON.parse(req.params.selected);
+        selected.teacherNumber = req.decoded.number;
+        query = selected;
+    } else {
+        query = { studentNumber: req.decoded.number };
+    }
     // 选择数据库返回的字段(或不返回的字段, 0: 不返回, 1: 返回)
     var projection = {
         "_id": 0,

@@ -16,6 +16,10 @@ angular.module('myApp')
                     deferred.resolve(response);
                 }, function(response) {
                     // 请求失败
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
                     var message = {};
                     var errmsg = response.data.message.errmsg;
                     var regExp = /description_1 dup key/;
@@ -32,9 +36,9 @@ angular.module('myApp')
             };
 
             // 获取学生信息表
-            var get = function() {
+            var get = function(selected) {
                 var deferred = $q.defer();
-                var url = '/teacher/get-student-info';
+                var url = '/teacher/get-student-info/' + JSON.stringify(selected);
                 $http.get(url).then(function(response) {
                     // 请求成功
                     if (response.data.success) {
@@ -44,6 +48,10 @@ angular.module('myApp')
                     }
                 }, function(response) {
                     // 请求失败
+                    if (response.data.isLoggedOut) {
+                        // token过期, 
+                        location.href = '/login.html';
+                    }
                     deferred.reject(response);
                 });
                 return deferred.promise;

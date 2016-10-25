@@ -66,6 +66,10 @@ var labDetailSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    labCategory: {
+        type: String,
+        required: true
+    },
     labDetail: {
         type: String,
         default: ""
@@ -74,7 +78,7 @@ var labDetailSchema = new mongoose.Schema({
         type: String
     },
     publishDate: {
-        type: Date, 
+        type: Date,
         default: Date.now
     },
     modifiedDate: {

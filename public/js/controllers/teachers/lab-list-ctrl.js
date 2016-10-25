@@ -1,8 +1,7 @@
-// 左侧导航栏 --  
+// 教师界面 -- 实验列表
 angular.module('myApp')
     .controller('CategoryNavCtrl', ['$scope', '$routeParams', '$filter', 'PersonalInfo', 'LabItem', 'Alert', 'Sidebar',
         function($scope, $routeParams, $filter, PersonalInfo, LabItem, Alert, Sidebar) {
-            // 获取实验列表 
             var category = $routeParams.categoryID;
             $scope.navName = Sidebar.name(category);
             $scope.labItems = [];
@@ -17,13 +16,12 @@ angular.module('myApp')
             } else {
                 $scope.myLab = true;
                 // 获取左侧导航的数据
-                var categories = Sidebar.show();
-                // 删除第一条数据 (我的导航)
-                categories.shift();
-                $scope.categories = categories;
                 url = '/teacher/get-personal-labs';
             }
+            var categories = Sidebar.categories();
+            $scope.categories = categories;
 
+            // 获取实验列表 
             var getResultsPage = function(newPage) {
                 var data = {
                     limit: $scope.itemPerPage,
@@ -109,6 +107,7 @@ angular.module('myApp')
                 // get the last element of the INDEX array
                 var index = INDEX.slice(-1);
                 var originItem = $scope.labItems[index];
+                console.log('编辑项目: ', originItem);
                 $scope.update = {
                     name: originItem.name,
                     description: originItem.description,
@@ -146,7 +145,9 @@ angular.module('myApp')
                 };
             };
 
-
+            $scope.categoryLabel = function(select) {
+                return Sidebar.name(select);
+            };
 
             // delete the lab item
             $scope.getDeltedLabItem = function() {
@@ -167,7 +168,6 @@ angular.module('myApp')
                     LabItem.delete($scope.deleteLabs)
                         .then(function(response) {
                             // 请求成功
-                            console.info(response);
                             var data = response.data;
                             var hasDeleted = data.hasDeleted;
                             var beenChoosed = data.beenChoosed;

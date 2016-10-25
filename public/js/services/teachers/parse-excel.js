@@ -110,9 +110,16 @@ angular.module('myApp')
                 var desired_cell;
                 /* Get the value */
                 var desired_value;
+                // 测试是否为学生信息表
+                if (worksheet['A1'] && !/学生课堂考勤表/.test(worksheet['A1'].v)) {
+                    return {
+                        isFormatRight: false,
+                        sheetName: sheet_name,
+                        rowNum: 1
+                    };
+                };
                 // 遍历某一sheet表单, 如果出现连续10行空单元格,  中止执行
                 while (spaceRow < 10) {
-                    // 如果当前遍历单元格是学号(或姓名), 则起始遍历列号是'B'
                     for (var i = 0; i <= 2; i++) {
                         address_of_cell = columnArray[i].concat(rowNum);
                         desired_cell = worksheet[address_of_cell];

@@ -1,0 +1,64 @@
+<!-- 教师界面: 布置实验 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">布置实验</h2>
+    <ul class="pull-right li-inline">
+        <li>
+            <button class="btn btn-success" data-toggle="modal" data-target='#modal-publish-labs' ng-disabled="!checkedLen" ng-click="getPublishClass(checkedLen)"><i class="fa fa-television" aria-hidden="true"></i> 布置实验</button>
+        </li>
+    </ul>
+    <table class="table" id="lab-list-table">
+        <tbody>
+            <tr dir-paginate="item in labItems | itemsPerPage: itemPerPage" total-items="totalItems" current-page="currentPage">
+                <td>
+                    <input type="checkbox" id="check" ng-model="item.isChecked" ng-click="getCheckedIndex($index, item.isChecked, labItems, currentPage)">
+                </td>
+                <td>
+                    <a class="a-default" href="#/{{item.labCategory}}/{{item.expItemId}}">
+                        <div class="media">
+                            <img ng-src="{{item.thumbnail}}" alt="实验缩略图">
+                            <div class="media-body">
+                                <h4 class="media-heading">{{item.name}}<span class="pull-right small"><span ng-bind="categoryLabel(item.labCategory)"></span> <i class="fa fa-user" aria-hidden="true"></i>{{item.createdByName}}</span></h4>
+                                <span ng-bind="item.description"></span>
+                            </div>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="partials/public/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>
+<!-- 模态框 -->
+<div class="modal fade" id="modal-publish-labs">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="description=undefined">&times;</button>
+                <h4 class="modal-title">布置实验</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="description">班级:</label>
+                        <button type="button" id="description" class="btn btn-default" ng-model="description" data-html="1" data-toggle="true" data-placeholder="请从列表中选择一个班级" bs-options="item for item in descriptions" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">时间:</label>
+                        <div class="input-group col-sm-3">
+                            <input type="number" class="form-control" placeholder="1-365天" min="1" max="365" ng-model="deadline">
+                            <span class="input-group-addon">天</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="description=undefined">取消</button>
+                <button type="button" class="btn btn-primary" ng-disabled="!descriptions" ng-click="postWork(description, deadline, labItems)">确认</button>
+            </div>
+        </div>
+    </div>
+</div>

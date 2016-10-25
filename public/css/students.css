@@ -1,3 +1,4 @@
+
  /* 学生 */
  /*修改密码 错误字体*/
  
@@ -11,6 +12,7 @@
  }
  
  #alertContainer {
+     z-index: 1000;
      position: absolute;
      top: 52px;
      right: 50px;

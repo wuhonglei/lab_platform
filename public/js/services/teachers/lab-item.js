@@ -8,7 +8,7 @@ angular.module('myApp')
                     url: url,
                     method: 'GET',
                     params: data
-                }
+                };
                 $http(request)
                     .then(function(response) {
                         // 请求成功

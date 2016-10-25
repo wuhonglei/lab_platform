@@ -1,13 +1,13 @@
 <!-- 教师界面: 实验详情 -->
-<div id="detail-alert-container"></div> 
+<div id="detail-alert-container"></div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header"><span ng-bind="labName">实验详情</span>
     <ul class="pull-right li-inline">
         <li>
-            <button class="btn btn-primary" ng-if="isEditable" ng-click="toggleEdit($event)">编辑</button>
+            <button class="btn btn-primary pull-right" ng-if="isEditable" ng-click="toggleEdit($event)">编辑</button>
         </li>
         <li>
-            <button class="btn btn-success" data-toggle="modal" data-target="#modal-post-work" ng-if="isEditable || !isEditable && hasRefed">布置实验</button>
+            <button class="btn btn-success pull-right" data-toggle="modal" data-target="#modal-post-work" ng-if="isEditable || !isEditable && hasRefed">布置实验</button>
         </li>
         <li>
             <!-- 引用该实验: 1. 不是该实验的创建者(LabRef表refName数组中新增一个对象) -->
@@ -86,12 +86,19 @@
                         <button type="button" id="description" class="btn btn-default" ng-model="description" data-html="1" data-toggle="true" data-placeholder="请从列表中选择一个班级" bs-options="item for item in descriptions" bs-select>
                             Action <span class="caret"></span>
                         </button>
+                    </div> 
+                    <div class="form-group">
+                        <label for="time">时间:</label>
+                        <div class="input-group col-sm-3">
+                            <input type="number" class="form-control" placeholder="1-365天" min="1" max="365" ng-model="deadline">
+                            <span class="input-group-addon">天</span>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="description=undefined">取消</button>
-                <button type="button" class="btn btn-primary" ng-disabled="!descriptions" ng-click="postWork(description)">确认</button>
+                <button type="button" class="btn btn-primary" ng-disabled="!descriptions" ng-click="postWork(description, deadline)">确认</button>
             </div>
         </div>
     </div>

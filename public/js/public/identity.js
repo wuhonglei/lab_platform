@@ -11,19 +11,22 @@
         student: [
             'js/public/students-app.js', 'js/services/students/lab-detail.js', 'js/services/students/lab-ref.js',
             'js/services/students/lab-select.js', 'js/services/students/lab-item.js',
-            'js/controllers/public/lab-resource-ctrl.js',
+            'js/controllers/public/lab-tools-ctrl.js',
             'js/controllers/students/lab-list-ctrl.js', 'js/controllers/students/lab-detail-ctrl.js',
-            'js/controllers/students/student-work-desc-ctrl.js', 'js/filters/students/work-select.js'
+            'js/controllers/students/lab-marks-ctrl.js', 'js/filters/students/work-select.js'
         ],
         teacher: [
             'js/public/teachers-app.js', 'js/services/teachers/lab-item.js', 'js/services/teachers/lab-detail.js',
             'js/services/teachers/lab-ref.js', 'js/lib/angular-ui-modal/ui-bootstrap-custom-tpls-1.3.3.js',
             'js/services/teachers/lab-select.js', 'js/filters/teachers/student-info.js',
             'js/services/teachers/student-info.js', 'js/services/teachers/student-info.js',
-            'js/services/teachers/parse-excel.js',
-            'js/controllers/teachers/lab-list-ctrl.js', 'js/controllers/public/lab-resource-ctrl.js',
-            'js/controllers/teachers/student-grade-ctrl.js', 'js/controllers/teachers/lab-detail-ctrl.js',
-            'js/controllers/teachers/student-info-ctrl.js', 'bower_components/js-xlsx/dist/xlsx.core.min.js',
+            'js/services/teachers/parse-excel.js', 'js/services/teachers/published-labs.js',
+            'js/controllers/teachers/publish-labs-ctrl.js', 'js/controllers/teachers/published-labs-ctrl.js',
+            'js/controllers/teachers/lab-list-ctrl.js', 'js/controllers/public/lab-tools-ctrl.js',
+            'js/controllers/teachers/grade-labs-ctrl.js', 'js/controllers/teachers/lab-detail-ctrl.js',
+            'js/controllers/teachers/student-info-ctrl.js', 'js/controllers/teachers/import-student-info-ctrl.js',
+            'js/controllers/teachers/manage-student-info-ctrl.js',
+            'bower_components/js-xlsx/dist/xlsx.core.min.js',
             'bower_components/js-xlsx/dist/cpexcel.js', 'bower_components/js-xlsx/dist/ods.js',
             'bower_components/textAngular/dist/textAngular-rangy.min.js', 'bower_components/spectrum/spectrum.js',
             'bower_components/textAngular/dist/textAngular-sanitize.min.js', 'bower_components/textAngular/dist/textAngular.min.js',

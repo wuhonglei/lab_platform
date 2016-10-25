@@ -62,3 +62,23 @@ module.exports.changeLabDetailNumberType = function() {
         console.log('num = ', num);
     });
 };
+
+// 给实验详情添加类别
+module.exports.changeLabCategory = function() {
+    var query = {};
+    LabItem.find(query, function(err, docs) {
+        if (err) {
+            console.log('实验列表查询失败');
+            return;
+        }
+        var length = docs.length;
+        for (var i = 0; i < length; i++) {
+            LabDetail.findOneAndUpdate({ expItemId: docs[i].expItemId }, { $set: { labCategory: docs[i].labCategory } }, function(err) {
+                if (err) {
+                    console.info("更新实验详情失败");
+                }
+                console.log("实验详情成功");
+            });
+        }
+    });
+};

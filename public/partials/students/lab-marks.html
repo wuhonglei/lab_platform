@@ -1,6 +1,6 @@
 <!-- 学生界面: 实验作业概览 -->
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h2 class="page-header">实验作业概览
+    <h2 class="page-header">实验成绩
     <div class="col-sm-2 pull-right">
         <select class="form-control" required="required" ng-model="filCondition" ng-change="filterItem(filCondition)">
             <option value="">不过滤</option>
@@ -17,8 +17,8 @@
                 <th>实验名称</th>
                 <th>指导老师</th>
                 <th>选择日期</th>
+                <th>截止日期</th>
                 <th>作业提交日期</th>
-                <!-- <th>已提交作业</th> -->
                 <th>提交作业</th>
                 <th>预览作业</th>
                 <th>分数</th>
@@ -27,10 +27,11 @@
         <tbody>
             <tr ng-repeat="lab in labs | tableFilter:filCondition as result track by $index">
                 <td>
-                    <a ng-href="#/category/{{lab.expItemId}}" ng-bind="lab.labName"></a>
+                    <a ng-href="#/{{lab.labCategory}}/{{lab.expItemId}}" ng-bind="lab.labName"></a>
                 </td>
                 <td ng-bind="lab.teacherName"></td>
                 <td ng-bind="lab.choosedDate.substr(0, 10)"></td>
+                <td ng-bind="lab.deadline.substr(0, 10)"></td>
                 <td ng-bind="lab.postDate.substr(0, 10)"></td>
                 <!--                 <td ng-if="lab.isPost">是</td>
                 <td ng-if="!lab.isPost">否</td> -->

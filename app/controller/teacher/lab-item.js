@@ -1,4 +1,4 @@
-// 实验列表函数 
+// 实验列表函数  
 var LabItem = require('../../models/lab').LabItem;
 var LabRef = require('../../models/lab').LabRef;
 var LabDetail = require('../../models/lab').LabDetail;
@@ -9,7 +9,7 @@ var labDetail = require('./lab-detail');
 var async = require('async');
 var fs = require('fs');
 var imgItemPath = require('../../config/config').imgItemPath;
-// require('./lab-update-mongodb.js').changeLabDetailNumberType();
+// require('./lab-update-mongodb.js').changeLabCategory();
 // 创建实验列表 
 module.exports.createLabItem = function(req, res) {
     // 获取请求的参数    
@@ -20,7 +20,7 @@ module.exports.createLabItem = function(req, res) {
     labItem.save(function(err) {
         if (err) {
             console.error("实验列表创建失败:\n", err);
-            return res.status(404).json({
+            return res.status(500).json({
                 success: false,
                 message: "实验列表创建失败"
             });
@@ -30,7 +30,6 @@ module.exports.createLabItem = function(req, res) {
             labDetail.createLabDetail(res, labItem);
         }
     });
-
 };
 
 // 更新实验列表
@@ -47,7 +46,7 @@ module.exports.updateLabItem = function(req, res) {
         var options = { new: true };
         LabItem.findOne(query, function(err, labItem) {
             if (err) {
-                return res.status(404).json({
+                return res.status(500).json({
                     success: false,
                     message: "实验列表更新失败"
                 });
@@ -55,15 +54,11 @@ module.exports.updateLabItem = function(req, res) {
                 if (labItem != null) {
                     labItem.update(update, function(err) {
                         if (err) {
-                            return res.status(404).json({
+                            return res.status(500).json({
                                 success: false,
                                 message: '更新失败'
                             });
                         }
-                        res.status(200).json({
-                            success: true,
-                            update: update
-                        });
                         // 更新图片, 删除原有图片
                         if (update.thumbnail != undefined) {
                             var path = '.' + imgItemPath + '/' + labItem.thumbnail;
@@ -71,9 +66,34 @@ module.exports.updateLabItem = function(req, res) {
                                 return;
                             });
                         }
+                        // 如果修改了实验类型, 则更改实验详情表中的实验类型
+                        if (update.labCategory != null) {
+                            LabDetail.findOneAndUpdate(query, {
+                                $set: {
+                                    labCategory: update.labCategory
+                                }
+                            }, function(err, updateStatus) {
+                                if (err) {
+                                    return res.status(500).json({
+                                        success: false,
+                                        message: '更新失败'
+                                    });
+                                } else {
+                                    return res.status(200).json({
+                                        success: true,
+                                        update: update
+                                    });
+                                }
+                            });
+                        } else {
+                            res.status(200).json({
+                                success: true,
+                                update: update
+                            });
+                        }
                     });
                 } else {
-                    return res.status(404).json({
+                    return res.status(500).json({
                         success: false,
                         message: "没有找到需要更新的项目"
                     });
@@ -101,14 +121,14 @@ var getLabs = function(req, res, query) {
     };
     LabItem.find(query, projection, options, function(err, labItems) {
         if (err) {
-            return res.status(404).json({
+            return res.status(500).json({
                 success: false,
                 message: "实验列表获取失败"
             });
         } else {
             LabItem.count(query).exec(function(err, count) {
                 if (err) {
-                    return res.status(404).json({
+                    return res.status(500).json({
                         success: false,
                         message: "实验列表获取失败"
                     });
@@ -257,7 +277,7 @@ module.exports.getPersonalLab = function(req, res) {
     };
     LabRef.find(query, projection, function(err, expItemIds) {
         if (err) {
-            return res.status(404).json({
+            return res.status(500).json({
                 success: false,
                 message: "实验引用表查询失败"
             });

@@ -1,0 +1,39 @@
+<!-- 教师界面 已布置的实验列表 -->
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="page-header">已布置实验
+    </h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>实验类别</th>
+                <th>实验名称</th>
+                <th>课程名称</th>
+                <th>班级名称</th>
+                <th>布置日期</th>
+                <th>截止日期</th>
+                <th>打分</th>
+            </tr>
+        </thead> 
+        <tbody>
+            <tr ng-repeat="item in publishedList | orderBy:item.labCategory as result track by $index">
+                <td ng-bind="item.labCategory"></td>
+                <td><a href="#/{{item.labCategory}}/{{item.expItemId}}" ng-bind="item.labName"></a></td>
+                <td ng-bind="item.course"></td>
+                <td ng-bind="item.class"></td>
+                <td ng-bind="item.publishedTime.substr(0, 10)"></td>
+                <td ng-bind="item.deadline.substr(0, 10)"></td>
+                <td>
+                    <button class="btn btn-sm btn-primary" ng-click="jump2Grade(publishedList[$index])">打分</button>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" ng-show="result.length"><em>数目: {{result.length}}</em></td>
+            </tr>
+            <tr>
+                <td colspan="8" ng-if="result.length === 0" class="text-center"><i class="fa fa-space-shuttle" aria-hidden="true"></i>&nbsp;<em>还没有布置实验</em>&nbsp;<i class="fa fa-space-shuttle" aria-hidden="true"></i></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -55,6 +55,7 @@ SCheme.find(query, projection, options, function(err, docs) {
 
 SCheme.findOne(query, projection, function(err, doc) {
     // doc 是一个对象
+    // 如果没有找到匹配的document, 那么doc为null
 });
 
 // 找到一个并删除

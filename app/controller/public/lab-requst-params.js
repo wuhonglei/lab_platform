@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 // 保存或更新学生所选实验作业列表项
 module.exports.get = function(req, isUpdate) {
-    var labPostReq = ["expItemId", "labName", "teacherName", "teacherNumber"];
+    var labPostReq = ["expItemIdge", "labName", "teacherName", "teacherNumber", "labCategory"];
 
     var labPost = isUpdate ? {} : new LabPost();
     for (var i = 0; i < labPostReq.length; i++) {

@@ -4,20 +4,22 @@ var LabDetail = require('../../models/lab').LabDetail;
 var Lab = require('../../models/lab');
 var LabRef = require('./lab-ref');
 var LabPost = require('../../models/lab-post').LabPost;
+var LabPublishedList = require('../../models/lab-post').LabPublishedList;
 var LabChoosedByStu = require('../../models/lab-post').LabChoosedByStu;
 var StudentInfo = require('../../models/student-info').StudentInfo;
 var async = require('async');
 
 // 创建实验详情列表
 module.exports.createLabDetail = function(res, labItem) {
-    var labDetail = new LabDetail();
-
-    labDetail.expItemId = labItem.expItemId;
-    labDetail.labName = labItem.name;
-    labDetail.createdByName = labItem.createdByName;
-    labDetail.createdByNumber = labItem.createdByNumber;
-    labDetail.expDetailId = new mongoose.Types.ObjectId;
-    labDetail.labDetail = "";
+    var labDetail = new LabDetail({
+        expItemId: labItem.expItemId,
+        labName: labItem.name,
+        createdByName: labItem.createdByName,
+        createdByNumber: labItem.createdByNumber,
+        expDetailId: new mongoose.Types.ObjectId,
+        labDetail: "",
+        labCategory: labItem.labCategory
+    });
     labDetail.save(function(err) {
         if (err) {
             // 如果实验详情创建失败, 移除新建的实验列表
@@ -106,30 +108,51 @@ module.exports.uploadFile = function(req, res) {
 // 实验详情页面给指定班级学生布置作业
 module.exports.postMultiWork = function(req, res) {
     var query = {
+        number: req.decoded.number,
+        expItemId: req.body.expItemId,
         description: req.body.description
     };
-    StudentInfo.findOne(query, function(err, oneStudentInfo) {
+    LabPublishedList.findOne(query, function(err, doc) {
         if (err) {
             return res.status(500).json({
                 success: false,
-                message: "无匹配的学生信息"
+                message: err.message
             });
         }
-        // 存放一个班级学生的学号, 姓名
-        var info = oneStudentInfo.info;
-        // 存放学生所在的班级, 课程名, 开课学期
-        var otherInfo = {
-            className: oneStudentInfo.class,
-            course: oneStudentInfo.course,
-            year: oneStudentInfo.year
-        };
-        // 批量进行学生选择实验操作
-        createMultiLabPost(req.body, res, info, otherInfo);
+        // 如果已经给该班级学生布置了这个实验
+        if (doc != null) {
+            console.log('实验详情页面已经存在');
+            return res.status(200).json({
+                success: false,
+                labName: req.body.labName,
+                message: "已存在"
+            });
+        }
+        // 没有给该班级学生布置过该实验
+        StudentInfo.findOne({ description: req.body.description }, function(err, oneStudentInfo) {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: "无匹配的学生信息"
+                });
+            }
+            // 存放一个班级学生的学号, 姓名
+            var info = oneStudentInfo.info;
+            // 存放学生所在的班级, 课程名, 开课学期
+            var otherInfo = {
+                className: oneStudentInfo.class,
+                course: oneStudentInfo.course,
+                year: oneStudentInfo.year
+            };
+            // 批量进行学生选择实验操作
+            createMultiLabPost(req.body, res, info, otherInfo);
+        });
     });
 };
 
 // 将学生和实验进行关联
 function createMultiLabPost(request, res, data, otherInfo) {
+    // 两周总的毫秒数
     var length = data.length;
     var labPostCol = [];
     var options = {
@@ -163,12 +186,14 @@ function createMultiLabPost(request, res, data, otherInfo) {
                 courses: otherInfo.course,
                 years: otherInfo.year,
                 expItemIds: request.expItemId,
-                labNames: request.labName
+                labNames: request.labName,
+                labCategory: request.labCategory
             }
         };
         var option = {
             upsert: true
         };
+        // 成绩打分页面的筛选列表内容
         LabChoosedByStu.update({ number: request.number }, update, option, function(err, num) {
             if (err) {
                 console.log('LabChoosedByStu', err.message);
@@ -177,6 +202,20 @@ function createMultiLabPost(request, res, data, otherInfo) {
                     message: "创建失败"
                 });
             }
+
+            var doc = {
+                number: request.number,
+                expItemId: request.expItemId,
+                description: request.description,
+                labName: request.labName,
+                labCategory: request.labCategory,
+                class: otherInfo.className,
+                course: otherInfo.course,
+                year: otherInfo.year,
+                deadline: new Date(Date.now() + request.deadline)
+            };
+            var labPublishedList = new LabPublishedList(doc);
+            labPublishedList.save();
             return res.status(200).json({
                 success: true,
                 message: "创建成功"
@@ -191,6 +230,7 @@ function labPostFn(request, student, otherInfo) {
     var data = request;
     var labObj = {
         expItemId: data.expItemId,
+        labCategory: data.labCategory,
         labName: data.labName,
         studentName: student.name,
         studentNumber: student.number,
@@ -198,7 +238,8 @@ function labPostFn(request, student, otherInfo) {
         teacherNumber: data.number,
         className: otherInfo.className,
         course: otherInfo.course,
-        year: otherInfo.year
+        year: otherInfo.year,
+        deadline: new Date(Date.now() + data.deadline)
     };
     // var labPost = new LabPost(labObj);
     return labObj;

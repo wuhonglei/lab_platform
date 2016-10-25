@@ -3,6 +3,7 @@ angular.module('myApp')
     .controller('LabDetailCtrl', ['$scope', '$routeParams', 'LabDetail', 'LabRef', 'labPost', 'Alert',
         function($scope, $routeParams, LabDetail, LabRef, labPost, Alert) {
             var expItemId = $routeParams.expItemId;
+            var category = $routeParams.category;
             // 获取实验详情 
             LabDetail.get(expItemId)
                 .then(function(response) {
@@ -43,7 +44,7 @@ angular.module('myApp')
             // 学生选择实验后, 建立学生和老师之间的联系
             $scope.choose = function(selectTeacher) {
                 if (selectTeacher != null) {
-                    labPost.create($scope.labRef, selectTeacher)
+                    labPost.create($scope.labRef, selectTeacher, category)
                         .then(function(response) {
                             // 请求成功
                             Alert.show({ content: '老师选择成功' });

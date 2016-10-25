@@ -2,7 +2,7 @@
 var StudentInfo = require('../../models/student-info').StudentInfo;
 var InfoList = require('../../models/student-info').InfoList;
 var async = require('async');
- 
+
 // 遍历对象属性
 var iterateObj = function(objName) {
     if (typeof objName != 'object') {
@@ -95,9 +95,9 @@ module.exports.save = function(req, res) {
 
 // 获取教师的学生信息表
 module.exports.getInfoList = function(req, res) {
-    var query = {
-        number: req.decoded.number
-    };
+    var selected = JSON.parse(req.params.selected);
+    selected.number = req.decoded.number;
+    var query = selected;
     var projection = {};
     var option = {
         sort: {

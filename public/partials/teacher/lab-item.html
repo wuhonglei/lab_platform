@@ -2,7 +2,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="page-header">{{navName}}</h2>
     <ul class="pull-right li-inline">
-        <li>
+        <li> 
             <button class="btn btn-primary" data-toggle="modal" data-target='#create-lab-modal'><i class="fa fa-plus-square"></i> 添加实验</button>
         </li>
         <li>
@@ -23,7 +23,7 @@
                         <div class="media">
                             <img ng-src="{{item.thumbnail}}" alt="实验缩略图">
                             <div class="media-body">
-                                <h4 class="media-heading">{{item.name}}<span class="pull-right small">发布者: {{item.createdByName}}</span></h4>
+                                <h4 class="media-heading">{{item.name}}<span class="pull-right small"><span ng-if="myLab" ng-bind="categoryLabel(item.labCategory)"></span> <i class="fa fa-user" aria-hidden="true"></i>{{item.createdByName}}</span></h4>
                                 <span ng-bind="item.description"></span>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
         <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="partials/public/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>
-<!-- 增加实验 --> 
+<!-- 增加实验 -->
 <div class="modal fade" id="create-lab-modal">
     <div class="modal-dialog">
         <div class="modal-content">

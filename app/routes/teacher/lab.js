@@ -7,6 +7,7 @@ var lab = require('../../controller/teacher/lab-item');
 var labRef = require('../../controller/teacher/lab-ref');
 var labDetail = require('../../controller/teacher/lab-detail');
 var labPost = require('../../controller/public/lab-select');
+var labPublished = require('../../controller/teacher/lab-published');
 var randomstring = require("randomstring");
 // 实验列表页面 缩略图
 var storage1 = multer.diskStorage({
@@ -72,9 +73,10 @@ router.post('/upload-file', upload3.single('file'), labDetail.uploadFile)
 router.put('/mark-lab', labPost.postScore);
 
 // 获取选择该老师实验的学生
-router.get('/get-choosed-lab', labPost.getChooedLab);
+router.get('/get-choosed-lab/:selected', labPost.getChooedLab);
 // 获取学生成绩筛选列表
 router.get('/get-selected-condition', labPost.getSelectLabs);
+router.get('/get-published-labs', labPublished.getPublishedList);
 
 // 新增实验引用列表中的refName条目
 router.put('/createRefName', labRef.createRefName);

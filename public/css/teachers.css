@@ -45,6 +45,7 @@
     margin-left: 15px;
 }
 
+
 /* 实验列表  */
 
 .header-border {
@@ -52,6 +53,7 @@
 }
 
 #alertContainer {
+    z-index: 1000;
     position: absolute;
     top: 52px;
     right: 50px;

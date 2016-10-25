@@ -21,9 +21,7 @@
 - [x] 2. 左侧导航(实验类别)
    - [x] 点击实验类别, 显示该类别下所属实验列表
    - [x] 点击实验列表下某实验, 显示实验的详情(目的, 原理, 目标, 参考资料)
-   - [x] 实验详情下会出现提示按钮(选择该实验)
 - [x] 3. 登陆后, 界面会显示该学生选择的实验信息(日期, 名称, 是否提交作业, 分数)
-- [x] 3. 选择相应实验后, 在首页会出现该实验项目, 学生可以在老师打分前多次提交实验报告
 - [x] 4. 提交报告后, 可以预览提交过实验报告
 
 三、教师功能模块
@@ -39,6 +37,7 @@
 - [x] 3. 教师登陆后, 首页会显示所带学生的信息列表(姓名, 学号, 实验, 是否提交, 打分)
     - [x] 1. 如果学生已提交作业, 老师可以预览该学生提交的作业(pdf文档)继而可以在分数栏,输入具体分数后提交;
     - [x] 2. 如果学生未提交作业, 老师不能对进行打分操作
+- [x] 4. 教师可以在布置实验模块或者实验详情给班级学生布置实验
 
 #### web structure
 一、公共页面
@@ -49,12 +48,12 @@
  - 左侧导航:   nav/nav-sidebar.html
  
 二、学生界面: 
- - 首页：　     partials/students/work-desc.html
+ - 首页：　     partials/students/lab-marks.html
  - 实验列表:   partials/students/lab-list.html
  - 实验详情:   partials/students/lab-detail.html
 
 三、教师界面: 
- - 首页: partials/teacher/students-desc.html
+ - 首页: partials/teacher/publish-labs.html
  - 实验列表: partials/teacher/lab-list.html
  - 实验详情: partials/teacher/lab-detail.html
 

@@ -17,10 +17,11 @@ angular.module('myApp')
                 $http.get(url).then(function(response) {
                     /* body... */
                     if (response.data.success) {
-                        console.log('筛选列表获取成功');
                         var data = response.data.infoList;
+                        console.log('data: ', data);
                         for (var key in $scope.select) {
                             $scope.select[key] = data[key];
+                            $scope.select[key].unshift('不选择');
                         }
                         $scope.descriptions = data.descriptions;
                     }
@@ -33,9 +34,13 @@ angular.module('myApp')
 
             //根据筛选条件, 获取学生信息列表
             $scope.getSelectedList = function(selected) {
+                for (var key in selected) {
+                    if (selected[key] === '不选择') {
+                        delete selected[key];
+                    }
+                }
                 StudentInfo.get(selected).then(function(response) {
                     // 请求成功
-                    console.log('学生信息: ', response.data.infoLists);
                     $scope.infoLists = response.data.infoLists;
                 }, function(response) {
                     // 请求失败

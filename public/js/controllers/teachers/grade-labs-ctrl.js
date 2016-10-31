@@ -15,10 +15,15 @@ angular.module('myApp')
                     // 请求成功
                     if (response.data.success) {
                         var data = response.data;
-                        var post = [{ value: true, label: "已提交" }, { value: false, label: "未提交" }];
+                        /*var post = [{ value: true, label: "已提交" }, { value: false, label: "未提交" }];
                         var mark = [{ value: true, label: "已打分" }, { value: false, label: "未打分" }];
                         data.post = post;
-                        data.mark = mark;
+                        data.mark = mark;*/
+                        for (var key in data) {
+                            if (typeof data[key] !== 'boolean') {
+                                data[key].unshift('不选择');
+                            }
+                        }
                         $scope.select = data;
                         hasLoaded = true;
                     }
@@ -30,6 +35,12 @@ angular.module('myApp')
 
             // 获取选择该老师实验的学生列表
             $scope.getSelectCondition = function(selected) {
+
+                for (var key in selected) {
+                    if (selected[key] === '不选择') {
+                        delete selected[key];
+                    }
+                }
                 Student.getList(selected)
                     .then(function(response) {
                         // 请求成功

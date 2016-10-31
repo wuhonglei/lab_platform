@@ -6,17 +6,17 @@
             <button class="btn btn-primary" data-toggle="modal" data-target='#create-lab-modal'><i class="fa fa-plus-square"></i> 添加实验</button>
         </li>
         <li>
-            <button class="btn btn-default" data-toggle="modal" data-target='#edit-lab-modal' ng-disabled="!checkChoosed()" ng-click="getLabItem()"><i class="fa fa-pencil-square-o "></i> 编辑实验</button>
+            <button class="btn btn-default" data-toggle="modal" data-target='#edit-lab-modal' ng-disabled="!checkedLen" ng-click="getLabItem()"><i class="fa fa-pencil-square-o "></i> 编辑实验</button>
         </li>
         <li>
-            <button class="btn btn-danger" data-toggle="modal" data-target='#delete-lab-modal' ng-disabled="!checkChoosed()" ng-click="getDeltedLabItem()"><i class="fa fa-times"></i> 删除实验</button>
+            <button class="btn btn-danger" data-toggle="modal" data-target='#delete-lab-modal' ng-disabled="!checkedLen" ng-click="getDeltedLabItem()"><i class="fa fa-times"></i> 删除实验</button>
         </li>
     </ul>
     <table class="table" id="lab-list-table">
         <tbody>
             <tr dir-paginate="item in labItems | itemsPerPage: itemPerPage" total-items="totalItems" current-page="currentPage">
                 <td>
-                    <input type="checkbox" id="check" ng-if="item.isEditable" ng-model="item.isChecked" ng-click="getCheckedIndex($index, item.isChecked)">
+                    <input type="checkbox" id="check" ng-if="item.isEditable" ng-model="item.isChecked" ng-click="getCheckedIndex($index, item.isChecked, labItems, currentPage)">
                 </td>
                 <td>
                     <a class="a-default" href="#/{{item.labCategory}}/{{item.expItemId}}">

@@ -9,8 +9,10 @@ angular.module('myApp')
             // display 5 items one page
             $scope.itemPerPage = 5;
             $scope.currentPage = 1;
-
+            $scope.checkedLen = 0;
+            var labItemsArray = new Array();
             var url;
+
             if (category != 'my-labs') {
                 url = '/teacher/' + category + '/get-items';
             } else {
@@ -43,8 +45,20 @@ angular.module('myApp')
 
             // 分页, 浏览下一页实验列表
             $scope.pageChangeHandler = function(newPageNumber) {
-                // 请求新的 items 内容
-                getResultsPage(newPageNumber);
+                // 先从保存的勾选数组中寻找有没有当前页的数据
+                var length = labItemsArray.length;
+                var index = -1;
+                for (var i = 0; i < length; i++) {
+                    if (JSON.parse(labItemsArray[i]).currentPage == newPageNumber) {
+                        index = i;
+                    }
+                }
+                if (index != -1) {
+                    $scope.labItems = JSON.parse(labItemsArray[index]).labItems;
+                } else {
+                    // 请求新的 items 内容
+                    getResultsPage(newPageNumber);
+                }
             };
 
             // 添加新实验
@@ -89,15 +103,25 @@ angular.module('myApp')
             };
 
             // display which checkbox is checked, return the array index
-            var INDEX = new Array();
-            $scope.getCheckedIndex = function(index, isChecked) {
+            $scope.getCheckedIndex = function(index, isChecked, labItems, currentPage) {
+                var obj = {
+                    currentPage: currentPage,
+                    index: index,
+                    labItems: labItems
+                };
                 if (isChecked) {
                     // 勾选后加入数组
-                    INDEX.push(index);
+                    labItemsArray.push(JSON.stringify(obj));
+                    $scope.checkedLen++;
                 } else {
                     // 取消勾选后从数组中删除
-                    var whereIS = INDEX.indexOf(index);
-                    INDEX.splice(whereIS, 1);
+                    obj.labItems[index].isChecked = true;
+                    var whereIS = labItemsArray.indexOf(JSON.stringify(obj));
+                    obj.labItems[index].isChecked = false;
+                    if (whereIS != -1) {
+                        labItemsArray.splice(whereIS, 1);
+                        $scope.checkedLen--;
+                    }
                 }
             };
 
@@ -105,8 +129,9 @@ angular.module('myApp')
             $scope.getLabItem = function() {
                 // the index of the edit lab item 
                 // get the last element of the INDEX array
-                var index = INDEX.slice(-1);
-                var originItem = $scope.labItems[index];
+                var labItemObj = JSON.parse(labItemsArray.pop());
+                var index = labItemObj.index;
+                var originItem = labItemObj.labItems[index];
                 console.log('编辑项目: ', originItem);
                 $scope.update = {
                     name: originItem.name,
@@ -121,21 +146,29 @@ angular.module('myApp')
                             if (response.data.success) {
                                 var item = response.data.update;
                                 // 更新数据
-                                for (var key in item) {
-                                    $scope.labItems[index][key] = item[key];
-                                }
-                                // 遍历勾选的下标数组, 将实验列表项, 取消勾选
-                                INDEX.forEach(function(index) {
-                                    $scope.labItems[index].isChecked = false;
-                                });
                                 // 如果修改了实验类别, 将当前修改的实验项目从实验列表中移除
-                                if (item.labCategory) {
-                                    $scope.labItems.splice(index, 1);
+                                if ( $scope.myLab || !item.hasOwnProperty('labCategory')) {
+                                    for (var key in item) {
+                                        originItem[key] = item[key];
+                                    }
+                                    labItemObj.labItems[index] = originItem;
+                                    labItemsArray.push(JSON.stringify(labItemObj));
+                                } else {
+                                    labItemObj.labItems.splice(index, 1);
+                                    labItemsArray.push(JSON.stringify(labItemObj));
+                                }
+                                if (labItemObj.currentPage === $scope.currentPage) {
+                                    console.log('items: ', labItemObj);
+                                    for (var i = 0, len = labItemObj.labItems.length; i < len; i++) {
+                                        labItemObj.labItems[i].isChecked = false;
+                                    }
+                                    $scope.labItems = labItemObj.labItems;
                                 }
                                 $('#edit-lab-modal').modal('hide');
                                 // 清空checked item index array
-                                INDEX.length = 0;
                                 Alert.show({ content: '实验修改成功' });
+                                labItemsArray = [];
+                                $scope.checkedLen = 0;
                             }
                         }, function(response) {
                             // 请求失败
@@ -153,11 +186,12 @@ angular.module('myApp')
             $scope.getDeltedLabItem = function() {
                 // 显示要被删除的项目
                 var deletedItems = [];
-                for (var i = 0, len = INDEX.length; i < len; i++) {
+                for (var i = 0, len = labItemsArray.length; i < len; i++) {
+                    var labItemObj = JSON.parse(labItemsArray[i]);
+                    var index = labItemObj.index;
                     var obj = {
-                        name: $scope.labItems[INDEX[i]].name,
-                        index: INDEX[i],
-                        expItemId: $scope.labItems[INDEX[i]].expItemId
+                        name: labItemObj.labItems[index].name,
+                        expItemId: labItemObj.labItems[index].expItemId
                     };
                     deletedItems.push(obj);
                 }
@@ -178,7 +212,7 @@ angular.module('myApp')
                                 $scope.labItems[beenChoosed[i]].isChecked = false;
                                 var option = {
                                     title: '删除失败',
-                                    content: $scope.labItems[beenChoosed[i]].name + ' 已经有学生选择该实验',
+                                    content: beenChoosed[i].name + ' 已经有学生选择该实验',
                                     type: 'warning',
                                     duration: 5
                                 };
@@ -189,29 +223,26 @@ angular.module('myApp')
                                 $scope.labItems[beenRefed[i]].isChecked = false;
                                 var option = {
                                     title: '删除失败',
-                                    content: $scope.labItems[beenRefed[i]].name + ' 已经有老师选择该实验',
+                                    content: beenRefed[i].name + ' 已经有老师选择该实验',
                                     type: 'warning',
                                     duration: 5
                                 };
                                 Alert.show(option);
                             }
                             // 删除允许被删除的实验
-                            // 将允许删除的数组, 按照升序排序
-                            hasDeleted.sort(function(a, b) {
-                                return a - b;
-                            });
-                            for (var i = INCREASE = 0, len = hasDeleted.length; i < len; i++) {
+                            for (var i = 0, len = hasDeleted.length; i < len; i++) {
                                 var option = {
-                                    content: $scope.labItems[hasDeleted[i] - INCREASE].name + '　成功删除',
+                                    content: hasDeleted[i].name + '　成功删除',
                                     duration: 5
                                 };
                                 Alert.show(option);
-                                $scope.labItems.splice(hasDeleted[i] - INCREASE, 1);
-                                INCREASE++;
                             }
                             // 隐藏模态框
                             // 清空checked item index array
-                            INDEX.length = 0;
+                            labItemsArray = [];
+                            $scope.checkedLen = 0;
+                            $scope.currentPage = 1;
+                            getResultsPage(1);
                         }, function(response) {
                             // 请求失败
                             console.error(response);

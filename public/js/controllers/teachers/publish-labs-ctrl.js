@@ -39,9 +39,7 @@
                      if (JSON.parse(labItemsArray[i]).currentPage == newPageNumber) {
                          index = i;
                      }
-                 }
-                 console.log(labItemsArray);
-                 console.log('index: ', index);
+                 } 
                  if (index != -1) {
                      $scope.labItems = JSON.parse(labItemsArray[index]).labItems;
                  } else {

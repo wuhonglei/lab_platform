@@ -201,7 +201,9 @@ module.exports.deleteLabs = function(req, res) {
                     // 该实验没有被其他老师引用
                     callback(null, true);
                 } else {
-                    beenRefed.push(expItemIdObj.index);
+                    beenRefed.push({
+                        name: labRef.labName
+                    });
                     callback(null, false);
                 }
             });
@@ -218,7 +220,9 @@ module.exports.deleteLabs = function(req, res) {
                     // 该实验没有被其他学生选择
                     callback(null, true);
                 } else {
-                    beenChoosed.push(expItemIdObj.index);
+                    beenChoosed.push({
+                        name: labPost.labName
+                    });
                     callback(null, false);
                 }
             });
@@ -235,7 +239,9 @@ module.exports.deleteLabs = function(req, res) {
                 // 依次删除实验详情, 实验引用, 实验列表 document
                 LabDetail.remove({ expItemId: expItemIdObj.expItemId }).exec();
                 LabRef.remove({ expItemId: expItemIdObj.expItemId }).exec();
-                hasDeleted.push(expItemIdObj.index);
+                hasDeleted.push({
+                    name: expItemIdObj.name
+                });
                 LabItem.findOneAndRemove({ expItemId: expItemIdObj.expItemId }, function(err, labItem) {
                     if (labItem.thumbnail != undefined) {
                         var path = '.' + imgItemPath + '/' + labItem.thumbnail;

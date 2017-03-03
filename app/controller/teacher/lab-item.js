@@ -202,7 +202,8 @@ module.exports.deleteLabs = function(req, res) {
                     callback(null, true);
                 } else {
                     beenRefed.push({
-                        name: labRef.labName
+                        name: labRef.labName,
+                        expItemId: queryLabRef.expItemId
                     });
                     callback(null, false);
                 }
@@ -221,7 +222,8 @@ module.exports.deleteLabs = function(req, res) {
                     callback(null, true);
                 } else {
                     beenChoosed.push({
-                        name: labPost.labName
+                        name: labPost.labName,
+                        expItemId: queryLabPost.expItemId
                     });
                     callback(null, false);
                 }
@@ -240,7 +242,8 @@ module.exports.deleteLabs = function(req, res) {
                 LabDetail.remove({ expItemId: expItemIdObj.expItemId }).exec();
                 LabRef.remove({ expItemId: expItemIdObj.expItemId }).exec();
                 hasDeleted.push({
-                    name: expItemIdObj.name
+                    name: expItemIdObj.name,
+                    expItemId: expItemIdObj.expItemId,
                 });
                 LabItem.findOneAndRemove({ expItemId: expItemIdObj.expItemId }, function(err, labItem) {
                     if (labItem.thumbnail != undefined) {

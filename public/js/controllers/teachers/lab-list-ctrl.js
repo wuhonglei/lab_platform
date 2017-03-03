@@ -64,6 +64,7 @@ angular.module('myApp')
             // 添加新实验
             $scope.addSubmited = false;
             $scope.createLabItem = function(data, invalid) {
+                console.log('提交的数据:', data);
                 $scope.addSubmited = true;
                 if (!invalid && $scope.labItem.image) {
                     if (!$scope.myLab) {
@@ -147,7 +148,7 @@ angular.module('myApp')
                                 var item = response.data.update;
                                 // 更新数据
                                 // 如果修改了实验类别, 将当前修改的实验项目从实验列表中移除
-                                if ( $scope.myLab || !item.hasOwnProperty('labCategory')) {
+                                if ($scope.myLab || !item.hasOwnProperty('labCategory')) {
                                     for (var key in item) {
                                         originItem[key] = item[key];
                                     }
@@ -178,9 +179,25 @@ angular.module('myApp')
                 };
             };
 
+
             $scope.categoryLabel = function(select) {
                 return Sidebar.name(select);
             };
+
+
+            // 在实验列表中寻找 id 所在的下标 
+            var getIndexOfId = function(id) {
+                var result = -1;
+                angular.forEach($scope.labItems, function(labItem, index) {
+                    if (id == labItem.expItemId) {
+                        result = index;
+                        return;
+                    }
+                });
+
+                return result;
+            };
+
 
             // delete the lab item
             $scope.getDeltedLabItem = function() {
@@ -196,7 +213,6 @@ angular.module('myApp')
                     deletedItems.push(obj);
                 }
                 $scope.deleteLabs = deletedItems;
-
                 // 确认删除
                 $scope.delete = function() {
                     LabItem.delete($scope.deleteLabs)
@@ -209,7 +225,8 @@ angular.module('myApp')
                             $('#delete-lab-modal').modal('hide');
                             // 取消已经被其他选择的实验勾选
                             for (var i = 0, len = beenChoosed.length; i < len; i++) {
-                                $scope.labItems[beenChoosed[i]].isChecked = false;
+                                var whereIS = getIndexOfId(beenChoosed[i].expItemId);
+                                $scope.labItems[whereIS].isChecked = false;
                                 var option = {
                                     title: '删除失败',
                                     content: beenChoosed[i].name + ' 已经有学生选择该实验',
@@ -220,7 +237,8 @@ angular.module('myApp')
                             }
                             // 取消已经被其他老师引用的实验勾选
                             for (var i = 0, len = beenRefed.length; i < len; i++) {
-                                $scope.labItems[beenRefed[i]].isChecked = false;
+                                var whereIS = getIndexOfId(beenRefed[i].expItemId);
+                                $scope.labItems[whereIS].isChecked = false;
                                 var option = {
                                     title: '删除失败',
                                     content: beenRefed[i].name + ' 已经有老师选择该实验',
@@ -231,6 +249,8 @@ angular.module('myApp')
                             }
                             // 删除允许被删除的实验
                             for (var i = 0, len = hasDeleted.length; i < len; i++) {
+                                var whereIS = getIndexOfId(hasDeleted[i].expItemId);
+                                $scope.labItems.splice(whereIS, 1);
                                 var option = {
                                     content: hasDeleted[i].name + '　成功删除',
                                     duration: 5
@@ -241,8 +261,6 @@ angular.module('myApp')
                             // 清空checked item index array
                             labItemsArray = [];
                             $scope.checkedLen = 0;
-                            $scope.currentPage = 1;
-                            getResultsPage(1);
                         }, function(response) {
                             // 请求失败
                             console.error(response);

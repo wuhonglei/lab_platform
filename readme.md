@@ -74,3 +74,12 @@
 - [ ] 对上传文件的类型验证(前后端) , 前端实验列表缩略图
 - [x] 删除实验列表, 无法实现多页删除
 - [x] 筛选列表, 选择完筛选项后, 没有不选择选项
+
+#### install
+##### dependency
+1. 安装 mongodb
+
+##### install step
+1. git clone https://github.com/wuhonglei/lab_platform.git
+2. bower install
+3. npm install

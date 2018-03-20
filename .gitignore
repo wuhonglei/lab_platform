@@ -1,6 +1,7 @@
 node_modules/
 public/bower_components/
 app/file/lab-resource
+app/file/pdf
 
 *.xlsx
 

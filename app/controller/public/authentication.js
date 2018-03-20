@@ -63,6 +63,7 @@ module.exports.register = function(req, res) {
                 message: "注册失败"
             });
         }
+
         if (!isNumberExist && !isEmailExist) {
             // 密码加密后存储
             user.setPassword(req.body.password);

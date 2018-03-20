@@ -5,7 +5,6 @@ angular.module('myApp')
             function(taRegisterTool, $uibModal, taOptions) {
                 // $delegate is the taOptions we are decorating
                 // register the tool with textAngular
-                // 
                 taRegisterTool('backgroundColor', {
                     display: "<div spectrum-colorpicker class='btn-xs' ng-model='color' on-change='!!color && action(color)' format='\"hex\"' options='options'></div>",
                     action: function(color) {
